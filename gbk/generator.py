@@ -16,7 +16,7 @@ doclist = [document1, document2, document3, document4, document5]
 for i, doc in enumerate(doclist):
         model.build(topics,doc)
 
-print(model.keycount)
+print(model.model)
 model.setweights(topics)
 model.tojson("sportsmodel")
 

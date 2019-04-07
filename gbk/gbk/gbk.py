@@ -1,5 +1,5 @@
 import json
-# GBC(group by context) Model by David Charles
+# GBC(group by Key) Model by David Charles
 # words in a doc are related, and the strength of the relation increases across multiple documents 
 # as the co-occurence between words across the documents increase.
 
@@ -59,7 +59,7 @@ class GBK:
 
                 if(sumofweights > 0 and numberofweights>0):
                     averageweight = sumofweights/numberofweights
-                    maxaverageweight = (largestkey/averageweight)
+                    # maxaverageweight = (largestkey/averageweight)
                     for k,v in sortedweights:
                         averageweightofvalue = round(v/averageweight,6)
                         
@@ -92,17 +92,17 @@ class GBK:
         docset = set(doc.lower().split())
         topic = {}
         penalty = {}
-        penaltyCNT = {}
+        # penaltyCNT = {}
         numberOftopics = len(self.model[modeloption].items())
         for row,col in self.model[modeloption].items():
             result = col['features'].keys() & docset
             for val in result:
                 if val in penalty:
                     penalty[val] += col['features'][val]
-                    penaltyCNT[val] +=1
+                    # penaltyCNT[val] +=1
                 else:
                     penalty[val] = col['features'][val]
-                    penaltyCNT[val] = 1
+                    # penaltyCNT[val] = 1
         
         for row,col in self.model[modeloption].items():
             result = col['features'].keys() & docset
