@@ -1,0 +1,6 @@
+https://flask-migrate.readthedocs.io/en/latest/
+
+python3 models.py db init
+python3 models.py db migrate
+python3 models.py db upgrade
+python3 models.py db --help

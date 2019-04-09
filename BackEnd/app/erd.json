@@ -1,0 +1,81 @@
+{
+	"tables": [
+		{
+			"table": "article",
+			"columns": [{
+					"column": "id",
+					"type": "db.Integer",
+					"index": "primary_key=True"
+				},
+				{
+					"column": "title",
+					"type": "db.String(50)"
+				},
+				{
+					"column": "publicationdate",
+					"type": "db.String(80)"
+                },
+                {
+					"column": "content",
+					"type": "db.String(255)"
+                }
+			],
+			"hasmany": [{"relative":"articlecategorie"},{"relative":"geotag"}],
+			"belongsto": [{}]
+		},
+        {
+			"table": "articlecategorie",
+			"columns": [{
+					"column": "id",
+					"type": "db.Integer",
+					"index": "primary_key=True"
+				},
+				{
+					"column": "weight",
+					"type": "db.String(250)"
+				}
+			],
+			"hasmany": [{}],
+			"belongsto": [{"relative":"article"},{"relative":"categorie"}]
+        },
+        {
+			"table": "categorie",
+			"columns": [{
+					"column": "id",
+					"type": "db.Integer",
+					"index": "primary_key=True"
+				},
+				{
+					"column": "name",
+					"type": "db.String(250)"
+				},
+				{
+					"column": "desc",
+					"type": "db.String(250)"
+				}
+			],
+			"hasmany": [{"relative":"articlecategorie"}],
+			"belongsto": [{}]
+        },
+         {
+			"table": "geotag",
+			"columns": [{
+					"column": "id",
+					"type": "db.Integer",
+					"index": "primary_key=True"
+				},
+				{
+					"column": "publishdate",
+					"type": "db.String(250)"
+				},
+				{
+					"column": "content",
+					"type": "db.String(250)"
+				}
+			],
+			"hasmany": [{}],
+			"belongsto": [{"relative":"article"}]
+        }
+	]
+
+}
