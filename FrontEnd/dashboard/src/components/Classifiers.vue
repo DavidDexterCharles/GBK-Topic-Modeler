@@ -39,18 +39,26 @@ export default {
        logName: function(frominput){
             console.log(this.article.url);
             console.log(frominput);
+        },
+        post: function(){
+            this.$http.post('http://gbcsystem-ice-wolf.c9users.io:8082/domain', {
+                domainname:this.article.url
+                // email:'yesnext',
+                // name:'david2'
+                // dataType: "json",
+                // headers: {
+                //     accepts: 'application/vnd.api+json'
+                // },
+                // ContentType: "application/json"
+                // title: this.article.url,
+                // body: this.article.content,
+                // userId: 1
+            }).then(function(data){
+                console.log(data);
+                this.submitted = true;
+                this.article.url = "";
+            });
         }
-       
-        // post: function(){
-        //     this.$http.post('http://jsonplaceholder.typicode.com/posts', {
-        //         title: this.blog.title,
-        //         body: this.blog.content,
-        //         userId: 1
-        //     }).then(function(data){
-        //         console.log(data);
-        //         this.submitted = true;
-        //     });
-        // }
     }
 }
 </script>
