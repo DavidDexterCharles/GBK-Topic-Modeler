@@ -111,3 +111,23 @@ def update_geotag():
 def delete_geotag(id):
     return jnd.deletegeotag(request)
 
+
+#*****************************Domain***************************************
+
+@app.route('/domain', methods=['GET'])
+def getall_domains():
+    return jnd.getalldomains()
+@app.route('/domain/<id>', methods=['GET'])
+def get_one_domain(id):
+    return jnd.getbyiddomain(id)
+@app.route('/domain', methods=['POST'])
+def create_domain():
+    return jnd.createdomain(request)
+@app.route('/domain/<id>', methods=['PATCH'])
+def update_domain():
+    return jnd.updatedomain(request)
+@app.route('/domain', methods=['DELETE'])
+def delete_domain(id):
+    return jnd.deletedomain(request)
+
+

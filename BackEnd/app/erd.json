@@ -9,7 +9,11 @@
 				},
 				{
 					"column": "title",
-					"type": "db.String(50)"
+					"type": "db.String(600)"
+				},
+				{
+					"column": "url",
+					"type": "db.String(6000)"
 				},
 				{
 					"column": "publicationdate",
@@ -17,10 +21,30 @@
                 },
                 {
 					"column": "content",
-					"type": "db.String(255)"
+					"type": "db.String(12255)"
                 }
 			],
 			"hasmany": [{"relative":"articlecategorie"},{"relative":"geotag"}],
+			"belongsto": [{"relative":"domain"}]
+		},
+		{
+			"table": "domain",
+			"columns": [{
+					"column": "id",
+					"type": "db.Integer",
+					"index": "primary_key=True"
+				},
+				{
+					"column": "domainname",
+					"type": "db.String(50)",
+					"index":"unique=True"
+				},
+				{
+					"column": "desc",
+					"type": "db.String(80)"
+                }
+			],
+			"hasmany": [{"relative":"article"}],
 			"belongsto": [{}]
 		},
         {

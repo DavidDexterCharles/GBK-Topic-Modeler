@@ -7,7 +7,8 @@ import requests
 import  json #https://simplejson.readthedocs.io/en/latest/
 from werkzeug.security import generate_password_hash, check_password_hash
 from models import app#, User
-headers = {'Content-Type': 'application/vnd.api+json'}
+headers = {'Content-Type': 'application/json'}
+# apidomain = 'http://0.0.0.0:8085/api/'
 apidomain = 'http://127.0.0.1:8085/api/'
 
 #Sample PATCH/UPDATE (required to specify the id)
@@ -142,4 +143,26 @@ class GeotagJndController(object):
         
     def getbyidgeotag(self, id):
         return requests.get(apidomain + 'geotag/'+id, headers=headers).content
+    
+
+class DomainJndController(object):
+    def createdomain(self, request):
+        data = json.dumps(request.get_json())
+        print(data)
+        valreturned = requests.post(apidomain + 'domain', data, headers=headers).content
+        print(valreturned)
+        return valreturned
+
+    def updatedomain(self, request):
+        data = json.dumps(request.get_json())
+        return requests.patch(apidomain + 'domain', data, headers=headers).content
+
+    def deletedomain(self, id):
+        return requests.delete(apidomain + 'domain/'+id, headers=headers).content
+         
+    def getalldomains(self):
+        return requests.get(apidomain + 'domain', headers=headers).content
+        
+    def getbyiddomain(self, id):
+        return requests.get(apidomain + 'domain/'+id, headers=headers).content
     

@@ -15,11 +15,20 @@ from flask_migrate import Migrate, MigrateCommand
 
 class Article(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(50))
+    title = db.Column(db.String(600))
+    url = db.Column(db.String(6000))
     publicationdate = db.Column(db.String(80))
-    content = db.Column(db.String(12000))
+    content = db.Column(db.String(12255))
     articlecategories = db.relationship('Articlecategorie', backref= 'article', lazy='dynamic')
     geotags = db.relationship('Geotag', backref= 'article', lazy='dynamic')
+
+    domain_id = db.Column(db.Integer, db.ForeignKey('domain.id'))
+
+class Domain(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    domainname = db.Column(db.String(50), unique=True)
+    desc = db.Column(db.String(80))
+    articles = db.relationship('Article', backref= 'domain', lazy='dynamic')
 
 
 class Articlecategorie(db.Model):
