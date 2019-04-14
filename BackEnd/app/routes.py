@@ -7,7 +7,7 @@ import maincontroller
 token_required = jndcontrollers.token_required
 jnd = maincontroller.MainController()
 
-
+# http://docs.python-requests.org/en/master/user/quickstart/
 @app.after_request
 def after_request(response):
     response.headers.add('Access-Control-Allow-Origin', '*')
@@ -113,10 +113,24 @@ def delete_geotag(id):
 
 
 #*****************************Domain***************************************
+@app.route('/domaintest/<query>', methods=['GET'])
+def getrestless_domains(query):
+    q = '?q={"filters":[{"name":"domainname","op":"like","val":"%'+query+'%"}]}'
+    result = requests.get("http://0.0.0.0:8085/api/domain"+q).content
+    return result
+
 
 @app.route('/domain', methods=['GET'])
 def getall_domains():
-    return jnd.getalldomains()
+    
+    #     print (multi_dict.getlist(key))
+    
+    # jnd.RawApi(query)
+    restless = jnd.restlessdomain(request)
+    if not restless:
+        return jnd.getalldomains()
+    else:
+        return restless
 @app.route('/domain/<id>', methods=['GET'])
 def get_one_domain(id):
     return jnd.getbyiddomain(id)
@@ -129,5 +143,9 @@ def update_domain():
 @app.route('/domain', methods=['DELETE'])
 def delete_domain(id):
     return jnd.deletedomain(request)
+# @app.route('/domain_restless', methods=['GET'])
+# def restlessdomain():
+#     return jnd.restlessdomain(request)
 
-
+# http://gbcsystem-ice-wolf.c9users.io:8082/domain?q={%22filters%22:[{%22name%22:%22domainname%22,%22op%22:%22like%22,%22val%22:%22%test%%22}]}
+# http://gbcsystem-ice-wolf.c9users.io:8082/api/domain?q={%22filters%22:[{%22name%22:%22domainname%22,%22op%22:%22like%22,%22val%22:%22%asp%%22}]}

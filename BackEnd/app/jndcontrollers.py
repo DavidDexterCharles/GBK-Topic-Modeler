@@ -143,15 +143,15 @@ class GeotagJndController(object):
         
     def getbyidgeotag(self, id):
         return requests.get(apidomain + 'geotag/'+id, headers=headers).content
-    
-
+# https://flask-restless.readthedocs.io/en/stable/searchformat.html    
+# https://buildmedia.readthedocs.org/media/pdf/flask-restless/latest/flask-restless.pdf
 class DomainJndController(object):
     def createdomain(self, request):
         data = json.dumps(request.get_json())
         print(data)
         valreturned = requests.post(apidomain + 'domain', data, headers=headers).content
-        print(valreturned)
         return valreturned
+       
 
     def updatedomain(self, request):
         data = json.dumps(request.get_json())
@@ -165,4 +165,30 @@ class DomainJndController(object):
         
     def getbyiddomain(self, id):
         return requests.get(apidomain + 'domain/'+id, headers=headers).content
-    
+        
+    def restlessdomain(self,request):
+        query =''
+        multi_dict = request.args
+        for key in multi_dict:
+            query = (multi_dict.get(key))
+        # filters = [dict(name='domainname', op='like', val='%asp%')]
+        # params = dict(q=json.dumps(dict(filters=filters)))
+        # print(params)
+        if query!='':
+            params2 = dict(q=query)
+            print (query)
+            print(params2)
+            val= requests.get(apidomain+"domain",params=params2, headers=headers).content
+            # print(val)
+        else:
+            val = 0
+        return val
+        
+    def RawApi(self,url):
+        filters = [dict(name='name', op='like', val='%y%')]
+        params = dict(q=json.dumps(dict(filters=filters)))
+        print(params)
+        response = requests.get(url, params=params, headers=headers)
+        # # assert response.status_code == 200
+        # print(response.json())
+        return "test Apples"
