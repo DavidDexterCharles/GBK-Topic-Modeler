@@ -26,7 +26,7 @@ class Article(db.Model):
 
 class Domain(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    domainname = db.Column(db.String(50), unique=True)
+    domainname = db.Column(db.String(600), unique=True)
     desc = db.Column(db.String(80))
     articles = db.relationship('Article', backref= 'domain', lazy='dynamic')
 

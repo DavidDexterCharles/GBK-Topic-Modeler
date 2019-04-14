@@ -14,7 +14,6 @@ from urllib.parse import urlparse
 # import re
 # import json
 
-
 class Crawler: 
    
     def __init__(self,domainname,pagesource,contentparameters,dateparameters,titleparameters):
@@ -44,7 +43,18 @@ class Crawler:
     def get_article_data(self,url):
        self.linkpool[url]=1
        self.setartpool()
-       return self.artpool
+       result = self.artpool[0]
+    #   print(result)
+       return result
+   
+    def setartpool(self):
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        # loop = asyncio.get_event_loop()
+        f = asyncio.wait([self.main(link) for link in self.linkpool])
+        loop.run_until_complete(f)
+    
+   
    
     def initiate_linkpool(self):
         '''
@@ -65,10 +75,6 @@ class Crawler:
             except Exception as e:
                 pass
     
-    def setartpool(self):
-        loop = asyncio.get_event_loop()
-        f = asyncio.wait([self.main(link) for link in self.linkpool])
-        loop.run_until_complete(f)
     
     def dowload_data(self):
         corpusname = self.pagesource.split('.')

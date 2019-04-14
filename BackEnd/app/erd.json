@@ -36,7 +36,7 @@
 				},
 				{
 					"column": "domainname",
-					"type": "db.String(50)",
+					"type": "db.String(600)",
 					"index":"unique=True"
 				},
 				{

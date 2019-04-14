@@ -3,24 +3,27 @@ from models import app
 from flask import request, jsonify, make_response
 import requests
 import maincontroller
+from crawler import Crawler
+import json
+# import asyncio, aiohttp , bs4 , re , json
+# from urllib.parse import urlparse
 
-token_required = jndcontrollers.token_required
-jnd = maincontroller.MainController()
-
-# http://docs.python-requests.org/en/master/user/quickstart/
 @app.after_request
 def after_request(response):
     response.headers.add('Access-Control-Allow-Origin', '*')
     response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
     response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
     return response
+    
 
-@app.route('/')
-def index():
-    try:
-        return requests.get('https://github.com/DavidDexterCharles?tab=repositories').content#, headers=headers).content
-    except:
-        return "Welcome To JND(Rapid API Development with JSONERD Automation)"
+
+token_required = jndcontrollers.token_required
+jnd = maincontroller.MainController()
+
+# http://docs.python-requests.org/en/master/user/quickstart/
+
+
+
 
 @app.route('/userauth', methods=['GET'])
 @token_required
@@ -37,6 +40,18 @@ def register_user():
 def login():
     return jnd.dologin(request)
 
+
+# https://stackoverflow.com/questions/10434599/how-to-get-data-received-in-flask-request
+@app.route('/articledata', methods=['POST'])
+def get_article_data():
+    # print(request.form['url'])
+    # data = request.data
+    data =request.get_json()
+    print(data['url'])
+    spider = Crawler('https://www.trinidadexpress.com',"",['p'],['time'],['h1','headline'])
+    result = spider.get_article_data(data['url'])
+    # print(result)
+    return result
 
 
 #*****************************Article***************************************
