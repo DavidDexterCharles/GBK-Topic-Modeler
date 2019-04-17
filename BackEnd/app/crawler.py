@@ -128,7 +128,13 @@ class Crawler:
                         dresult = re.sub('\s+',' ',articledate)
                         self.acorpus["DATE"] = dresult
                         self.acorpus["CONTENT"] =  re.sub('\s+',' ',articlecontent)
-                        r = {}
+                        if("trinidadexpress.com" in url):
+                            self.acorpus["domain_id"] =1
+                        if("http://www.looptt.com" in url):
+                            self.acorpus["domain_id"] =2
+                        if("https://www.guardian.co.tt" in url):
+                            self.acorpus["domain_id"] =4
+                        
                         r = self.acorpus
                         print(r)
                         # https://stackoverflow.com/questions/5244810/python-appending-a-dictionary-to-a-list-i-see-a-pointer-like-behavior
