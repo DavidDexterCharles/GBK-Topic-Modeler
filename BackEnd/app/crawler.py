@@ -14,6 +14,7 @@ from urllib.parse import urlparse
 # import re
 # import json
 
+
 class Crawler: 
    
     def __init__(self,domainname,pagesource,contentparameters,dateparameters,titleparameters):
@@ -36,27 +37,16 @@ class Crawler:
    
     def crawl(self):
        self.pagesourcetolinkpool()
-       self.setartpool()
+       self.setartpoolforlinkpool()
     #   print(self.linkpool)
        self.dowload_data()
    
     def get_article_data(self,url):
        self.linkpool[url]=1
        self.setartpool()
-       result = self.artpool[0]
-    #   print(result)
-       return result
+       return json.dumps(self.artpool[0])
    
-    def setartpool(self):
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-        # loop = asyncio.get_event_loop()
-        f = asyncio.wait([self.main(link) for link in self.linkpool])
-        loop.run_until_complete(f)
-    
-   
-   
-    def initiate_linkpool(self):
+    def pagesourcetolinkpool(self):
         '''
         add all urls on an html page/pages stored at self.pagesource to the link pool,
         currently would work only with trinidad express and not news day
@@ -75,8 +65,19 @@ class Crawler:
             except Exception as e:
                 pass
     
+    def setartpool(self):
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        f = asyncio.wait([self.main(link) for link in self.linkpool])
+        loop.run_until_complete(f)
+        
+    def setartpoolforlinkpool(self):
+        loop = asyncio.get_event_loop()
+        f = asyncio.wait([self.main(link) for link in self.linkpool])
+        loop.run_until_complete(f)
     
     def dowload_data(self):
+        # print(self.artpool)
         corpusname = self.pagesource.split('.')
         with open(corpusname[0]+'.json', 'w') as corpobj:
             json.dump(self.artpool, corpobj,sort_keys=True, indent=4)
@@ -95,20 +96,46 @@ class Crawler:
                 articlecontent = ""
                 articletitle = ""
                 authorname = ""
-                for pharase in page.find_all(self.dateinfo[0]):
-                    articledate = pharase.text+ "\n"
-                for pharase in page.find_all(self.titleinfo[0],class_=self.titleinfo[1]):
-                    articletitle += pharase.text
-                if articledate and articletitle:    
-                    for pharase in page.find_all(self.contentinfo[0]):
-                        articlecontent += pharase.text+ "\n"
-                    self.acorpus["SOURCE"] = str(url)
-                    self.acorpus["TITLE"] = re.sub('\s+',' ',articletitle)
-                    dresult = re.sub('\s+',' ',articledate)
-                    self.acorpus["DATE"] = dresult
-                    self.acorpus["CONTENT"] =  re.sub('\s+',' ',articlecontent)
-                    r = json.dumps(self.acorpus)
-                    self.artpool.append(r)
-                    # print(self.artpool)
+                if len(self.dateinfo)>1:
+                    for pharase in page.find_all(self.dateinfo[0],class_=self.dateinfo[1]):
+                        articledate = pharase.text+ "\n"
+                        break
+                elif len(self.dateinfo)>0:
+                    for pharase in page.find_all(self.dateinfo[0]):
+                        articledate = pharase.text+ "\n"
+                        break
+                
+                if len(self.titleinfo)>1:    
+                    for pharase in page.find_all(self.titleinfo[0],class_=self.titleinfo[1]):
+                        articletitle += pharase.text
+                elif len(self.titleinfo)>0:
+                    for pharase in page.find_all(self.titleinfo[0]):
+                        articletitle += pharase.text
+                    
+                if articledate and articletitle:
+                    is_safe = 0
+                    if len(self.contentinfo)>1:
+                        for pharase in page.find_all(self.contentinfo[0],class_=self.contentinfo[1]):
+                            articlecontent += pharase.text+ "\n"
+                        is_safe = 1
+                    elif len(self.contentinfo)>0:
+                        for pharase in page.find_all(self.contentinfo[0]):
+                            articlecontent += pharase.text+ "\n"
+                        is_safe = 1
+                    if is_safe:
+                        self.acorpus["SOURCE"] = str(url)
+                        self.acorpus["TITLE"] = re.sub('\s+',' ',articletitle)
+                        dresult = re.sub('\s+',' ',articledate)
+                        self.acorpus["DATE"] = dresult
+                        self.acorpus["CONTENT"] =  re.sub('\s+',' ',articlecontent)
+                        r = {}
+                        r = self.acorpus
+                        print(r)
+                        # https://stackoverflow.com/questions/5244810/python-appending-a-dictionary-to-a-list-i-see-a-pointer-like-behavior
+                        # https://stackoverflow.com/questions/184710/what-is-the-difference-between-a-deep-copy-and-a-shallow-copy
+                        # https://docs.python.org/3/library/copy.html
+                        self.artpool.append(r.copy())
+                        # print(self.artpool)
+                        # print(articletitle)
             except Exception as e:
                 pass

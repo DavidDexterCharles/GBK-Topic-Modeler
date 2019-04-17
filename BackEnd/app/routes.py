@@ -7,6 +7,8 @@ from crawler import Crawler
 import json
 # import asyncio, aiohttp , bs4 , re , json
 # from urllib.parse import urlparse
+headers = {'Content-Type': 'application/json'}
+apidomain = 'http://127.0.0.1:8085/api/'
 
 @app.after_request
 def after_request(response):
@@ -46,12 +48,46 @@ def login():
 def get_article_data():
     # print(request.form['url'])
     # data = request.data
+    
+    '''
+    Filter to see if the domain exists in domain table if it does then, get the id, if it does not then, 
+    domain is unsupported and wont be added to the db, however best attempt classigication, would still be done.
+    On submission of the url to the article table, if integrigity violated then just return the article with its categoriese
+    '''
+    
+    #  q = '?q={"filters":[{"name":"domainname","op":"like","val":"%'+query+'%"}]}'
+    # qresult = requests.get("http://0.0.0.0:8085/api/domain"+q).content
+    
     data =request.get_json()
-    print(data['url'])
-    spider = Crawler('https://www.trinidadexpress.com',"",['p'],['time'],['h1','headline'])
+    # print(data['url'])
+    if("trinidadexpress.com" in data['url']):
+        spider = Crawler('https://www.trinidadexpress.com',"",['p'],['time'],['h1','headline'])
+    elif("guardian.co.tt" in data['url']):
+        spider = Crawler('https://www.guardian.co.tt',"",['p','bodytext'],['span','textelement-publishing date'],['h1','headline'])
+    # elif("newsday.co.tt" in data['url']):
+    #     spider = Crawler('https://newsday.co.tt',"",['p'],['time'],['h1'])
+    elif("looptt.com" in data['url']):
+        spider = Crawler('http://www.looptt.com',"",['p'],['span','date-tp-4 border-left'],['span','field field--name-title field--type-string field--label-hidden'])
+    else:
+        result = "Apples"
+    
     result = spider.get_article_data(data['url'])
+    r = requests.post(apidomain + 'article', result, headers=headers)#use internal api to post the data to database
+    print(r)
+    # result["domain_id"] = 1
+    # elif("looptt.com" in data['url']):
+    #     spider = Crawler('http://www.looptt.com',"",['p'],['i'],['h1','headline'])
+    
     # print(result)
     return result
+
+
+#ONLINE ARTICLES:
+# https://www.guardian.co.tt/news/hidden-gem-now-an-eyesore-6.2.824227.b624882ed9
+#(IGNORED) http://www.looptt.com/content/police-kill-four-chaguanas
+#(BLOCKED) https://newsday.co.tt/2019/04/13/afro-trinidadian-males-at-higher-risk-of-prostate-cancer/
+# https://www.trinidadexpress.com/news/local/he-killed-his-family-and-himself-but-why/article_3f35dd5c-5e53-11e9-bc81-9739ac1cf00f.html
+
 
 
 #*****************************Article***************************************

@@ -15,10 +15,10 @@ from flask_migrate import Migrate, MigrateCommand
 
 class Article(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(600))
-    url = db.Column(db.String(6000))
-    publicationdate = db.Column(db.String(80))
-    content = db.Column(db.String(12255))
+    TITLE = db.Column(db.String(600))
+    SOURCE = db.Column(db.String(600),unique=True)
+    DATE = db.Column(db.String(80))
+    CONTENT = db.Column(db.String(12255))
     articlecategories = db.relationship('Articlecategorie', backref= 'article', lazy='dynamic')
     geotags = db.relationship('Geotag', backref= 'article', lazy='dynamic')
 
@@ -47,8 +47,8 @@ class Categorie(db.Model):
 
 class Geotag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    publishdate = db.Column(db.String(250))
-    content = db.Column(db.String(250))
+    locdesc = db.Column(db.String(250))
+    location = db.Column(db.String(250))
 
     article_id = db.Column(db.Integer, db.ForeignKey('article.id'))
 
