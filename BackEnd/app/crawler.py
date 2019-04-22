@@ -136,7 +136,7 @@ class Crawler:
                             self.acorpus["domain_id"] =4
                         
                         r = self.acorpus
-                        print(r)
+                        # print(r)
                         # https://stackoverflow.com/questions/5244810/python-appending-a-dictionary-to-a-list-i-see-a-pointer-like-behavior
                         # https://stackoverflow.com/questions/184710/what-is-the-difference-between-a-deep-copy-and-a-shallow-copy
                         # https://docs.python.org/3/library/copy.html
