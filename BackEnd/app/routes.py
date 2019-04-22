@@ -88,8 +88,41 @@ def get_article_data():
 #(BLOCKED) https://newsday.co.tt/2019/04/13/afro-trinidadian-males-at-higher-risk-of-prostate-cancer/
 # https://www.trinidadexpress.com/news/local/he-killed-his-family-and-himself-but-why/article_3f35dd5c-5e53-11e9-bc81-9739ac1cf00f.html
 
+#*****************************Topicmodel***************************************
 
+@app.route('/topicmodel', methods=['GET'])
+def getall_topicmodels():
+    return jnd.getalltopicmodels()
+@app.route('/topicmodel/<id>', methods=['GET'])
+def get_one_topicmodel(id):
+    return jnd.getbyidtopicmodel(id)
+@app.route('/topicmodel', methods=['POST'])
+def create_topicmodel():
+    return jnd.createtopicmodel(request)
+@app.route('/topicmodel/<id>', methods=['PATCH'])
+def update_topicmodel():
+    return jnd.updatetopicmodel(request)
+@app.route('/topicmodel', methods=['DELETE'])
+def delete_topicmodel(id):
+    return jnd.deletetopicmodel(request)
+    
+#*****************************Keyword***************************************
 
+@app.route('/keyword', methods=['GET'])
+def getall_keywords():
+    return jnd.getallkeywords()
+@app.route('/keyword/<id>', methods=['GET'])
+def get_one_keyword(id):
+    return jnd.getbyidkeyword(id)
+@app.route('/keyword', methods=['POST'])
+def create_keyword():
+    return jnd.createkeyword(request)
+@app.route('/keyword/<id>', methods=['PATCH'])
+def update_keyword():
+    return jnd.updatekeyword(request)
+@app.route('/keyword', methods=['DELETE'])
+def delete_keyword(id):
+    return jnd.deletekeyword(request)
 #*****************************Article***************************************
 
 @app.route('/article', methods=['GET'])

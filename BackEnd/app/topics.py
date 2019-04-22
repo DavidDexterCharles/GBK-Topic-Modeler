@@ -1,15 +1,15 @@
 topics = {}
 topics['Art and Culture'] = ['art','culture','entertainment','music','history','film','media','book','fashion','festival','comedy','museums','opera','drama','poetry','documentary','painting','theatre','sculpture']
-topics["Education"] = ["school","education","teach","student"]
+topics["Education"] = ["school","education","teach","student","lecturer","Campus","academic","university"]
 topics['Crime'] = ['Magistrate','shooting','crime','law','rape','supreme-court','human-rights','police','criminal-justice']
-topics["Diaster and Accidents"] = ['flood',"natural","disaster",'natural disaster','hurricane','flooding','earthquake','drought','wildfire']
+topics["Diaster and Accidents"] = ['flood',"natural","disaster",'natural disaster','hurricane','flooding','earthquake','drought','wildfire','forest fire','fire']
 topics["Economy"] = ["economy","business",'economics','banking','advertising','transport','market','realestate','investing']
-topics["Environment"] = ["environment","climate",'climate change','energy','water','pollution','waste']
+topics["Environment"] = ["environment","climate",'climate change','energy','water','pollution','waste','sea','forest']
 topics["Health"] = ["health","healthcare",'hospital','medicine']
 topics["Human Interest"] = ["award","prize",'celebrity','animal']
 topics["Labor"] = ["labour","labor",'employment','unemployment']
 topics["Lifestyle and Leisure"] = ["life","travel",'food','drink','hotel','restaurant','bar']
-topics["Politics"] = ["politic","democrat",'republican','election','policy']
+topics["Politics"] = ["politic","democrat",'republican','election','policy',"president","secretary"]
 topics["Religion and Belief"] = ["religion","christian",'Mosk','Hindu','church']
 topics["Science and Technology"] = ["technology","internet",'research','science','biology','psychology','software','genetics','mathematics','chemistry']
 topics["Society"] = ["society","ethnic",'ethnic group','communities','poverty','family','homeless','immigration','marriage','population','migration']
@@ -21,15 +21,15 @@ topics["topicmodel"] =[
     # Art and Culture
     'art','culture','entertainment','music','history','film','media','book','fashion','festival','comedy','museums','opera','drama','poetry','documentary','painting','theatre','sculpture',
     # Education
-    "school","education","teach","student",
+    "school","education","teach","student","lecturer","Campus","academic","university",
     # Crime
     'crime','Magistrate','law','rape','supreme-court','human-rights','police','criminal-justice','shot','shooting',
     # Diaster and Accidents
-    'flood',"natural","disaster",'natural disaster','hurricane','flooding','earthquake','drought','wildfire',
+    'flood',"natural","disaster",'natural disaster','hurricane','flooding','earthquake','drought','wildfire','forest fire','fire',
     # Economy
     "economy","business",'economics','banking','advertising','transport','market','realestate','investing',
     # Environment
-    "environment","climate",'climate change','energy','water','pollution','waste',
+    "environment","climate",'climate change','energy','water','pollution','waste','sea','forest',
     # Health
     "health","healthcare",'hospital','medicine',
     # Human Interest
@@ -39,7 +39,7 @@ topics["topicmodel"] =[
     # Lifestyle and Leisure
     "life","travel",'food','drink','hotel','restaurant','bar',
     # Politics
-    "politic","democrat",'republican','election','policy',
+    "politic","democrat",'republican','election','policy',"president","secretary",
     # Religion and Belief
     "religion","christian",'Mosk','Hindu','church',
     # Science and Technology

@@ -43,6 +43,7 @@ class Categorie(db.Model):
     name = db.Column(db.String(250))
     desc = db.Column(db.String(250))
     articlecategories = db.relationship('Articlecategorie', backref= 'categorie', lazy='dynamic')
+    topicmodels = db.relationship('Topicmodel', backref= 'categorie', lazy='dynamic')
 
 
 class Geotag(db.Model):
@@ -51,6 +52,18 @@ class Geotag(db.Model):
     location = db.Column(db.String(250))
 
     article_id = db.Column(db.Integer, db.ForeignKey('article.id'))
+    
+class Keyword(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    word = db.Column(db.String(355),unique=True)
+    topicmodel = db.relationship('Topicmodel', backref= 'Keyword', lazy='dynamic')
+    
+    
+class Topicmodel(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    
+    keyword_id = db.Column(db.Integer, db.ForeignKey('keyword.id'))
+    categorie_id = db.Column(db.Integer, db.ForeignKey('categorie.id'))
 
 migrate = Migrate(app, db)
 manager = Manager(app)

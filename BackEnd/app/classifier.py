@@ -5,7 +5,7 @@ import json
 
 
 spider = Crawler('https://www.trinidadexpress.com',"",['p'],['time'],['h1','headline'])
-test="https://www.trinidadexpress.com/news/local/big-fish-little-fish-and-an-ocean-of-lies/article_8e18b843-4905-5e8b-a397-7e5c42ed38d7.html"
+test="https://www.trinidadexpress.com/news/local/ganja-goof/article_d9fbc45e-6494-11e9-95d8-c79addbed302.html"
 result =  spider.get_article_data(test)
 # result =  spider.get_article_data("https://www.trinidadexpress.com/news/local/film-festival-calls-for-caribbean-film-market-projects/article_a055767f-c135-5a9a-86b7-193686bf9b6a.html")
 result = json.loads(result)
@@ -14,14 +14,7 @@ print(document+"\n\n")
 
 
 # document ='''
-# The National Security Minister Stuart Young is also speaking up following the sensational search of the hotel room occupied by Mark Myrie (Buju Banton) on Saturday,
-
-# Following Police Commissioner Gary Griffith’s visit with Buju before midnight Saturday, Young issued a statement today regarding the matter.
-
-# Young said that Buju arrived in Trinidad and Tobago on April 19, and as Minister of National Security, Young granted Banton and one other Jamaican citizen/performer known as Luciano and American citizen/performer known as Wayne Wonder), Ministerial Permits to enter Trinidad and Tobago to perform at a concert today/
-
-# “ This permission was granted after due consideration and also an appreciation of our CARICOM stance and commitments”
-
+# Wikitext, also known as Wiki markup or Wikicode, consists of the syntax and keywords used by the MediaWiki software to format a page. To learn how to see this markup, and to save an edit, see: Help:Editing. ... There is a short list of markup and tips at Help:Cheatsheet.
 # '''
 
 
@@ -50,11 +43,35 @@ for topic,catigories in topics.items():
     curr[topic] = []
     for t,value in results["topicmodel"].items():
         if t in topics[topic] and topic!="topicmodel":
-            if value > group[topic]:
-                group[topic] = value
+            # if value > group[topic]:
+                group[topic] += value
                 test ={}
                 test[t] =value
                 curr[topic].append(test)
+
+# CREATE TABLE topicmodel(
+#   id int not null auto_increment primary key,
+#   categorie_id int not null,
+#   keyword_id int not null,
+#   KEY `keyword_id` (`keyword_id`),
+#   KEY `categorie_id` (`categorie_id`)
+# )ENGINE=InnoDB;
+
+# ALTER TABLE `topicmodel`
+#   ADD CONSTRAINT `topicmodel_ibfk_1` FOREIGN KEY (`keyword_id`) REFERENCES `keyword` (`id`),
+#   ADD CONSTRAINT `topicmodel_ibfk_2` FOREIGN KEY (`categorie_id`) REFERENCES `categorie` (`id`);
+
+# ALTER TABLE `topicmodel` ADD UNIQUE `unique_index`(`keyword_id`, `categorie_id`);
+
+# CREATE TABLE keyword(
+#   id int not null auto_increment primary key,
+#   word varchar(355) not null,
+#   ON UPDATE CASCADE
+#   ON DELETE RESTRICT
+# )ENGINE=InnoDB;
+
+
+
 
     
 print(curr)

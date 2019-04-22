@@ -125,6 +125,49 @@ class CategorieJndController(object):
         
     def getbyidcategorie(self, id):
         return requests.get(apidomain + 'categorie/'+id, headers=headers).content
+        
+class TopicmodelJndController(object):
+    def createtopicmodel(self, request):
+        data = json.dumps(request.get_json())
+        return requests.post(apidomain + 'topicmodel', data, headers=headers).content
+
+    def updatetopicmodel(self, request):
+        data = json.dumps(request.get_json())
+        return requests.patch(apidomain + 'topicmodel', data, headers=headers).content
+
+    def deletetopicmodel(self, id):
+        return requests.delete(apidomain + 'topicmodel/'+id, headers=headers).content
+         
+    def getalltopicmodels(self):
+        return requests.get(apidomain + 'topicmodel', headers=headers).content
+        
+    def getbyidtopicmodel(self, id):
+        return requests.get(apidomain + 'topicmodel/'+id, headers=headers).content
+        
+        
+        
+class KeywordJndController(object):
+    def createkeyword(self, request):
+        data = json.dumps(request.get_json())
+        return requests.post(apidomain + 'keyword', data, headers=headers).content
+
+    def updatekeyword(self, request):
+        data = json.dumps(request.get_json())
+        return requests.patch(apidomain + 'keyword', data, headers=headers).content
+
+    def deletekeyword(self, id):
+        return requests.delete(apidomain + 'keyword/'+id, headers=headers).content
+         
+    def getallkeywords(self):
+        return requests.get(apidomain + 'keyword', headers=headers).content
+        
+    def getbyidkeyword(self, id):
+        return requests.get(apidomain + 'keyword/'+id, headers=headers).content
+        
+        
+        
+        
+        
     
 class GeotagJndController(object):
     def creategeotag(self, request):

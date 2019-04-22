@@ -1,23 +1,39 @@
 <template>
-  <!--https://github.com/vuejs/vetur/issues/261-->
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-2 mb-1" v-for="ninja in ninjas" v-on:click="ninja.show = !ninja.show" :key="ninja.id">
-        <div class="card">
-          <div class="card-body">
-            <h4 class="card-title"><a>{{ ninja.name }}</a></h4>
-            <!--<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
-            <!--<a href="#" class="btn btn-primary">Button</a>-->
-            <!--<h2>{{ ninja.name }}</h2>-->
-            <p v-show="ninja.show">{{ ninja.speciality }}</p>
-          </div>
-        </div>
-      </div>
+ <div class="card">
+  <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Editable table</h3>
+  <div class="card-body">
+    <div id="table" class="table-editable">
+      <span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success"><i class="fas fa-plus fa-2x"
+            aria-hidden="true"></i></a></span>
+      <table class="table table-bordered  table-striped text-center">
+        <tr>
+          <th class="text-center">CATEGORIES</th>
+          <th class="text-center">KEY WORDS</th>
+          <th class="text-center">Sort</th>
+          <th class="text-center">Remove</th>
+        </tr>
+        <tr>
+          <td class="" contenteditable="true">Aurelia Vega</td>
+          <td class="pt-3-half" contenteditable="true">30</td>
+          <td class="pt-3-half">
+            <span class="table-up"><a href="#!" class="indigo-text"><i class="fas fa-long-arrow-alt-up" aria-hidden="true"></i></a></span>
+            <span class="table-down"><a href="#!" class="indigo-text"><i class="fas fa-long-arrow-alt-down"
+                  aria-hidden="true"></i></a></span>
+          </td>
+          <td>
+            <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+          </td>
+        </tr>
+      </table>
     </div>
   </div>
+</div>
 </template>
 <script>
 /* eslint-disable */
+
+// https://mdbootstrap.com/docs/jquery/tables/editable/
+// https://mdbootstrap.com/docs/vue/tables/editable/
   export default {
       data(){
           return{
@@ -36,6 +52,7 @@
       }
   }
 </script>
+
 <style scoped>
 
 /*#ninjas{*/
