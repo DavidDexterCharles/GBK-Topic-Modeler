@@ -14,7 +14,7 @@ topics["Religion and Belief"] = ["religion","christian",'Mosk','Hindu','church']
 topics["Science and Technology"] = ["technology","internet",'research','science','biology','psychology','software','genetics','mathematics','chemistry']
 topics["Society"] = ["society","ethnic",'ethnic group','communities','poverty','family','homeless','immigration','marriage','population','migration']
 topics["Sport"] = ["sport","nfl",'nba','football','basketball','boxing','tennis','cricket','olynmpic','athletic','swimming','cycling']
-topics["Conflicts & War and Peace"] = ["protest","terrorism",'terrorrist','military']
+topics["Conflicts and War and Peace"] = ["protest","terrorism",'terrorrist','military']
 topics["Weather"] = ["weather"]
 
 topics["topicmodel"] =[

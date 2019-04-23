@@ -107,10 +107,39 @@ def delete_topicmodel(id):
     return jnd.deletetopicmodel(request)
     
 #*****************************Keyword***************************************
+# @app.route('/keywordkey', methods=['GET'])
+# def getwordkeys():
+#     return jnd.getallkeywords()
 
+@app.route('/keywordkey', methods=['GET'])
+def getwordkey():
+    query = request.args.get('search')
+    # return query
+    if query:
+        q = '?q={"filters":[{"name":"word","op":"eq","val":"'+query+'"}]}'
+        result = requests.get("http://0.0.0.0:8085/api/keyword"+q).content
+        return result
+    else:
+        return jnd.getallkeywords()
+# @app.route('/keywordkey/', methods=['GET'])
+# def getwordkeys_():
+#     return jnd.getallkeywords()
+@app.route('/categoriekey', methods=['GET'])
+def getcategoriekey():
+    query = request.args.get('search')
+    if query:
+        q = '?q={"filters":[{"name":"name","op":"eq","val":"'+query+'"}]}'
+        result = requests.get("http://0.0.0.0:8085/api/categorie"+q).content
+        return result
+    else:
+        return jnd.getallcategories()
 @app.route('/keyword', methods=['GET'])
 def getall_keywords():
-    return jnd.getallkeywords()
+    query = request.args.get('page')
+    if query: #https://stackoverflow.com/questions/11774265/how-do-you-get-a-query-string-on-flask
+        return requests.get(apidomain + 'keyword?page='+ str(query), headers=headers).content
+    else:
+        return jnd.getallkeywords()
 @app.route('/keyword/<id>', methods=['GET'])
 def get_one_keyword(id):
     return jnd.getbyidkeyword(id)
@@ -163,7 +192,11 @@ def delete_articlecategorie(id):
 
 @app.route('/categorie', methods=['GET'])
 def getall_categories():
-    return jnd.getallcategories()
+    query = request.args.get('page')
+    if query: #https://stackoverflow.com/questions/11774265/how-do-you-get-a-query-string-on-flask
+        return requests.get(apidomain + 'categorie?page='+ str(query), headers=headers).content
+    else:
+        return jnd.getallcategories()
 @app.route('/categorie/<id>', methods=['GET'])
 def get_one_categorie(id):
     return jnd.getbyidcategorie(id)
