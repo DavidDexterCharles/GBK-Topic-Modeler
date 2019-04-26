@@ -9,18 +9,25 @@ class GBK:
         self.model = {}
         self.keycount = {}
         self.name = "gbk"
+        self.penaltyborder = 1
     def init(self,topics):
+        self.doctotal = 0
         for topic,topiclist in topics.items():
              self.model[topic] = {}
              self.keycount[topic]  = {}
              for i in range(0,len(topiclist)):
                 keyword = topiclist[i]
                 self.model[topic][keyword]={}
+                self.model[topic][keyword]['docamt'] = 0
                 self.model[topic][keyword]['features'] = {}
                 self.keycount[topic][keyword] = 0
-           
+    
+    def setpenaltyborder(self,p):
+        self.penaltyborder = p
+    
     def build(self,topics,articlecontent): #check and see if key word exists for each topic
         articlecontent = articlecontent.lower()
+        self.doctotal += 1
         for topic,topiclist in topics.items():
             for i in range(0,len(topiclist)):
                 keyword = topiclist[i]
@@ -38,7 +45,8 @@ class GBK:
                                 
                     self.keycount[topic][keyword] += 1
                     self.model[topic][keyword]['features'][keyword] = self.keycount[topic][keyword] # Ensures Keyword is always 100 %
-   
+                    self.model[topic][keyword]['docamt'] = self.keycount[topic][keyword]
+                    print("{}:{}\n".format(keyword,self.keycount[topic][keyword]))
     def setweights(self,topics):
         for topic,topiclist in topics.items():
             for i in range(0,len(topiclist)):
@@ -63,11 +71,11 @@ class GBK:
                     for k,v in sortedweights:
                         averageweightofvalue = round(v/averageweight,6)
                         
-                        # self.model[topic][keyword]['features'][k] = round((averageweightofvalue /maxaverageweight)*100,6)        
-                        self.model[topic][keyword]['features'][k] = round((averageweightofvalue)*100,6)  
+                        # self.model[topic][keyword]['features'][k] = round((averageweightofvalue),6)  #original
+                        self.model[topic][keyword]['features'][k] = round((averageweightofvalue)*(self.model[topic][keyword]['docamt']/self.doctotal),6) 
                 else:
-                    print("Error: sumofweights or numberofweights was <= 0 {}".format(self.model[topic][keyword]['features']))
-                
+                    # print("Error: sumofweights or numberofweights was <= 0 {}".format(self.model[topic][keyword]['features']))
+                    error =1
                 # self.model[topic][keyword]['features'][keyword] = 100        # Ensures Keyword is always 100 %
                 # print(self.model[topic][keyword]['features'])
         
@@ -120,8 +128,8 @@ class GBK:
                 averagepenalty =  self.getAvergaePenalty(penalty)
                 penaltyoutcome = penalty[val]/averagepenalty
                 # if(penaltyCNT[val]<numtopics):
-                if penaltyoutcome <=1:
-                    # print("{} {}".format(val,penaltyoutcome))
+                if penaltyoutcome <=self.penaltyborder:
+                    print("{} {}".format(val,penaltyoutcome))
                     if marker:
                         topic[row] = (col['features'][val] * scale)/penalty[val]
                         marker=0
@@ -136,6 +144,7 @@ class GBK:
                 #         topic[row] +=  (col['features'][val])/penalty[val]  
         
         # print("\nPenalty: {}".format(penalty))
+        # print(topic)
         return (topic)
             
     def showfeatures(self):        

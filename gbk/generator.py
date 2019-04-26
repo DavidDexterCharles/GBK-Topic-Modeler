@@ -3,11 +3,13 @@ from gbk.gbk import GBK as Model
 model = Model()
 
 topics = {}
-topics['model'] = ['sport','np']
+topics['model'] = ['sport','game','match']
+topics['model2'] = ['np','election','close']
+# topics['model3'] = ['close']
 model.init(topics)
 
-document1 = 'A great game Sports'
-document2 = 'The election was over np '
+document1 = 'A great game Sports death occur'
+document2 = 'The election was over death np '
 document3 = 'Very clean match, go ball sport'
 document4 = 'A clean but forgettable game sports'
 document5 = 'It was a close election np'
