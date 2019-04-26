@@ -72,7 +72,7 @@ class GBK:
                         averageweightofvalue = round(v/averageweight,6)
                         
                         # self.model[topic][keyword]['features'][k] = round((averageweightofvalue),6)  #original
-                        self.model[topic][keyword]['features'][k] = round((averageweightofvalue)*(self.model[topic][keyword]['docamt']/self.doctotal),6) 
+                        self.model[topic][keyword]['features'][k] = round((averageweightofvalue)*(self.model[topic][keyword]['docamt']/self.doctotal)*10,6) 
                 else:
                     # print("Error: sumofweights or numberofweights was <= 0 {}".format(self.model[topic][keyword]['features']))
                     error =1
@@ -104,44 +104,49 @@ class GBK:
         numberOftopics = len(self.model[modeloption].items())
         for row,col in self.model[modeloption].items():
             result = col['features'].keys() & docset
-            for val in result:
-                if val in penalty:
-                    penalty[val] += col['features'][val]
-                    # penaltyCNT[val] +=1
-                else:
-                    penalty[val] = col['features'][val]
+            
+            if(len(result)>0):
+                for val in result:
+                    if val in penalty:
+                        penalty[val] += col['features'][val]
+                        # penaltyCNT[val] +=1
+                    else:
+                        penalty[val] = col['features'][val]
                     # penaltyCNT[val] = 1
-        
+        print("==================================")
         for row,col in self.model[modeloption].items():
             result = col['features'].keys() & docset
-            marker=1
-            numberofterms = len(doc.lower().split())
-            numtopics = len(self.model[modeloption])
-            # print("{} {}".format(row,result))
-            for val in result:
-                scale = doc.lower().count(val)
-                # print("Scale:{} Word:{} ScaleValue:{}".format(scale,val,(col['features'][val] * scale)))
-                
-                if (penalty[val] == col['features'][val]):
-                    # print("ImportantWord {} = {}".format(val,col['features'][val]))
-                    penalty[val]  = 1
-                averagepenalty =  self.getAvergaePenalty(penalty)
-                penaltyoutcome = penalty[val]/averagepenalty
-                # if(penaltyCNT[val]<numtopics):
-                if penaltyoutcome <=self.penaltyborder:
-                    print("{} {}".format(val,penaltyoutcome))
-                    if marker:
-                        topic[row] = (col['features'][val] * scale)/penalty[val]
-                        marker=0
-                    else:
-                        topic[row] +=  (col['features'][val] * scale)/penalty[val]
-                # else:
-                #     print("{} {}".format(val,penaltyoutcome))
-                #     if marker:
-                #         topic[row] = (col['features'][val])/penalty[val]  
-                #         marker=0
-                #     else:
-                #         topic[row] +=  (col['features'][val])/penalty[val]  
+            if(len(result)>0):
+                # print(row)
+                # print (result)
+                marker=1
+                numberofterms = len(doc.lower().split())
+                numtopics = len(self.model[modeloption])
+                # print("{} {}".format(row,result))
+                for val in result:
+                    scale = doc.lower().count(val)
+                    # print("Scale:{} Word:{} ScaleValue:{}".format(scale,val,(col['features'][val] * scale)))
+                    
+                    if (penalty[val] == col['features'][val]):
+                        # print("ImportantWord {} = {}".format(val,col['features'][val]))
+                        penalty[val]  = 1
+                    averagepenalty =  self.getAvergaePenalty(penalty)
+                    penaltyoutcome = penalty[val]/averagepenalty
+                    # if(penaltyCNT[val]<numtopics):
+                    if penaltyoutcome <=self.penaltyborder:
+                        # print("{} {}".format(val,penaltyoutcome))
+                        if marker:
+                            topic[row] = (col['features'][val] * scale)/penalty[val]
+                            marker=0
+                        else:
+                            topic[row] +=  (col['features'][val] * scale)/penalty[val]
+                    # else:
+                    #     print("{} {}".format(val,penaltyoutcome))
+                    #     if marker:
+                    #         topic[row] = (col['features'][val])/penalty[val]  
+                    #         marker=0
+                    #     else:
+                    #         topic[row] +=  (col['features'][val])/penalty[val]  
         
         # print("\nPenalty: {}".format(penalty))
         # print(topic)
