@@ -11,7 +11,7 @@ keys['sport'] = ['sport','sports','game','ball','match']
 keys['np'] = ['election','np','death']
 # topics['model2'] = ['np','election','close']
 # topics['model3'] = ['close']
-model.init(topics).setMinMatch(2)
+model.init(topics).MinKey(2)
 
 document1 = 'A great game sports death occur'
 document2 = 'The election was over death np '

@@ -2,15 +2,6 @@ from pages import page
 from documents import document
 from gbk.gbk import GBK as Model
 
-def getTopic(topic):
-    largest = 0
-    key = ""
-    for k,v in topic.items():
-        if v > largest:
-            largest = v
-            key = k
-    return key, largest
-
 
 model = Model()
 topics ={}
@@ -50,7 +41,7 @@ keys['religion']=["religion","christian",'Mosk','Hindu','church']
 keys['society']=["society","ethnic",'ethnic group','communities','poverty','family','homeless','immigration','marriage','population','migration']
 keys['sport']=['coach','Racing','winning','champion','matches','games','tournament','win','Cycling',"sport","nfl",'nba','football','basketball','boxing','tennis','cricket','olynmpic','athletic','swimming','cycling']
 
-model.init(topics).setMinMatch(2)
+model.init(topics).MinKey(2)
 
 
 for i in range(0,len(page)):

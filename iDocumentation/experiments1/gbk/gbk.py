@@ -26,7 +26,7 @@ class GBK:
                 self.keycount[topic][keyword] = 0
         return self
     
-    def setMinMatch(self,amt):
+    def MinKey(self,amt):
         self.matchminimum = amt
     
     def setpenaltyborder(self,p):
