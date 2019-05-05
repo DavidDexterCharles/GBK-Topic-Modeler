@@ -1,0 +1,5 @@
+https://towardsdatascience.com/multi-class-text-classification-model-comparison-and-selection-5eb066197568
+https://monkeylearn.com/text-classification/
+https://en.wikipedia.org/wiki/F1_score
+https://www.youtube.com/watch?v=8Oog7TXHvFY
+https://scikit-learn.org/stable/modules/generated/sklearn.metrics.classification_report.html

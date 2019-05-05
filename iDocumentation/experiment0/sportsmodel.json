@@ -1,0 +1,37 @@
+{
+    "model": {
+        "np": {
+            "docamt": 2,
+            "features": {
+                "a": 0.666667,
+                "close": 0.666667,
+                "death": 0.666667,
+                "election": 1.333333,
+                "it": 0.666667,
+                "np": 1.333333,
+                "over": 0.666667,
+                "the": 0.666667,
+                "was": 1.333333
+            }
+        },
+        "sport": {
+            "docamt": 3,
+            "features": {
+                "a": 1.0,
+                "ball": 0.5,
+                "but": 0.5,
+                "clean": 1.0,
+                "death": 0.5,
+                "forgettable": 0.5,
+                "game": 1.0,
+                "go": 0.5,
+                "great": 0.5,
+                "match,": 0.5,
+                "occur": 0.5,
+                "sport": 1.5,
+                "sports": 1.0,
+                "very": 0.5
+            }
+        }
+    }
+}
