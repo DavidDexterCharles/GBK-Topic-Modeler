@@ -6,22 +6,29 @@ model = Model()
 
 topics = {}
 keys = {}
-topics['model'] = ['sport','np']
-keys['sport'] = ['sport','sports','game','ball','match']
-keys['np'] = ['election','np','death']
+# tags must be unique and must have a space before and after(to distinguish from other words)
+topics['model'] = ['sport','notsport']
+keys['sport'] = ['sp']#,'sports','game','ball','match']
+keys['notsport'] = ['np']#,'np','death']
 # topics['model2'] = ['np','election','close']
 # topics['model3'] = ['close']
-model.init(topics).MinKey(2)
+model.init(topics)#.MinKey(2)
 
-document1 = 'A great game sports death occur'
+document1 = 'A great game sports  occur sp '
 document2 = 'The election was over death np '
-document3 = 'Very clean match, go ball sport'
-document4 = 'A clean but forgettable game sports'
+document3 = 'Very clean match, go ball sport sp '
+document4 = 'A clean but forgettable game sports sp '
 document5 = 'It was a close election np'
 doclist = [document1, document2, document3, document4, document5]
 
+# def countPhrase(key,content):
+#     i=0
+#     while key in content:
+#         i+=1
+#         content = content.replace(key,"",1)
+#     return i
 
-
+# print(countPhrase("have a nice","i,have a nice comma,have a yes but I also have a nice way to live"))
 # keyword = 'sport'
 # for i in range(0,len(keys[keyword])):
 #     wordcounter = Counter(doclist[0].lower().split()) 

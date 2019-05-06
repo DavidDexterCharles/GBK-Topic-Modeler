@@ -11,10 +11,17 @@ class GBK:
         self.keycount = {}
         self.name = "gbk"
         self.penaltyborder = 1
+        self.doctotal = 0
+        self.matchminimum = 1
+        self.prediction = {}
+        self.termVectors = {}
+        self.penalty = {}
     def init(self,topics):
         self.doctotal = 0
         self.matchminimum = 1
         self.prediction = {}
+        self.termVectors = {}
+        self.penalty = {}
         for topic,topiclist in topics.items():
              self.model[topic] = {}
              self.keycount[topic]  = {}
@@ -31,7 +38,11 @@ class GBK:
     
     def setpenaltyborder(self,p):
         self.penaltyborder = p
-        
+    
+    def PenaltyScores(self):
+        return self.penalty
+    def TermVectors(self):
+        return self.termVectors
 
     def build(self,topics,keys,articlecontent): #check and see if key word exists for each topic
         articlecontent = articlecontent.lower()
@@ -61,16 +72,28 @@ class GBK:
         wordcounter = Counter(content.lower().split()) 
         matchedkeysize = 0
         for i in range(0,len(keys)):
-            matchedkeysize += wordcounter[keys[i]]
+            matchedkeysize += self.countPhrase(keys[i],content)# wordcounter[keys[i]]
         
         if not matchedkeysize:
             return 0
         
         if matchedkeysize < self.matchminimum:
             return 0
-        # print(matchedkeysize)   
+        # print(matchedkeysize)  
+        
         return matchedkeysize
+        
+    def countPhrase(self,key,content):
+        i=0
+        thekey = ' '+key.lower() +' '
+        if thekey in content:
+          i = content.count(key.lower())
+          print(key)
+          if i < 1:
+               i =1
             
+        return i
+        
     def setweights(self,topics):
         for topic,topiclist in topics.items():
             for i in range(0,len(topiclist)):
@@ -139,6 +162,7 @@ class GBK:
         docset = set(doc.lower().split())
         topic = {}
         penalty = {}
+        
         # penaltyCNT = {}
         numberOftopics = len(self.model[modeloption].items())
         for row,col in self.model[modeloption].items():
@@ -156,6 +180,7 @@ class GBK:
         for row,col in self.model[modeloption].items():
             result = col['features'].keys() & docset
             if(len(result)>0):
+                self.termVectors[row] = result
                 # print(row)
                 # print (result)
                 # marker=1
@@ -188,6 +213,7 @@ class GBK:
                     #         topic[row] +=  (col['features'][val])/penalty[val]  
         
         self.prediction = topic
+        self.penalty['Penalty'] = penalty
         # print("\nPenalty: {}".format(penalty))
         # print(topic)
         return self#(topic)
