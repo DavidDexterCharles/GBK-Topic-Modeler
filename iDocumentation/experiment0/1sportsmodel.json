@@ -1,0 +1,40 @@
+{
+    "model": {
+        "notsport": {
+            "CoOccurenceCount": 2,
+            "TermVectorAverage": 0,
+            "features": {
+                "a": 1,
+                "close": 1,
+                "death": 1,
+                "election": 2,
+                "it": 1,
+                "notsport": 2,
+                "np": 2,
+                "over": 1,
+                "the": 1,
+                "was": 2
+            }
+        },
+        "sport": {
+            "CoOccurenceCount": 3,
+            "TermVectorAverage": 0,
+            "features": {
+                "a": 2,
+                "ball": 1,
+                "but": 1,
+                "clean": 2,
+                "forgettable": 1,
+                "game": 2,
+                "go": 1,
+                "great": 1,
+                "match,": 1,
+                "occur": 1,
+                "sp": 3,
+                "sport": 3,
+                "sports": 2,
+                "very": 1
+            }
+        }
+    }
+}

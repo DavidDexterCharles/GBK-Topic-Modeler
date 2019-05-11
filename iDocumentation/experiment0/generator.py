@@ -9,10 +9,10 @@ keys = {}
 # tags must be unique and must have a space before and after(to distinguish from other words)
 topics['model'] = ['sport','notsport']
 keys['sport'] = ['sp']#,'sports','game','ball','match']
-keys['notsport'] = ['np']#,'np','death']
+keys['notsport'] = [' np']#,'np','death']
 # topics['model2'] = ['np','election','close']
 # topics['model3'] = ['close']
-model.init(topics)#.MinKey(2)
+model.init(topics,keys)#.MinKey(2)
 
 document1 = 'A great game sports  occur sp '
 document2 = 'The election was over death np '
@@ -38,11 +38,12 @@ doclist = [document1, document2, document3, document4, document5]
 
 
 for i, doc in enumerate(doclist):
-        model.build(topics,keys,doc)
+        model.build(doc)
 
-print(model.model)
-model.setweights(topics)
+# print(model.model)
+model.setweights()
 model.tojson("sportsmodel")
+model.removeweights()
 
 # https://stevenloria.com/tf-idf/
 # 7

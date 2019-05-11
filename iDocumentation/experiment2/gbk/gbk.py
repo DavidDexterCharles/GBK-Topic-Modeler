@@ -50,7 +50,9 @@ class GBK:
         for topic,topiclist in topics.items():
             for i in range(0,len(topiclist)):
                 keyword = topiclist[i]
-                if self.goodtopicscore(keys[keyword],articlecontent):#keyword.lower() in articlecontent:
+                # self.goodtopicscore(keys[keyword],articlecontent):
+                if self.goodtopicscore(keys[keyword],articlecontent):#keyword.lower() in articlecontent
+                    # print(keyword)
                     visited = {}
                     result = articlecontent.split()
                     for j in range(0,len(result)):
@@ -68,11 +70,15 @@ class GBK:
                     # print("word={} Occurence={}\n".format(keyword,self.model[topic][keyword]['docamt']))
     
     def goodtopicscore(self,keys,content):
-        # contentsize = len(content.lower().split())
-        wordcounter = Counter(content.lower().split()) 
+        # contentsize = len
+        # print(keys)
+        # wordcounter = Counter(content.lower().split()) 
         matchedkeysize = 0
         for i in range(0,len(keys)):
-            matchedkeysize += self.countPhrase(keys[i],content)# wordcounter[keys[i]]
+            
+            matchedkeysize += self.countPhrase(keys[i].lower(),content.lower())# wordcounter[keys[i]]
+            
+        # print(matchedkeysize)
         
         if not matchedkeysize:
             return 0
@@ -86,9 +92,11 @@ class GBK:
     def countPhrase(self,key,content):
         i=0
         thekey = ' '+key.lower() +' '
+        # print(thekey)
         if thekey in content:
+        #   print(thekey)
           i = content.count(key.lower())
-          print(key)
+        #   print(i)
           if i < 1:
                i =1
             

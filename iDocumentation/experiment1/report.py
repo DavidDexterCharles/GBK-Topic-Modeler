@@ -3,6 +3,8 @@ import pandas as pd
 from gbk.gbk import GBK as Model
 from sklearn.model_selection import train_test_split
 
+# https://github.com/DavidDexterCharles/bit-of-data-science-and-scikit-learn/blob/master/notebooks/FeatureExtraction.ipynb
+
 df=pd.read_csv('smsspam.csv',sep='\t',names=['Status','Message'])
 # print(len(df["Message"]))
 # print(len(df["Status"]))
@@ -23,13 +25,13 @@ topics['model'] =['spam','ham']
 keys['spam']=['spam']
 keys['ham']=['ham']
 model = Model()
-model.init(topics)
+model.init(topics,keys)
 
 for i in range(0,len(x_train)):#applynounfilter
     # print(y_train.iloc[i])
-    model.build(topics,keys,(x_train.iloc[i])+" "+y_train.iloc[i]+" ")
+    model.build((x_train.iloc[i])+" "+y_train.iloc[i]+" ")
     # print(df["Status"][i])
-model.setweights(topics)
+model.setweights()
 model.tojson("spammodel")
 test = "CLAIRE   havin borin time  now alone  wanna cum over 2nite? Chat now 09099725823 hope    Luv CLAIRE  Calls£1/minmoremobsEMSPOBox45PO139WA"
 

@@ -10,47 +10,45 @@ class GBK:
         self.model = {}
         self.keycount = {}
         self.name = "gbk"
-        self.penaltyborder = 1
         self.doctotal = 0
         self.matchminimum = 1
         self.prediction = {}
         self.termVectors = {}
         self.penalty = {}
-    def init(self,topics):
+        self.topics = {}
+        self.keys = {}
+    def init(self,topics,keys):
         self.doctotal = 0
         self.matchminimum = 1
         self.prediction = {}
         self.termVectors = {}
         self.penalty = {}
+        self.topics = topics
+        self.keys = keys
         for topic,topiclist in topics.items():
              self.model[topic] = {}
              self.keycount[topic]  = {}
              for i in range(0,len(topiclist)):
                 keyword = topiclist[i]
                 self.model[topic][keyword]={}
-                self.model[topic][keyword]['docamt'] = 0
+                self.model[topic][keyword]['CoOccurenceCount'] = 0
+                self.model[topic][keyword]['TermVectorAverage'] = 0
                 self.model[topic][keyword]['features'] = {}
                 self.keycount[topic][keyword] = 0
         return self
-    
     def MinKey(self,amt):
         self.matchminimum = amt
-    
-    def setpenaltyborder(self,p):
-        self.penaltyborder = p
-    
     def PenaltyScores(self):
         return self.penalty
     def TermVectors(self):
         return self.termVectors
-
-    def build(self,topics,keys,articlecontent): #check and see if key word exists for each topic
+    def build(self,articlecontent): #check and see if key word exists for each topic
         articlecontent = articlecontent.lower()
         self.doctotal += 1
-        for topic,topiclist in topics.items():
+        for topic,topiclist in self.topics.items():
             for i in range(0,len(topiclist)):
                 keyword = topiclist[i]
-                if self.goodtopicscore(keys[keyword],articlecontent):#keyword.lower() in articlecontent:
+                if self.goodtopicscore(self.keys[keyword],articlecontent):#keyword.lower() in articlecontent:
                     visited = {}
                     result = articlecontent.split()
                     for j in range(0,len(result)):
@@ -64,40 +62,11 @@ class GBK:
                                 
                     self.keycount[topic][keyword] += 1
                     self.model[topic][keyword]['features'][keyword] = self.keycount[topic][keyword]#*(self.model[topic][keyword]['docamt']/self.doctotal) # Ensures Keyword is always 100 %
-                    self.model[topic][keyword]['docamt'] = self.keycount[topic][keyword]
+                    self.model[topic][keyword]['CoOccurenceCount'] = self.keycount[topic][keyword]
                     # print("word={} Occurence={}\n".format(keyword,self.model[topic][keyword]['docamt']))
-    
-    def goodtopicscore(self,keys,content):
-        # contentsize = len(content.lower().split())
-        wordcounter = Counter(content.lower().split()) 
-        matchedkeysize = 0
-        for i in range(0,len(keys)):
-            matchedkeysize += self.countPhrase(keys[i],content)# wordcounter[keys[i]]
-        
-        if not matchedkeysize:
-            return 0
-        
-        if matchedkeysize < self.matchminimum:
-            return 0
-        # print(matchedkeysize)  
-        
-        return matchedkeysize
-        
-    def countPhrase(self,key,content):
-        i=0
-        thekey = ' '+key.lower() +' '
-        if thekey in content:
-          i = content.count(key.lower())
-          print(key)
-          if i < 1:
-               i =1
-            
-        return i
-        
-    def setweights(self,topics):
-        for topic,topiclist in topics.items():
+    def setweights(self):
+        for topic,topiclist in self.topics.items():
             for i in range(0,len(topiclist)):
-               
                 largestkey = 0 #each key word has its own feturevector, and hence its own average weighting value
                 total = 0
                 sumofweights = 0
@@ -111,41 +80,37 @@ class GBK:
                         largestkey = v # prevents counting duplicated weights
                         sumofweights += v
                         numberofweights += 1
-
                 if(sumofweights > 0 and numberofweights>0):
                     averageweight = sumofweights/numberofweights
-                    # maxaverageweight = (largestkey/averageweight)
+                    self.model[topic][keyword]['TermVectorAverage'] = averageweight
                     for k,v in sortedweights:
                         averageweightofvalue = round(v/averageweight,6)
-                        
-                        # self.model[topic][keyword]['features'][k] = round((averageweightofvalue),6)  #original
-                        # self.doctotal = 579
-                        # *(self.model[topic][keyword]['docamt']/self.doctotal)*10
                         self.model[topic][keyword]['features'][k] = round((averageweightofvalue),6) 
-                else:
-                    # print("Error:{} sumofweights or numberofweights was <= 0 {}".format(keyword,self.model[topic][keyword]['features']))
-                    error =1
-                # self.model[topic][keyword]['features'][keyword] = 100        # Ensures Keyword is always 100 %
-                # print(self.model[topic][keyword]['features'])
-        
+                        
+    def removeweights(self):
+        for key, value in self.model["model"].items():
+            print (key)
+        # termcount = 0
+        # features = self.model[topic][keyword]['features']
+        # for k,v in features:
+        #      termcount = features[k] *  self.model[topic][keyword]['TermVectorAverage']
+        #      self.model[topic][keyword]['TermVectorAverage'] = 0
+   
+    def goodtopicscore(self,keys,content):
+        matchedkeysize = 0
+        for i in range(0,len(keys)):
+            if keys[i].lower() in content:
+                matchedkeysize += content.count(keys[i].lower())
+        if matchedkeysize < self.matchminimum:
+            return 0
+        return matchedkeysize
     def tojson(self,path):
         self.name = path
         with open(self.name+'.json', 'w') as modelobj:
             json.dump(self.model, modelobj,sort_keys=True, indent=4)
-        
     def load(self,path):
         with open(path, 'r') as fp:
             self.model = json.load(fp)
-    
-    def getAvergaePenalty(self,penalty):
-        totalpenalty = 0
-        for k,v in penalty.items():
-            totalpenalty += v
-        averagepenalty = totalpenalty/len(penalty)
-        
-        return averagepenalty
-    
-    
     def getTopic(self):
         largest = 0
         key = ""

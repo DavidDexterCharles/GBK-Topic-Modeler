@@ -1,6 +1,188 @@
 document =[
     '''
-    AMELIA RAJACK has returned from her second Carifta Games, held on the Easter weekend in the Cayman Islands, with six medals. Competing in the 11-12 age group she won two gold, in the 200m butterfly and 4x50m freestyle relay; a silver in 200m freestyle; and two bronze medals, in the 100m freestyle, the 400m freestyle and the 4x100m freestyle relay events.
+    People with disabilities have to be physically lifted to the courts in Tunapuna because of a non functioning elevator.
+
+The Express recently visited the Tunapuna Administrative Complex which houses the Tunapuna Magistrate’s Court, Probation Services, Ministry of Community Development, Culture and the Arts, District Revenue Office, TTPOST, Town & Country Planning Division and the Elections and Boundaries Commission.
+
+Elderly people have to struggle to climb the stairs to the second floor to conduct business such as getting an identification card.
+
+The elevator has been not working for almost a year. A plant was placed in front of it on the ground floor accompanied by a hand written sign.
+
+The Express raised the issue with Tunapuna MP Esmond Forde who said the Permanent Secretary (PS) at the Ministry of Works and Transport informed him that parts were ordered for the elevator and there was an electrical issue with another.
+
+“The Ministry of Works have been assigned the duty to see about the repairs because the building falls under the Ministry of Public Administration and the judiciary also has a role to play because the court is the main facility there,” he said.
+
+The MP said no time frame was given as to when there will be a functioning elevator but the permanent secretary assured she will ‘follow up’.
+
+Would it be fixed this year?
+
+“I would think so,” said Forde.
+
+The Express shared the photograph of the plant in front of the elevator with Forde. He said it was ‘embarassing’ and requested from the PS that proper signage be put into place.
+
+Get caught up with news from the news leader
+Subscribe now and get access to the Trinidad Express E-paper
+He said physically the building sits in Tunapuna but for electoral purposes it falls under the boundary of St Augustine.
+
+“But I don’t look at the job so, once somebody bring something to my attention I look at it,” he said.
+
+The National Insurance Property Development Company Limited (NIPDEC) which falls under the Works Ministry stated on its website that there was refurbishment of the Tunapuna Administrative Complex which included the upgrade of the Mechanical, Electrical and Plumbing Systems, installation of the following systems – Public Address, Private Branch Exchange at the Judiciary, Closed Circuit Television System, Access Control System.
+
+The refurbishment works also included extensive upgrades to the roof, ceilings, façade upgrades, installation of high security fencing, upgrades to fountains and all common areas.
+
+The project was completed in October 2015 and despite all these works the elevator remains out of order while the differently abled and elderly left at a disadvantage.
+
+Facebook
+Twitter
+Email
+Print
+Save
+    ''',
+    '''
+    I feeling disappointed, hurt and traumatised. It is difficult. I am ­having a hard time.”
+
+So said Big Yard, Carenage, resi­dent David “Fur” Nelson yesterday, as he struggled to come to terms with the loss of his daughter, Naomi Nelson, 14, a pupil of Mucurapo West Secondary School.
+
+In a telephone interview with the Express, Nelson said the children who witnessed Naomi’s shooting were “hurting”.
+
+Nelson also said the past few days have been bittersweet for him since he celebrated his 41st birthday on Thursday, lost his precious child on Friday and welcomed ­newborn baby boy Ethan David Nelson Jr on Monday.
+
+    ''',
+    '''
+  In this June 14, 2018 photo, an exhausted Angelica Maria Alvarez takes a breather inside her home that was destroyed by Volcano of Fire eruption, in San Miguel Los Lotes, Guatemala. Ten days after the volcano blew, Alvarez continued looking for her husband, two daughters, and more than nine relatives in a house turned to twisted iron and hot ashes. (AP Photo/Rodrigo Abd)
+
+Rodrigo Abd
+SAN MIGUEL LOS LOTES, Guatemala (AP) — They call it the Volcano of Fire, one of the most active volcanoes in the Americas, frequently spewing ash and gas across a swath of Guatemala west of the capital. On June 3, the mountain erupted with a fury not seen in more than a century, exploding with 1,300-degree molten rocks and black clouds of ash that smothered villages and buried at least 194 people alive. An additional 234 are missing.
+
+Rodrigo Abd was among the Associated Press photojournalists who arrived on the scene. As he covered the news, he considered how to capture the sweep of the volcano's destructive power and the magnitude of the human drama that unfolded in minutes. How to document the tragedy — of lives and a landscape obliterated — on a piece of 35mm film?
+
+Abd decided that the panoramic format was necessary to tell this story of annihilation. Black and white film would best show ash-encased villages such as San Miguel Los Lotes.
+
+Peering through his lens, and through clouds of hot ash, he found Elmer Vazquez searching for his wife and five children where he thought the family home had been. The farmer looked destroyed as he climbed into pits dug by a backhoe whenever he saw human remains or bits of torn clothing that could have belonged to his family.
+
+In a makeshift morgue, dozens of victims' bodies wrapped in white bags formed a kind of silent corridor that ended with two exhausted forensic doctors taking a break after days and nights of continuous work.
+
+Outside the morgue, anxious relatives waited for the results of DNA tests to see if their loved ones were among those inside, while others prepared to hold dignified burials in the town cemetery.
+
+In San Miguel Los Lotes, the drama did not end in those first days. Ten days after the volcano blew, Angelica Maria Alvarez continued looking for her husband, two daughters and more than nine relatives in a house turned to twisted iron and hot ash.
+
+Six months after what is now being called "The Colossus," relatives still seek missing family members by their own means, as the government and relief agencies have ended their search for the dead.
+    ''',
+    '''
+    Prime Minister Dr Keith Rowley said he intends to “bolt” corruption-accused Anand Ramlogan and Gerald Ramdeen to Opposition Leader Kamla Persad Bissessar’s chest.
+
+“A former attorney general (Ramlogan) and an aspirant attorney general (Ramdeen) off to the court to answer questions for public money and the person who was instrumental in selecting and promoting them pretends that she has no responsibility for that. No shame! No apology! And calling for elections because she believe the population would follow her foolishness, her cabal and her corrupt practice,” Rowley said at a People’s National Movement (PNM) public meeting in Chaguanas on Tuesday night.
+
+
+The Prime Minister, who said he had a “personal interest” in the issue of legal fees because he had raised it every single year that he was Opposition Leader, stated to thunderous applause: “I want to say to Mrs Kamla Persad-Bissessar, the difficulty that your two cronies got involved in at the court, you will not be allowed to exonerate and distance yourself from them. It is my intention to bolt them to your chest.”
+
+    ''',
+    '''
+  Trinidad and Tobago NGL Ltd (TTNGL) is awaiting word from 
+  Finance Minister Colm Imbert on a second request on whether 
+  the publicly-listed company can pay its shareholders in US dollars,
+  the currency in which TTNGL normally conducts its business.
+
+
+
+    ''',
+    '''
+    AFTER a delay of close to 16 months, Jamaica’s NCB Financial Group (GHL) declared yesterday
+    that “all the terms and conditions of the offer” to acquire a majority stake in T&T’s
+    Guardian Holdings Ltd (GHL) “have been complied with or waived” as at yesterday’s date.
+
+    NCB’s announcement that its takeover bid for GHL is now “unconditional” paves the way for the closure of the offer at 4 p.m. 
+    today, which is the fourth extension of the banking group’s second bid for the Westmoorings-based insurance company.
+    ''',
+    '''
+    President Donald Trump speaks before signing an executive order requiring colleges to certify that their policies support free speech as a condition of receiving federal research grants, Thursday March 21, 2019, in the East Room of the White House in Washington. (AP Photo/Jacquelyn Martin)
+
+Manuel Balce Ceneta
+The political and economic crisis in Venezuela tops the agenda of President Donald Trump's meeting Friday with leaders from the Caribbean, a region that has been far from united in joining the U.S. call for the ouster of President Nicolas Maduro.
+
+Trump is hosting the leaders of Jamaica, Bahamas, Haiti, Dominican Republic and St. Lucia at his affluent Mar-a-Lago club in Palm Beach, Florida, to show his support for Caribbean countries that back democratic transition in Venezuela. The five have either denounced Maduro or have joined more than 50 countries in recognizing Juan Guaido as the rightful interim leader of the nation.
+
+The Trump administration considers Maduro's government a dictatorship and says he was re-elected in an illegitimate election. The U.S. has sanctioned scores of top Venezuelan officials and has blocked U.S. banks from doing business with Venezuela, putting a financial strangle-hold on the cash-strapped country. The country is in an economic meltdown and millions of Venezuelans have fled.
+
+"As games games President Trump clearly stated, the toughest sanctions are yet to come," national security adviser John Bolton said in a tweet Thursday. "Unless Maduro's usurpation ends, he and his cronies will be strangled financially. The window is closing."
+
+White House press secretary Sarah Sanders says Trump will use the meeting to thank the leaders for their support for peace and democracy in Venezuela and discuss potential opportunities for energy investment.
+
+Nations in the Caribbean, however, have been split on whether to interfere in Venezuela.
+
+For years, Venezuela has provided a reliable supply of oil to many Caribbean nations. They purchased the oil under the PetroCaribe arrangement, which gave them low-interest credit terms, but have left them indebted to Caracas.
+
+Sanders said Trump will also use the meeting to strengthen cooperation and counter "China's predatory economic practices." Secretary of State Mike Pompeo and other Trump administration officials have told countries that they should beware of Chinese investment opportunities.
+
+It's unclear how well Trump's message will be received. The U.S. has a long history of interventions — military and otherwise — in Latin America. And Trump has not always been kind to impoverished nations like some in the region. Last year, while meeting with senators on immigration, Trump questioned why the United States would accept more immigrants from Haiti and "s---hole countries" in Africa, according to one participant and people briefed on the conversation.
+
+    ''',
+    '''
+    PERSONAL INTEREST: Cricket legend, Brian Lara, has a one-on-one with the Most Improved Player of the 2018 bmobile Cricket Academy, Sachin Soodeen.
+
+THREE standout graduates of the 2018 bmobile Cricket Academy were presented with an opportunity of a lifetime when legendary batsman Brian Lara recently invited the talented trio to spend some one-on-one time with him at his home on Lady Chancellor Hill, St. Clair.
+
+The young men — Justyn Gangoo (Valedictorian), Sachin Soodeen (Most Improved Player) and Tariq Mohammed (Most Disciplined Player) — were selected from a specialised bunch of 19 cricketers who took part in the academy which took the form of a live-in weekend camp, from October to December, 2018 at the Sir Frank Worrell Development Centre in Couva.
+    ''',
+    '''
+    NANCY JOSEPH added another achievement to an already spectacular career resume a few days ago. This country’s most celebrated female beach volleyball player became the first woman from the English-speaking Caribbean to receive a coaching certificate from the International Volleyball Federation (FIVB).
+
+Joseph collected her FIVB Level III Coaching Certificate in Switzerland after successfully completing the International Coaching Enrichment Certification Programme.
+    ''',
+    '''
+    AN 86 YEAR old newlywed man has gone missing and his wife is begging for the public’s help in finding him.
+
+Harold Tracey was last seen by his wife Bernadette Lewis, 62, at their home at Joseph Cooper Trace, Petit Café, Princes Town, last Wednesday.
+
+Lewis said that they had been together for 19 years, and they married almost two months ago on March 16.
+
+Lewis said that the on Wednesday she left him sitting in the porch of their home around 7.45 a.m. and she went to her ALTA (Adult Literacy Tutors Association) class.
+
+“He told me he was going to eat and then relax at home. I went to my class and when I returned around 2.45 p.m. I saw the door was pulled in but was not locked. He was not in the house, nor in his garden behind the house. His cutlass and boots were still in the shed. None of his clothes or anything were missing”, said the wife.
+
+Tracey, a retired Caroni 1975 Limited worker, does not have any medical ailments, she said.
+
+Tracey was last seen wearing a pair of black slippers, black short pants and a grey jersey.
+
+Get caught up with news from the news leader
+Subscribe now and get access to the Trinidad Express E-paper
+“I want him to come back home. I have been calling around for him and no one has seen him. He is comfortable by me and needs to come back home”, said the wife.
+
+Lewis said she has reported him missing to the Princes Town police.
+
+Anyone with information is asked to contact the Princes Town police at 655 2231, or the nearest police station.
+    ''',
+    '''
+    JAFAR HOWE, the 19-year-old Laventille whose acceptance into the prestigious Princeton University and subsequent sponsorship by an anonymous businessman has gone viral, hopes his story would help change the stigma of the area which is considered by many, a crime hotspot.
+
+Howe, in an interview with Newsday on Saturday, said there were several success stories like his coming out of Laventille, where people who are now doctors, lawyers and politicians started from humble beginnings.
+
+“I got this publicity for my story and I am glad for it, but there are many other professionals from Laventille who started off just like me, but went under the radar.”
+
+A resident of Quarry Street, Howe will be studying engineering and public policy. He told Newsday, since his acceptance to Princeton, a private Ivy League research university in New Jersey, USA, became publicised, he has been getting calls from several people congratulating him and calling him an inspiration. He has also gotten calls from several people in Laventille, who not only wanted to congratulate him but encourage him to continue striving for excellence because they were in the same position as him.
+
+“People are calling and messaging me and saying they grew up just down the road from me, and they knew what it was like growing up, and they are lawyers and doctors now.”
+
+Howe told Newsday even as a young man, passing for St Mary’s College (CIC), he had to battle the stigma that was attached to his village.
+
+“It was hard because when some students found out that I was from Laventille, they had already put an idea in their minds of what to expect from me. Some of the students would even make jokes about it, but I never let it affect me. The teachers did not treat me any differently, but it made me realise that I had to change the perception of Laventille in their minds. So I beat them – in test.”
+
+Howe said after a few times proving himself academically, students began changing their view of him and of Laventille.
+
+Howe, the eldest of three children, said changing the perception of Laventille was not his only challenge as he pursued his dream of going to Princeton. He said collecting funds for tuition, room and board was also a great challenge because he did not want to burden his parents with the massive bill that came with being accepted into a foreign university the likes of Princeton. Howe said he began making money tutoring other students and even sold popcorn at his old school to add to the savings and scholarships he and his family already had.
+
+“Tuition for Princeton is actually USD$74,000 a year, including room and board. I couldn’t afford that even if it was in TT. I knew from the time I began applying that the scholarships would not be enough. I didn’t want to take money out of my parents’ pockets and hinder my younger siblings. I needed to make money to help myself.”
+
+Howe and family tried several fund-raisers and also opened a GoFundMe page seeking donations and pledges to cover the bill. That was where Howe got his big break as an anonymous businessman pledged USD$20,000 which would help him cover all his expenses. Howe said with the problem of financing out of the way, he would not have to worry about finding a job to make ends meet. He could focus on his books.
+
+“When we saw that, because we all saw it at once, my grandmother screamed out ‘Oh gosh!’ and hugged me. Family began congratulating me and messaging me. They kept telling me ‘Congratulations you are going to Princeton.’ It actually hasn’t fully hit me yet that I actually got what I needed to go.”
+
+Howe expressed pride that his story became a symbol of hope for TT amid the deluge of bad news that comes across the media. He said if TT wanted to find more people like him, they should look to Laventille.
+
+“I am glad to be that symbol that people needed in this time. I am proud to be that positive symbol in the media. But I am not the only one striving for these goals and achieving academically, I am just one of the few who were publicised. We have good sportsmen and sportswomen. We have professionals that come out of Laventille and I just want that to get into the minds of as much people as possible.”
+    ''',
+    '''
+     AMELIA RAJACK has returned from her second Carifta games , held on the Easter weekend in the Cayman Islands, with six medals. Competing in the 11-12 age group she won two gold, in the 200m butterfly and 4x50m freestyle relay; a silver in 200m freestyle; and two bronze medals, in the 100m freestyle, the 400m freestyle and the 4x100m freestyle relay events.
 
 It was a huge improvement on her first “Carifta” when, having to concentrate on the SEA examinations, she had qualified only for a relay event. She actually swam in one individual event, the 200m butterfly, but only because that was the only race that had room for an extra Trinidad and Tobago competitor.
 

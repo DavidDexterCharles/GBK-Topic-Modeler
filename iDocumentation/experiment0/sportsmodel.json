@@ -1,19 +1,24 @@
 {
     "model": {
         "notsport": {
-            "docamt": 1,
+            "CoOccurenceCount": 2,
+            "TermVectorAverage": 1.5,
             "features": {
-                "death": 1.0,
-                "election": 1.0,
-                "notsport": 1.0,
-                "np": 1.0,
-                "over": 1.0,
-                "the": 1.0,
-                "was": 1.0
+                "a": 0.666667,
+                "close": 0.666667,
+                "death": 0.666667,
+                "election": 1.333333,
+                "it": 0.666667,
+                "notsport": 1.333333,
+                "np": 1.333333,
+                "over": 0.666667,
+                "the": 0.666667,
+                "was": 1.333333
             }
         },
         "sport": {
-            "docamt": 3,
+            "CoOccurenceCount": 3,
+            "TermVectorAverage": 2.0,
             "features": {
                 "a": 1.0,
                 "ball": 0.5,

@@ -1,0 +1,25 @@
+My Algorithm can work well  For multi-label classification
+because it returns multiple categories and the score achieved,
+and the category with the largest score is what is selected
+
+https://towardsdatascience.com/journey-to-the-center-of-multi-label-classification-384c40229bff
+https://stackoverflow.com/questions/48179183/multilabel-naive-bayes-classification-using-scikit-learn
+
+
+https://scikit-learn.org/stable/modules/generated/sklearn.metrics.confusion_matrix.html
+https://scikit-learn.org/stable/modules/generated/sklearn.metrics.recall_score.html
+https://www.programcreek.com/python/example/84325/sklearn.metrics.recall_score
+
+problem you’re solving, significance of problem,
+related literature, 
+your hypothesis,
+your approach, 
+your experiments, 
+results and conclusion
+
+
+Interesting observations: As the number of categories increased the performance varied
+
+
+https://github.com/bapspatil/ML-Lab/blob/master/6-MNB.py
+https://towardsdatascience.com/machine-learning-nlp-text-classification-using-scikit-learn-python-and-nltk-c52b92a7c73a

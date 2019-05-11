@@ -1,7 +1,10 @@
 import csv
 from gbk2 import GBK as Model
 from sklearn.datasets import fetch_20newsgroups
+from gbk.gbk import GBK as Model2
 # from testdocs import *
+
+# https://github.com/DavidDexterCharles/bit-of-data-science-and-scikit-learn/blob/master/notebooks/FeatureExtraction.ipynb
 
 # categories = ['alt.atheism', 'talk.religion.misc','comp.graphics', 'sci.space']#https://github.com/gokriznastic/20-newsgroups_text-classification/blob/master/Multinomial%20Naive%20Bayes-%20BOW%20with%20TF.ipynb
 categories =[
@@ -17,15 +20,15 @@ categories =[
  'misc.forsale',
  'rec.autos',
  'rec.motorcycles',
- 'rec.sport.baseball',
- 'rec.sport.hockey',
- 'sci.crypt',
- 'sci.electronics',
- 'sci.med',
- 'soc.religion.christian',
- 'talk.politics.guns',
- 'talk.politics.mideast',
- 'talk.politics.misc',
+ 'rec.sport.baseball'#,
+#  'rec.sport.hockey',
+#  'sci.crypt',
+#  'sci.electronics',
+#  'sci.med',
+#  'soc.religion.christian',
+#  'talk.politics.guns',
+#  'talk.politics.mideast',
+#  'talk.politics.misc',
  
  
  ]
@@ -71,10 +74,10 @@ def getTopic(topic):
     return key, largest
     
 def predict(i,name):
-    model = Model()
+    model = Model2()
     model.load(name)
-    result = model.predict('model',(testdata.data[i]))
-    key,value = getTopic(result)
+    result = model.predict('model',(testdata.data[i])).getTopic()
+    key,value = result#getTopic(result)
     print("\nTAG_RETURNED: {} {}".format(key,value))
     print ("RESULT:{}".format(result))
     print("TAG_EXPECTED {}: {}\n\n{}".format(i,list(testdata.filenames)[i],testdata.data[i]))
@@ -108,10 +111,36 @@ def ReportForModel(name):
                         numTrue += 1
     print("\n")
     print("Total: {} \n True: {} \n False: {}".format(len(dataset),numTrue,numFalse))
-    
+
+def printAccuracy(name):    
+    model = Model2()
+    model.load(name)
+    dataset = list(testdata.data)
+    numFalse = 0
+    numTrue = 0
+    for i in range(0,len(dataset)):
+        result = model.predict('model',(dataset[i].lower())).getTopic()
+        tag,weight = result# getTopic(result)
+        
+        if testdata.target_names[testdata.target[i]]!= tag:
+            numFalse += 1
+        else:
+            # print("{} {}".format(testdata.target_names[testdata.target[i]],tag))
+            numTrue += 1
+        
+        # for j in range(0,len(categories)):
+        #     if categories[j] in testdata.filenames[i]:
+        #         if categories[j]!= tag:
+        #             numFalse += 1
+        #         else:
+        #             print("{} {}".format(testdata.target_names[testdata.target[i]],tag))
+        #             numTrue += 1
+    print("\n")
+    print("Total: {} \n True: {} \n False: {}".format(len(dataset),numTrue,numFalse))
+
 
 def RebuildNewsGroupModel(name,keywords):
-    model = Model()
+    model = Model2()
     topics = {}
     topics['model'] =categories# ['alt.atheism', 'talk.religion.misc','comp.graphics', 'sci.space']#keywords
 
@@ -129,7 +158,7 @@ def RebuildNewsGroupModel(name,keywords):
                 tags += categories[j] + " "
                 # tags += " "
         # applynounfilter
-        model.build(topics,keys,(doc)+" "+tags)
+        model.build(topics,keys,(doc)+" "+tags+" ")
                     
     
     model.setweights(topics)
@@ -140,14 +169,14 @@ def RebuildNewsGroupModel(name,keywords):
 if __name__ == '__main__':
     
     # https://textblob.readthedocs.io/en/dev/classifiers.html
-    # RebuildNewsGroupModel("model0",categories)
+    # RebuildNewsGroupModel("model11",categories)
     
     print("test")
     
     
-    
+    printAccuracy("model11.json")
     # ReportForModel("model5.json")
-    ReportForModel("model0.json")
+    # ReportForModel("model11.json")
     # print("{} {}".format(testdata.filenames[7], testdata.target[:10]),list(testdata.data)[7])
     
     # Fail=[63,679,682,684,685,19,93,97,98,405,406,414,416]# known fails
