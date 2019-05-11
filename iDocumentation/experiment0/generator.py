@@ -40,10 +40,25 @@ doclist = [document1, document2, document3, document4, document5]
 for i, doc in enumerate(doclist):
         model.build(doc)
 
-# print(model.model)
+print(model.model["model"]["notsport"]["features"])
+print(model.model["model"]["sport"]["features"])
+print("\n")
 model.setweights()
+
+print(model.model["model"]["notsport"]["features"])
+print(model.model["model"]["sport"]["features"])
+print("\n")
 model.tojson("sportsmodel")
+
 model.removeweights()
+print(model.model["model"]["notsport"]["features"])
+print(model.model["model"]["sport"]["features"])
+
+model.setweights()
+
+print(model.model["model"]["notsport"]["features"])
+print(model.model["model"]["sport"]["features"])
+print("\n")
 
 # https://stevenloria.com/tf-idf/
 # 7

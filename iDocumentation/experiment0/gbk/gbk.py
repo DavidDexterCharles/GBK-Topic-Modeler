@@ -89,13 +89,13 @@ class GBK:
                         
     def removeweights(self):
         for key, value in self.model["model"].items():
-            print (key)
-        # termcount = 0
-        # features = self.model[topic][keyword]['features']
-        # for k,v in features:
-        #      termcount = features[k] *  self.model[topic][keyword]['TermVectorAverage']
-        #      self.model[topic][keyword]['TermVectorAverage'] = 0
-   
+            features = self.model["model"][key]["features"]
+            termcount = 0
+            for k,v in features.items():
+                 termcount = features[k] *  self.model["model"][key]['TermVectorAverage']
+                 self.model["model"][key]["features"][k] = round(termcount,1)  
+        self.model["model"][key]['TermVectorAverage'] = 0
+        
     def goodtopicscore(self,keys,content):
         matchedkeysize = 0
         for i in range(0,len(keys)):
