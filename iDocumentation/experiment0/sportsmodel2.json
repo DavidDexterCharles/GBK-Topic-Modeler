@@ -1,0 +1,32 @@
+{
+    "model": {
+        "notsport": {
+            "CoOccurenceCount": 1, 
+            "TermVectorAverage": 0, 
+            "features": {
+                "a": 1.0, 
+                "close": 1.0, 
+                "elc": 1.0, 
+                "election": 1.0, 
+                "it": 1.0, 
+                "notsport": 1.0, 
+                "np": 1.0, 
+                "was": 1.0
+            }
+        }, 
+        "sport": {
+            "CoOccurenceCount": 1, 
+            "TermVectorAverage": 0, 
+            "features": {
+                "a": 1.0, 
+                "but": 1.0, 
+                "clean": 1.0, 
+                "forgettable": 1.0, 
+                "game": 1.0, 
+                "sp": 1.0, 
+                "sport": 1.0, 
+                "sports": 1.0
+            }
+        }
+    }
+}

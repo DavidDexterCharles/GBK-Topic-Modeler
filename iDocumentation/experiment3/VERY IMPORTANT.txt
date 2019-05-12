@@ -23,3 +23,5 @@ Interesting observations: As the number of categories increased the performance 
 
 https://github.com/bapspatil/ML-Lab/blob/master/6-MNB.py
 https://towardsdatascience.com/machine-learning-nlp-text-classification-using-scikit-learn-python-and-nltk-c52b92a7c73a
+https://www.datacamp.com/community/tutorials/naive-bayes-scikit-learn
+https://www.cnblogs.com/yymn/p/4518016.html (IMPORTANT)

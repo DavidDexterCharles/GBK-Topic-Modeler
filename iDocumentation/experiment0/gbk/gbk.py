@@ -2,7 +2,7 @@ import json
 # GBC(group by Key) Model by David Charles
 # words in a doc are related, and the strength of the relation increases across multiple documents 
 # as the co-occurence between words across the documents increase.
-from collections import Counter
+# from collections import Counter
 
 class GBK:
     
@@ -48,6 +48,8 @@ class GBK:
         for topic,topiclist in self.topics.items():
             for i in range(0,len(topiclist)):
                 keyword = topiclist[i]
+                # print(self.keys)
+                # print(keyword)
                 if self.goodtopicscore(self.keys[keyword],articlecontent):#keyword.lower() in articlecontent:
                     visited = {}
                     result = articlecontent.split()
@@ -94,7 +96,7 @@ class GBK:
             for k,v in features.items():
                  termcount = features[k] *  self.model["model"][key]['TermVectorAverage']
                  self.model["model"][key]["features"][k] = round(termcount,1)  
-        self.model["model"][key]['TermVectorAverage'] = 0
+            self.model["model"][key]['TermVectorAverage'] = 0
         
     def goodtopicscore(self,keys,content):
         matchedkeysize = 0
@@ -111,6 +113,8 @@ class GBK:
     def load(self,path):
         with open(path, 'r') as fp:
             self.model = json.load(fp)
+            self.topics = list(self.model["model"].keys())
+        
     def getTopic(self):
         largest = 0
         key = ""
@@ -194,3 +198,23 @@ class GBK:
             print(model)
             
             
+class Merger:
+    
+    def merge(self,models):
+        model = GBK()
+        model = models[0]
+        for i in range(1,len(models)):
+            topics = models[i].topics
+            # print(topics)
+            for j in range(0,len(topics)):
+                # print(topics[j])
+                print(models[i].model["model"][topics[j]]["features"])
+            
+        # print (model.model)
+        # print("\n")
+        # x = {'both1':1, 'both2':2, 'only_x': 100 }
+        # y = {'both1':10, 'both2': 20, 'only_y':200 }
+        
+        # print ({ k: x.get(k, 0) + y.get(k, 0) for k in set(x) })
+        # print({ k: x.get(k, 0) + y.get(k, 0) for k in set(x) & set(y) })
+        # print({ k: x.get(k, 0) + y.get(k, 0) for k in set(x) | set(y) })

@@ -50,15 +50,16 @@ print(model.model["model"]["sport"]["features"])
 print("\n")
 model.tojson("sportsmodel")
 
-model.removeweights()
+# model.removeweights()
 print(model.model["model"]["notsport"]["features"])
 print(model.model["model"]["sport"]["features"])
-
+model.tojson("sportsmodel")
 model.setweights()
 
 print(model.model["model"]["notsport"]["features"])
 print(model.model["model"]["sport"]["features"])
 print("\n")
 
+print(model.topics)
 # https://stevenloria.com/tf-idf/
 # 7
