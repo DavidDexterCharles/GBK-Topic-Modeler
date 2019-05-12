@@ -1,40 +1,40 @@
 {
     "model": {
         "notsport": {
-            "CoOccurenceCount": 1, 
-            "TermVectorAverage": 0, 
+            "CoOccurenceCount": 2, 
+            "TermVectorAverage": 1.5, 
             "features": {
-                "a": 1.0, 
-                "close": 1.0, 
-                "death": 1.0, 
-                "elc": 2.0, 
-                "election": 2.0, 
-                "it": 1.0, 
-                "notsport": 2.0, 
-                "np": 2.0, 
-                "over": 1.0, 
-                "the": 1.0, 
-                "was": 2.0
+                "a": 0.666667, 
+                "close": 0.666667, 
+                "death": 0.666667, 
+                "elc": 1.333333, 
+                "election": 1.333333, 
+                "it": 0.666667, 
+                "notsport": 1.333333, 
+                "np": 1.333333, 
+                "over": 0.666667, 
+                "the": 0.666667, 
+                "was": 1.333333
             }
         }, 
         "sport": {
-            "CoOccurenceCount": 2, 
-            "TermVectorAverage": 0, 
+            "CoOccurenceCount": 3, 
+            "TermVectorAverage": 2.0, 
             "features": {
-                "a": 2.0, 
-                "ball": 1.0, 
-                "but": 1.0, 
-                "clean": 2.0, 
-                "forgettable": 1.0, 
-                "game": 2.0, 
-                "go": 1.0, 
-                "great": 1.0, 
-                "match,": 1.0, 
-                "occur": 1.0, 
-                "sp": 3.0, 
-                "sport": 3.0, 
-                "sports": 2.0, 
-                "very": 1.0
+                "a": 1.0, 
+                "ball": 0.5, 
+                "but": 0.5, 
+                "clean": 1.0, 
+                "forgettable": 0.5, 
+                "game": 1.0, 
+                "go": 0.5, 
+                "great": 0.5, 
+                "match,": 0.5, 
+                "occur": 0.5, 
+                "sp": 1.5, 
+                "sport": 1.5, 
+                "sports": 1.0, 
+                "very": 0.5
             }
         }
     }

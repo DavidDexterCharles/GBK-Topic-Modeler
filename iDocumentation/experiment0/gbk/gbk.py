@@ -67,35 +67,43 @@ class GBK:
                     self.model[topic][keyword]['CoOccurenceCount'] = self.keycount[topic][keyword]
                     # print("word={} Occurence={}\n".format(keyword,self.model[topic][keyword]['docamt']))
     def setweights(self):
-        for topic,topiclist in self.topics.items():
-            for i in range(0,len(topiclist)):
-                largestkey = 0 #each key word has its own feturevector, and hence its own average weighting value
-                total = 0
-                sumofweights = 0
-                numberofweights = 0
-                averageweight = 0
-                keyword = topiclist[i]
-                features = self.model[topic][keyword]['features']
-                sortedweights = sorted(features.items(),key=lambda p:p[1])
-                for k,v in sortedweights:
-                    if largestkey < v:
-                        largestkey = v # prevents counting duplicated weights
-                        sumofweights += v
-                        numberofweights += 1
-                if(sumofweights > 0 and numberofweights>0):
-                    averageweight = sumofweights/numberofweights
-                    self.model[topic][keyword]['TermVectorAverage'] = averageweight
-                    for k,v in sortedweights:
-                        averageweightofvalue = round(v/averageweight,6)
-                        self.model[topic][keyword]['features'][k] = round((averageweightofvalue),6) 
+       
+            for topic,topiclist in self.topics.items():
+                for i in range(0,len(topiclist)):
+                    largestkey = 0 #each key word has its own feturevector, and hence its own average weighting value
+                    total = 0
+                    sumofweights = 0
+                    numberofweights = 0
+                    averageweight = 0
+                    keyword = topiclist[i]
+                    result =self.model[topic][keyword]['TermVectorAverage']
+                    # print(result)
+                    if(result<=0):
+                        # print('setweights test')
+                        # print(self.topics.items())
+                        features = self.model[topic][keyword]['features']
+                        sortedweights = sorted(features.items(),key=lambda p:p[1])
+                        for k,v in sortedweights:
+                            if largestkey < v:
+                                largestkey = v # prevents counting duplicated weights
+                                sumofweights += v
+                                numberofweights += 1
+                        if(sumofweights > 0 and numberofweights>0):
+                            averageweight = sumofweights/numberofweights
+                            self.model[topic][keyword]['TermVectorAverage'] = averageweight
+                            for k,v in sortedweights:
+                                averageweightofvalue = round(v/averageweight,6)
+                                self.model[topic][keyword]['features'][k] = round((averageweightofvalue),6) 
                         
     def removeweights(self):
         for key, value in self.model["model"].items():
             features = self.model["model"][key]["features"]
             termcount = 0
+            # if(self.model["model"][key]['TermVectorAverage']>0):
             for k,v in features.items():
                  termcount = features[k] *  self.model["model"][key]['TermVectorAverage']
-                 self.model["model"][key]["features"][k] = round(termcount,1)  
+                 self.model["model"][key]["features"][k] = round(termcount,1)
+            # print('removeweights test')
             self.model["model"][key]['TermVectorAverage'] = 0
         
     def goodtopicscore(self,keys,content):
@@ -113,7 +121,7 @@ class GBK:
     def load(self,path):
         with open(path, 'r') as fp:
             self.model = json.load(fp)
-            self.topics = list(self.model["model"].keys())
+            self.topics['model'] = list(self.model["model"].keys())
         
     def getTopic(self):
         largest = 0
@@ -203,23 +211,32 @@ class Merger:
     def merge(self,models):
         model = GBK()
         model = models[0]
+        model.removeweights()
         for i in range(1,len(models)):
-            topics = models[i].topics
+            models[i].removeweights()
+            topics = models[i].topics['model']
             # print(topics)
             for j in range(0,len(topics)):
                 # print(topics[j])
-                features = models[i].model["model"][topics[j]]["features"]
-                if topics[j] in model.topics:
+                jtopic = models[i].model["model"][topics[j]]
+                jfeatures = models[i].model["model"][topics[j]]["features"]
+                if topics[j] in model.topics['model']:
                     x = model.model['model'][topics[j]]['features']
-                    y = features
+                    y = jfeatures
                     z = { k: x.get(k, 0) + y.get(k, 0) for k in set(x) | set(y) }
                     model.model['model'][topics[j]]['features'] = z 
-                    print(z)
+                    model.model['model'][topics[j]]['CoOccurenceCount'] += jtopic['CoOccurenceCount']
+                    # print(z)
                 else:
-                    model.topics.append(topics[j])
+                    model.topics['model'].append(topics[j])
+                    # print(model.topics['model'])
                     model.model["model"][topics[j]] = {}
-                    model.model["model"][topics[j]]["features"]=features
+                    model.model['model'][topics[j]]['CoOccurenceCount'] = jtopic['CoOccurenceCount']
+                    model.model['model'][topics[j]]['TermVectorAverage'] = jtopic['TermVectorAverage']
+                    model.model["model"][topics[j]]["features"] = jfeatures
         
+        model.setweights()
+        # print(model.model["model"])
         model.tojson("merged")   
         # print ( model.model["model"])
         # print("\n")

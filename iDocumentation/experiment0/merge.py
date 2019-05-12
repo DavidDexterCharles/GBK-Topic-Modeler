@@ -31,7 +31,8 @@ model2 = Model()
 # # print(model1.model)
 # for i in range (0,len(doclist2)):
 #     model2.build(doclist2[i])
-
+# model1.load("sportsmodel1.json")
+# model2.load("sportsmodel2.json")
 # model1.setweights()
 # model2.setweights()
 # model1.removeweights()
@@ -41,7 +42,10 @@ model2 = Model()
 
 model1.load("sportsmodel1.json")
 model2.load("sportsmodel2.json")
-
+# model1.setweights()
+# model2.setweights()
+# model1.tojson("sportsmodel1")
+# model2.tojson("sportsmodel2")
 # print(model1.model)
 merger = Merger()
 models = []
