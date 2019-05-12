@@ -25,3 +25,8 @@ https://github.com/bapspatil/ML-Lab/blob/master/6-MNB.py
 https://towardsdatascience.com/machine-learning-nlp-text-classification-using-scikit-learn-python-and-nltk-c52b92a7c73a
 https://www.datacamp.com/community/tutorials/naive-bayes-scikit-learn
 https://www.cnblogs.com/yymn/p/4518016.html (IMPORTANT)
+
+Model Comparisons:
+http://www.computerscijournal.org/wp-content/uploads/2015/01/Vol07_No3_Comp_Saga_T1.jpg
+https://www.computerscijournal.org/vol8no1/a-comparative-study-of-classification-techniques-in-data-mining-algorithms/
+https://www.google.com/search?q=what+is+meant+by+overfitting&oq=what+is+meant+by+overfitting&aqs=chrome..69i57.6119j0j1&sourceid=chrome&ie=UTF-8

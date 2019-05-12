@@ -5,6 +5,8 @@ import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.model_selection  import train_test_split
 from sklearn.naive_bayes import MultinomialNB
+from sklearn.metrics import confusion_matrix , classification_report
+
 
 df=pd.read_csv('smsspam.csv',sep='\t',names=['Status','Message'])
 
@@ -56,13 +58,22 @@ print(predictions)
 a=np.array(y_test)
 print(a)
 
+
+# Explains the target Attribute: https://scikit-learn.org/stable/datasets/index.html
+
 count = 0
+y_true = []
+y_pred = []
 for i in range (len(predictions)):
+    y_true.append(a[i])
+    y_pred.append(predictions[i])
     if predictions[i]==a[i]:
         count=count+1
+    
     # else:
     #     print("\n")
     #     print(xx_test.iloc[i])
+print(classification_report(y_true, y_pred,labels=[1,0]))
 print(count)
 print(len(predictions))
 print(count/len(predictions))
@@ -70,10 +81,11 @@ print(count/len(predictions))
 # ==========================================================================================================================
 
 # =================================================================================================================================
-
-# https://github.com/DavidDexterCharles/bit-of-data-science-and-scikit-learn/blob/master/notebooks/FeatureExtraction.ipynb
 print("==========Group BY Key================================================================================================================")
+# https://scikit-learn.org/stable/modules/generated/sklearn.metrics.confusion_matrix.html
 from gbk.gbk import GBK as Model
+
+ 
 topics = {}
 keys = {}
 topics['model'] =['spam','ham']
@@ -89,13 +101,22 @@ for i in range(0,len(xx_train)):
     model.build(topics,keys,(xx_train.iloc[i])+" "+yy_train.iloc[i]+" ")
 model.setweights(topics)
 gbkcount =0
+y_true =[]
+y_pred = []
 for i in range (0,len(xx_test)):
     predictedtag,weight = model.predict('model',(xx_test.iloc[i])).getTopic()
+    y_true.append(yy_test.iloc[i])
+    y_pred.append(predictedtag)
     if predictedtag == yy_test.iloc[i]:
         gbkcount+=1
     # else:
     #     print("\n")
     #     print(xx_test.iloc[i])
+# https://scikit-learn.org/stable/modules/generated/sklearn.metrics.confusion_matrix.html
+# print(confusion_matrix(y_true, y_pred, labels=["ham","spam"]))#https://hackernoon.com/idiots-guide-to-precision-recall-and-confusion-matrix-b32d36463556
+# print(yy_test)
+# https://www.youtube.com/watch?v=8Oog7TXHvFY
+print(classification_report(y_true, y_pred, labels=["ham","spam"]))
 print(gbkcount)
-
-# https://github.com/bapspatil/ML-Lab/blob/master/6-MNB.py
+print(len(xx_test))
+print(gbkcount/len(xx_test))

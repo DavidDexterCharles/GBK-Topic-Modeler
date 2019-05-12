@@ -208,9 +208,20 @@ class Merger:
             # print(topics)
             for j in range(0,len(topics)):
                 # print(topics[j])
-                print(models[i].model["model"][topics[j]]["features"])
-            
-        # print (model.model)
+                features = models[i].model["model"][topics[j]]["features"]
+                if topics[j] in model.topics:
+                    x = model.model['model'][topics[j]]['features']
+                    y = features
+                    z = { k: x.get(k, 0) + y.get(k, 0) for k in set(x) | set(y) }
+                    model.model['model'][topics[j]]['features'] = z 
+                    print(z)
+                else:
+                    model.topics.append(topics[j])
+                    model.model["model"][topics[j]] = {}
+                    model.model["model"][topics[j]]["features"]=features
+        
+        model.tojson("merged")   
+        # print ( model.model["model"])
         # print("\n")
         # x = {'both1':1, 'both2':2, 'only_x': 100 }
         # y = {'both1':10, 'both2': 20, 'only_y':200 }

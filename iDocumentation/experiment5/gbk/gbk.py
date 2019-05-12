@@ -86,7 +86,7 @@ class GBK:
         
     def countPhrase(self,key,content):
         i=0
-        thekey = ' '+key.lower() +' '
+        thekey = key.lower() 
         if thekey in content:
           i = content.count(key.lower())
         #   print(key)
