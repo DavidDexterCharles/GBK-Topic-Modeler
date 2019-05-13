@@ -99,11 +99,11 @@ class GBK:
         for key, value in self.model["model"].items():
             features = self.model["model"][key]["features"]
             termcount = 0
-            # if(self.model["model"][key]['TermVectorAverage']>0):
-            for k,v in features.items():
-                 termcount = features[k] *  self.model["model"][key]['TermVectorAverage']
-                 self.model["model"][key]["features"][k] = round(termcount,1)
-            # print('removeweights test')
+            if(self.model["model"][key]['TermVectorAverage']>0):
+                for k,v in features.items():
+                     termcount = features[k] *  self.model["model"][key]['TermVectorAverage']
+                     self.model["model"][key]["features"][k] = round(termcount,1)
+                # print('removeweights test')
             self.model["model"][key]['TermVectorAverage'] = 0
         
     def goodtopicscore(self,keys,content):

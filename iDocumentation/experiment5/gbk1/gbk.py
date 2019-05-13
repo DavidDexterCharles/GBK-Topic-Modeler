@@ -50,6 +50,7 @@ class GBK:
         for topic,topiclist in topics.items():
             for i in range(0,len(topiclist)):
                 keyword = topiclist[i]
+                # self.goodtopicscore(keys[keyword],articlecontent):
                 if self.goodtopicscore(keys[keyword],articlecontent):#keyword.lower() in articlecontent:
                     visited = {}
                     result = articlecontent.split()
@@ -85,10 +86,10 @@ class GBK:
         
     def countPhrase(self,key,content):
         i=0
-        thekey = ' '+key.lower() +' '
+        thekey = key.lower() 
         if thekey in content:
           i = content.count(key.lower())
-          print(key)
+        #   print(key)
           if i < 1:
                i =1
             
@@ -125,7 +126,7 @@ class GBK:
                 else:
                     # print("Error:{} sumofweights or numberofweights was <= 0 {}".format(keyword,self.model[topic][keyword]['features']))
                     error =1
-                # self.model[topic][keyword]['features'][keyword] = 100        # Ensures Keyword is always 100 %
+                self.model[topic][keyword]['features'][keyword] = 1       # Ensures Keyword is always 100 %
                 # print(self.model[topic][keyword]['features'])
         
     def tojson(self,path):

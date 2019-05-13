@@ -1,6 +1,7 @@
 from pages import page
 from documents import document
 from gbk.gbk import GBK as Model
+from gbk.gbk import Merger
 import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize, sent_tokenize 
@@ -73,7 +74,7 @@ keys['sport']=['medals','games','volleyball','Coaching','captain','coach','Racin
 'winning','champion','match','game','tournament','win','Cycling',"sport","nfl",'nba','football','basketball',
 'boxing','tennis','cricket','olynmpic','athletic','swimming','cycling']
 
-model.init(topics).MinKey(2)
+model.init(topics,keys).MinKey(2)
 
 doc = document[0]
 
@@ -102,13 +103,13 @@ doc = document[0]
 # However with the presented algorithm: Tf-Idf isn't needed for the penalisation of certain kewords to work also, 
 # Treating t
 
-# for i in range(0,len(page)):
-#             model.build(topics,keys,applynounfilter(page[i]))
-# for i in range(0,len(document)):
-#             model.build(topics,keys,(document[i]))
+for i in range(0,len(page)):
+            model.build((page[i]))
+for i in range(0,len(document)):
+            model.build((document[i]))
             
-# model.setweights(topics)
-# model.tojson("articlemodel")
+model.setweights()
+model.tojson("articlemodel")
 model.load("articlemodel.json")
 
 
@@ -145,3 +146,10 @@ print(applynounfilter(doc)) #applynounfilter
 
 Lara reflective mood yesterday invited media home Lady Chancellor Hill share toast reveal more personal side man who now grandfather.
 '''
+articlemodel1 = Model()
+articlemodel2 = Model()
+articlemodel1.load("articlemodel1.json")
+articlemodel2.load("articlemodel2.json")
+merger = Merger()
+models = [articlemodel1,articlemodel2]
+merger.merge(models)

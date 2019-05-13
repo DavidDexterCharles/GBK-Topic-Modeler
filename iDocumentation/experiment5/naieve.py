@@ -92,14 +92,14 @@ topics['model'] =['spam','ham']
 keys['spam']=['spam']
 keys['ham']=['ham']
 model = Model()
-model.init(topics)
+model.init(topics,keys)
 
 # print(len(x_test))
 # print(len(y_test))
 
 for i in range(0,len(xx_train)):
-    model.build(topics,keys,(xx_train.iloc[i])+" "+yy_train.iloc[i]+" ")
-model.setweights(topics)
+    model.build((xx_train.iloc[i])+" "+yy_train.iloc[i]+" ")
+model.setweights()
 gbkcount =0
 y_true =[]
 y_pred = []
