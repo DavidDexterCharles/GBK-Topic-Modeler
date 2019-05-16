@@ -2,6 +2,7 @@ import csv
 from gbk2 import GBK as Model
 from sklearn.datasets import fetch_20newsgroups
 from gbk.gbk import GBK as Model2
+from sklearn.metrics import confusion_matrix , classification_report
 # from testdocs import *
 
 # https://github.com/DavidDexterCharles/bit-of-data-science-and-scikit-learn/blob/master/notebooks/FeatureExtraction.ipynb
@@ -20,15 +21,17 @@ categories =[
  'misc.forsale',
  'rec.autos',
  'rec.motorcycles',
- 'rec.sport.baseball'#,
-#  'rec.sport.hockey',
-#  'sci.crypt',
-#  'sci.electronics',
-#  'sci.med',
-#  'soc.religion.christian',
-#  'talk.politics.guns',
-#  'talk.politics.mideast',
-#  'talk.politics.misc',
+ 'rec.sport.baseball',
+ 
+ 
+ 'rec.sport.hockey',
+ 'sci.crypt',
+ 'sci.electronics',
+ 'sci.med',
+ 'soc.religion.christian',
+ 'talk.politics.guns',
+ 'talk.politics.mideast',
+ 'talk.politics.misc'
  
  
  ]
@@ -48,6 +51,8 @@ keys ['misc.forsale'] =['misc.forsale']
 keys ['rec.autos'] =['rec.autos']
 keys ['rec.motorcycles'] =['rec.motorcycles']
 keys ['rec.sport.baseball'] =['rec.sport.baseball']
+
+
 keys ['rec.sport.hockey'] =['rec.sport.hockey']
 keys ['sci.crypt'] =['sci.crypt']
 keys ['sci.electronics'] =['sci.electronics']
@@ -118,12 +123,16 @@ def printAccuracy(name):
     dataset = list(testdata.data)
     numFalse = 0
     numTrue = 0
+    y_true =[]
+    y_pred = []
     for i in range(0,len(dataset)):
         result = model.predict('model',(dataset[i].lower())).getTopic()
         tag,weight = result# getTopic(result)
-        
+        y_true.append(testdata.target_names[testdata.target[i]])
+        y_pred.append(tag)
         if testdata.target_names[testdata.target[i]]!= tag:
             numFalse += 1
+            print(numFalse)
         else:
             # print("{} {}".format(testdata.target_names[testdata.target[i]],tag))
             numTrue += 1
@@ -135,6 +144,9 @@ def printAccuracy(name):
         #         else:
         #             print("{} {}".format(testdata.target_names[testdata.target[i]],tag))
         #             numTrue += 1
+    print(confusion_matrix(y_true, y_pred, labels=categories))
+    print(classification_report(y_true, y_pred, labels=categories))
+    
     print("\n")
     print("Total: {} \n True: {} \n False: {}".format(len(dataset),numTrue,numFalse))
 

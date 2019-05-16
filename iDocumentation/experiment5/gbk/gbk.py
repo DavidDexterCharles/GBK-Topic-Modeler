@@ -93,7 +93,7 @@ class GBK:
                             self.model[topic][keyword]['TermVectorAverage'] = averageweight
                             for k,v in sortedweights:
                                 averageweightofvalue = round(v/averageweight,6)
-                                self.model[topic][keyword]['features'][k] = round((averageweightofvalue),6) 
+                                self.model[topic][keyword]['features'][k] = round((averageweightofvalue),6)
                         
     def removeweights(self):
         for key, value in self.model["model"].items():

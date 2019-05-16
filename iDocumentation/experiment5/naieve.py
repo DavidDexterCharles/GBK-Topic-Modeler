@@ -89,8 +89,8 @@ from gbk.gbk import GBK as Model
 topics = {}
 keys = {}
 topics['model'] =['spam','ham']
-keys['spam']=['spam']
-keys['ham']=['ham']
+keys['spam']=['spamx']
+keys['ham']=['hamx']
 model = Model()
 model.init(topics,keys)
 
@@ -98,7 +98,7 @@ model.init(topics,keys)
 # print(len(y_test))
 
 for i in range(0,len(xx_train)):
-    model.build((xx_train.iloc[i])+" "+yy_train.iloc[i]+" ")
+    model.build((xx_train.iloc[i])+" "+yy_train.iloc[i]+"x ")
 model.setweights()
 gbkcount =0
 y_true =[]

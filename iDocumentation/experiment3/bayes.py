@@ -2,6 +2,7 @@ from sklearn.datasets import fetch_20newsgroups
 from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
 from sklearn.naive_bayes import MultinomialNB
 from sklearn import metrics
+from sklearn.metrics import confusion_matrix , classification_report
 
 newsgroups_train = fetch_20newsgroups(subset='train')
 # categories = ['alt.atheism', 'talk.religion.misc',
@@ -21,15 +22,17 @@ categories =[
  'misc.forsale',
  'rec.autos',
  'rec.motorcycles',
- 'rec.sport.baseball'#,
-#  'rec.sport.hockey',
-#  'sci.crypt',
-#  'sci.electronics',
-#  'sci.med',
-#  'soc.religion.christian',
-#  'talk.politics.guns',
-#  'talk.politics.mideast',
-#  'talk.politics.misc',
+ 'rec.sport.baseball',
+ 
+ 
+ 'rec.sport.hockey',
+ 'sci.crypt',
+ 'sci.electronics',
+ 'sci.med',
+ 'soc.religion.christian',
+ 'talk.politics.guns',
+ 'talk.politics.mideast',
+ 'talk.politics.misc'
  
  
  ]
@@ -41,7 +44,7 @@ newsgroups_test = fetch_20newsgroups(subset='test',
                                      categories=categories)                                      
                                       
                                       
-vectorizer = TfidfVectorizer()#CountVectorizer()
+vectorizer =CountVectorizer()# TfidfVectorizer()#CountVectorizer()
 # the following will be the training data
 vectors = vectorizer.fit_transform(newsgroups_train.data)
 vectors.shape
@@ -69,8 +72,19 @@ pred = clf.predict(vectors_test)
 
 print(len(pred))
 count = 0
+y_true =[]
+y_pred = []
+
 for i in range (len(pred)):
+    y_true.append(newsgroups_test.target_names[newsgroups_test.target[i]])
+    y_pred.append(newsgroups_test.target_names[pred[i]])
     if pred[i]==newsgroups_test.target[i]:
         count=count+1
-print(count)
 
+# print(y_pred)
+print(confusion_matrix(y_true, y_pred, labels=categories))
+print(classification_report(y_true, y_pred, labels=categories))
+print("\n")
+print("Total: {} \n True: {} \n False: {}".format(len(pred),count,len(pred)-count))
+
+    
