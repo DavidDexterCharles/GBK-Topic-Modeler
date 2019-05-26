@@ -81,7 +81,7 @@ def getTopic(topic):
 def predict(i,name):
     model = Model2()
     model.load(name)
-    result = model.predict('model',(testdata.data[i])).getTopic()
+    result = model.predict('model',(testdata.data[i].lower())).getTopic()
     key,value = result#getTopic(result)
     print("\nTAG_RETURNED: {} {}".format(key,value))
     print ("RESULT:{}".format(result))
@@ -181,12 +181,12 @@ def RebuildNewsGroupModel(name,keywords):
 if __name__ == '__main__':
     
     # https://textblob.readthedocs.io/en/dev/classifiers.html
-    # RebuildNewsGroupModel("model11",categories)
+    RebuildNewsGroupModel("modeltest",categories)
     
     print("test")
     
     
-    printAccuracy("model11.json")
+    printAccuracy("modeltest.json")
     # ReportForModel("model5.json")
     # ReportForModel("model11.json")
     # print("{} {}".format(testdata.filenames[7], testdata.target[:10]),list(testdata.data)[7])

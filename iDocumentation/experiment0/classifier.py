@@ -1,15 +1,18 @@
 from gbk.gbk import GBK as Model
 
 model = Model()
-model.load("merged.json")
-document = "At  election  time the game played on the news ended quickly"
-# document = "A  very close sport game was played "
+# model.load("merged.json")
+model.load("model_Standardized.json")
+
+document1 = "At  election  time the game of politics is played"
+document2 = "A  very close sport game was played "
 
 
-result = model.predict('model',document).getTopics()
+result1 = model.predict('model',document1).getTopics()
+result2 = model.predict('model',document2).getTopics()
 
 
 
-print(result)
+print("Result1:{}\nResult2:{}".format(result1,result2))
 
 

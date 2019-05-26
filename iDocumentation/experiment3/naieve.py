@@ -19,7 +19,7 @@ df_x=df["Message"]
 df_y=df["Status"]
 # print(df_x)
 # print(df_y)
-
+# https://medium.com/@contactsunny/how-to-split-your-dataset-to-train-and-test-datasets-using-scikit-learn-e7cf6eb5e0d
 xx_train, xx_test, yy_train, yy_test = train_test_split(df_x, df_y, test_size=0.2, random_state=4)
 
 df.loc[df["Status"]=='ham',"Status",]=1
@@ -31,8 +31,8 @@ df.loc[df["Status"]=='spam',"Status",]=0
 x_train, x_test, y_train, y_test = train_test_split(df_x, df_y, test_size=0.2, random_state=4)
 # print(x_train.head())
 
-cv = CountVectorizer()
-x_traincv = cv.fit_transform(["Hi How are you How are you doing","Hi what's up","Wow that's awesome"])
+# cv = CountVectorizer()
+# x_traincv = cv.fit_transform(["Hi How are you How are you doing","Hi what's up","Wow that's awesome"])
 # print(x_traincv.toarray())
 # print(cv.get_feature_names())
 
@@ -46,7 +46,7 @@ x_testcv=cv1.transform(x_test)
 # print(x_testcv.toarray())
 
 
-mnb = MultinomialNB()
+mnb = MultinomialNB()#alpha=.01
 y_train=y_train.astype('int')
 # print(y_train)
 res = mnb.fit(x_traincv,y_train)
@@ -110,6 +110,7 @@ for i in range (0,len(xx_test)):
     if predictedtag == yy_test.iloc[i]:
         gbkcount+=1
     # else:
+    #     print(predictedtag)
     #     print("\n")
     #     print(xx_test.iloc[i])
 # https://scikit-learn.org/stable/modules/generated/sklearn.metrics.confusion_matrix.html

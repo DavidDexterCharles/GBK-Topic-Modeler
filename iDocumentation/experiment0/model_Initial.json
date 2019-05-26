@@ -1,0 +1,14 @@
+{
+    "model": {
+        "notsport": {
+            "DocumentCount": 0,
+            "TermVectorAverage": 0,
+            "features": {}
+        },
+        "sport": {
+            "DocumentCount": 0,
+            "TermVectorAverage": 0,
+            "features": {}
+        }
+    }
+}

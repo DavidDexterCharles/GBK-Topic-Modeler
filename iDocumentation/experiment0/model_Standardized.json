@@ -1,0 +1,37 @@
+{
+    "model": {
+        "notsport": {
+            "DocumentCount": 2,
+            "TermVectorAverage": 1.5,
+            "features": {
+                "a": 0.666667,
+                "close": 0.666667,
+                "election": 1.333333,
+                "it": 0.666667,
+                "notsport": 1.333333,
+                "np": 1.333333,
+                "over": 0.666667,
+                "the": 0.666667,
+                "was": 1.333333
+            }
+        },
+        "sport": {
+            "DocumentCount": 3,
+            "TermVectorAverage": 2.0,
+            "features": {
+                "a": 1.0,
+                "but": 0.5,
+                "clean": 1.0,
+                "game": 1.0,
+                "great": 0.5,
+                "match": 0.5,
+                "occur": 0.5,
+                "sp": 1.5,
+                "sport": 1.5,
+                "sports": 0.5,
+                "unforgettable": 0.5,
+                "very": 0.5
+            }
+        }
+    }
+}

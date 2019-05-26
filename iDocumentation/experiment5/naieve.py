@@ -2,7 +2,7 @@
 # https://www.reddit.com/r/MachineLearning/comments/1inxnq/how_to_factor_in_tfidf_with_naive_bayes/
 import numpy as np
 import pandas as pd
-from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.model_selection  import train_test_split
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.metrics import confusion_matrix , classification_report
@@ -20,7 +20,7 @@ df_y=df["Status"]
 # print(df_x)
 # print(df_y)
 
-xx_train, xx_test, yy_train, yy_test = train_test_split(df_x, df_y, test_size=0.2, random_state=4)
+xx_train, xx_test, yy_train, yy_test = train_test_split(df_x, df_y, test_size=0.2, random_state=4)#https://stackoverflow.com/questions/28064634/random-state-pseudo-random-number-in-scikit-learn
 
 df.loc[df["Status"]=='ham',"Status",]=1
 df.loc[df["Status"]=='spam',"Status",]=0
@@ -31,7 +31,7 @@ df.loc[df["Status"]=='spam',"Status",]=0
 x_train, x_test, y_train, y_test = train_test_split(df_x, df_y, test_size=0.2, random_state=4)
 # print(x_train.head())
 
-cv = CountVectorizer()
+cv = TfidfVectorizer()#TfidfVectorizer()#CountVectorizer()
 x_traincv = cv.fit_transform(["Hi How are you How are you doing","Hi what's up","Wow that's awesome"])
 # print(x_traincv.toarray())
 # print(cv.get_feature_names())
@@ -52,9 +52,9 @@ y_train=y_train.astype('int')
 res = mnb.fit(x_traincv,y_train)
 # print(res)
 testmessage=x_test.iloc[0]
-print(testmessage)
+# print(testmessage)
 predictions=mnb.predict(x_testcv)
-print(predictions)
+# print(predictions)
 a=np.array(y_test)
 print(a)
 

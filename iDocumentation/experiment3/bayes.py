@@ -12,7 +12,7 @@ newsgroups_train = fetch_20newsgroups(subset='train')
 categories =[
  'alt.atheism',
  'sci.space',
- 'comp.graphics',
+  'comp.graphics',
  'talk.religion.misc',
  
  'comp.os.ms-windows.misc',
@@ -22,17 +22,17 @@ categories =[
  'misc.forsale',
  'rec.autos',
  'rec.motorcycles',
- 'rec.sport.baseball',
+ 'rec.sport.baseball'#,
  
  
- 'rec.sport.hockey',
- 'sci.crypt',
- 'sci.electronics',
- 'sci.med',
- 'soc.religion.christian',
- 'talk.politics.guns',
- 'talk.politics.mideast',
- 'talk.politics.misc'
+#  'rec.sport.hockey',
+#  'sci.crypt',
+#  'sci.electronics',
+#  'sci.med',
+#  'soc.religion.christian',
+#  'talk.politics.guns',
+#  'talk.politics.mideast',
+#  'talk.politics.misc'
  
  
  ]
