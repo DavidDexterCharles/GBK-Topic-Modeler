@@ -1,5 +1,6 @@
 from crawler.crawler import Crawler
 from classifier.gbc import GBC as Classifier
+from collections import Counter 
 import requests
 import json
 headers = {'Content-Type': 'application/json'}
@@ -39,16 +40,64 @@ class Model(object):
     def getCategory(self,query):
         # result = self.traversePages("setTopicandTerms",'topicmodel')
         classifier = Classifier()
+        result = self.traversePages("setTopicandTerms",'topicmodel')
+        classifier.init(result.topics,result.terms).MinKey(2)
         classifier.load('articlemodel.json')
+        # classifier.load('classvectors.json')
         # classifier.init(result.topics,result.terms).MinKey(2)
         
         # classifier = self.traversePages("retrainClassifier",'article',classifier).classifier
         # classifier.setweights()
         # classifier.tojson('classvectors')
         outcome = classifier.predict('model',query).getTopics()
-        outcome['Answer']=classifier.predict('model',query).getTopic()
-        print(outcome)
+        
+        k = Counter(outcome) 
+        # Finding 3 highest values 
+        answer = k.most_common(3)  
+        categories=outcome
+        outcome={}
+        outcome['categoriestop3']=answer
+        outcome['categories']=categories
+        outcome['document']=query
+        
+        outcome['categorieswordmatch'] = {}
+        # outcome['wordmatches']['a']=1 #= classifier.termVectors
+        # outcome['wordmatches']['b']=2
+        for k,v in classifier.termVectors.items():
+            outcome['categorieswordmatch'][k]=str(v)
+            # print(k)
+            # print(v)
+        outcome['categoriesconfidence'] = {}    
+        for k,arr in result.terms.items():
+            value = classifier.goodtopicscore(arr,query.lower())
+            outcome['categoriesconfidence'][k]=value
+            print("{} {}".format(k,value))
+            value = 0
+        # print(type(classifier.termVectors))
+        # print(classifier.termVectors)
         return json.dumps(outcome)
+    
+    def getKeyword(self,query):
+        q = '?q={"filters":[{"name":"word","op":"eq","val":"'+query+'"}]}'
+        result = requests.get(apidomain+'keyword'+q).content
+        return result
+    
+    def createkeyword(self, request):
+        data = json.dumps(request.get_json())
+        return requests.post(apidomain + 'keyword', data, headers=headers).content
+
+    def updatekeyword(self, request):
+        data = json.dumps(request.get_json())
+        return requests.patch(apidomain + 'keyword', data, headers=headers).content
+
+    def deletekeyword(self, id):
+        return requests.delete(apidomain + 'keyword/'+id, headers=headers).content
+         
+    def getallkeywords(self):
+        return requests.get(apidomain + 'keyword', headers=headers).content
+        
+    def getbyidkeyword(self, id):
+        return requests.get(apidomain + 'keyword/'+id, headers=headers).content
         
     def getTopics(self):
         result = self.traversePages("setTopicandTerms",'topicmodel')
@@ -60,7 +109,6 @@ class Model(object):
         classifier = self.traversePages("retrainClassifier",'article',classifier).classifier
         classifier.setweights()
         classifier.tojson("classvectors")
-        classifier.predict()
         return "test2"
     
     

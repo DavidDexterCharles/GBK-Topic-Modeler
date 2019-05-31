@@ -7,6 +7,18 @@ mvcmodel = Model()
 def test():
     return "test"
 
+@app.route('/keywords/', methods=['GET'])
+@app.route('/keywords', methods=['GET'])
+def getwordkey():
+    query = request.args.get('query')
+    if query:
+        result = mvcmodel.getKeyword(query)
+    else:
+        result= mvcmodel.getallkeywords()
+    
+    return result
+
+
 @app.route('/categoriekey', methods=['GET'])
 def getcategoriekey():
     query = request.args.get('query')
