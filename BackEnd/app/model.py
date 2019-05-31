@@ -14,16 +14,30 @@ class TopicModel(object):
         self.terms = {}
     
     def setTopicandTerms(self,result):
-        for i in range(0,len(result["objects"])):
-            category = result["objects"]['categorie']['name']
-            keyword = result["objects"]['Keyword']['word']
+        # print ("tesr")
+        # # print(result)
+    
+        for i in range(0,len(result)):
+            category = result[i]['categorie']['name']
+            keyword = result[i]['Keyword']['word']
             if category not in self.topics['model']:
                 self.topics['model'].append(category)
                 self.terms[category] = []
             self.terms[category].append(keyword) 
+        
 
 
 class Model(object):
+    
+    
+    def getTopics(self):
+        apiroute ='topicmodel'
+        result = self.traversePages("setTopicandTerms",apiroute)
+        print(result.topics)
+        print(result.terms)
+        return "test2"
+    
+    
     
     def traversePages(self,action,tablename):
         reQuest =requests.get(apidomain + tablename, headers=headers) #DatabaseAPI
@@ -34,11 +48,11 @@ class Model(object):
         if action == "setTopicandTerms":
             actionObj = TopicModel(action)
             
-        # while nextpage <= numberofpages:
-        #     actionObj = self.processResult(actionObj,result["objects"])
-        #     nextpage += 1
-        #     reQuest =requests.get(apidomain +tablename+'?page='+str(nextpage), headers=headers)
-        #     result = reQuest.json()
+        while nextpage <= numberofpages:
+            actionObj = self.processResult(actionObj,result['objects'])
+            nextpage += 1
+            reQuest =requests.get(apidomain +tablename+'?page='+str(nextpage), headers=headers)
+            result = reQuest.json()
         
         return actionObj
     
@@ -54,11 +68,6 @@ class Model(object):
     def updateClassifier(self,query):
         return 1
     
-    def getTopics(self):
-        apiroute ='topicmodel'
-        result = self.traversePages("setTopicandTerms",apiroute)
-        print(result)
-        return "test2"
     
     def getalltopicmodels(self):
         return requests.get(apidomain + 'topicmodel', headers=headers).content
