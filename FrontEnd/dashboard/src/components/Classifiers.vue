@@ -16,14 +16,19 @@
                  <textarea rows="7" cols="80" v-model="article.content"></textarea>
             </div>
         </div>
+        <div class="">
+            <li v-for="article in articles" v-bind:key="article" v-bind:target="_blank"><a v-bind:href="article.SOURCE">{{article.TITLE}}</a></li>
+        </div>
     </div>
 </template>
 
 <script>
 /* eslint-disable */
+// https://www.youtube.com/watch?v=inJDWcHmsss&list=PLoYCgNOIyGADZuvKJweutZDOO9VI9YiJ9&index=5
 export default {
     data () {
         return {
+            articles:["Article1","Article2"],
             article: {
                 url: '',
                 title: '',
@@ -31,9 +36,16 @@ export default {
                 categories: [],
                 author: ''
             },
-            authors: ['The Net Ninja', 'The Angular Avenger', 'The Vue Vindicator'],
+            // authors: ['The Net Ninja', 'The Angular Avenger', 'The Vue Vindicator'],
             submitted: false
         }
+    },
+    mounted()
+    {
+       fetch("http://gbcsystem-ice-wolf.c9users.io:8082/article").then(response => response.json())
+       .then((data) => {
+           this.articles = data.objects;
+       })
     },
     methods: {
        logName: function(frominput){
