@@ -6,8 +6,47 @@ headers = {'Content-Type': 'application/json'}
 apidomain = 'http://127.0.0.1:8081/api/'
 
 
+class TopicModel(object):
+    def __init__(self,action):
+        self.action = action
+        self.topics ={}
+        self.topics['model']=[]
+        self.terms = {}
+    
+    def setTopicandTerms(self,result):
+        for i in range(0,len(result["objects"])):
+            category = result["objects"]['categorie']['name']
+            keyword = result["objects"]['Keyword']['word']
+            if category not in self.topics['model']:
+                self.topics['model'].append(category)
+                self.terms[category] = []
+            self.terms[category].append(keyword) 
+
 
 class Model(object):
+    
+    def traversePages(self,action,tablename):
+        reQuest =requests.get(apidomain + tablename, headers=headers) #DatabaseAPI
+        result = reQuest.json()
+        numberofpages = result["total_pages"]
+        actionObj = ""
+        nextpage = 1
+        if action == "setTopicandTerms":
+            actionObj = TopicModel(action)
+            
+        # while nextpage <= numberofpages:
+        #     actionObj = self.processResult(actionObj,result["objects"])
+        #     nextpage += 1
+        #     reQuest =requests.get(apidomain +tablename+'?page='+str(nextpage), headers=headers)
+        #     result = reQuest.json()
+        
+        return actionObj
+    
+    def processResult(self,actionObj,result):
+        if actionObj.action == "setTopicandTerms":
+            actionObj.setTopicandTerms(result)
+        return actionObj
+        
     
     def getCategory(self,query):
         return self.getalltopicmodels()
@@ -16,9 +55,10 @@ class Model(object):
         return 1
     
     def getTopics(self):
-        result = requests.get(apidomain + 'topicmodel', headers=headers).json()
-        data = json.dumps(result["objects"][0])
-        return data
+        apiroute ='topicmodel'
+        result = self.traversePages("setTopicandTerms",apiroute)
+        print(result)
+        return "test2"
     
     def getalltopicmodels(self):
         return requests.get(apidomain + 'topicmodel', headers=headers).content
