@@ -35,31 +35,110 @@ doclist = [document1, document2, document3, document4, document5]
 #     print(wordcounter[keys[keyword][i]]) 
   
 # print(wordcounter['death']) 
+def computeTF(wordDict, bow):
+    tfDict = {}
+    bowCount = len(bow)
+    for word, count in wordDict.items():
+        tfDict[word] = count/float(bowCount)
+    return tfDict
+
+def computeIDF(docList):
+    import math
+    idfDict = {}
+    N = len(docList)
+    
+    # idfDict = dict.fromkeys(docList[0].keys(), 0)
+    for doc in docList:
+        for word, val in doc.items():
+            # print(word,val)
+            if val > 0:
+                if word in idfDict:
+                    idfDict[word] += 1
+                else:
+                    idfDict[word] = 1
+    
+    for word, val in idfDict.items():
+        idfDict[word] = math.log10(N / float(val))
+        
+    return idfDict
+
+def computeTFIDF(tfBow, idfs):
+    tfidf = {}
+    for word, val in tfBow.items():
+        tfidf[word] = val*idfs[word]
+    return tfidf
 
 
 for i, doc in enumerate(doclist):
         model.build(doc)
 
-print(model.model["model"]["notsport"]["features"])
-print(model.model["model"]["sport"]["features"])
-print("\n")
+
+# print(model.model["model"]["notsport"]["features"])
+
+# import pandas as pd #https://github.com/mayank408/TFIDF/blob/master/TFIDF.ipynb
+
+# classvectors = [model.model["model"]["notsport"]["features"], model.model["model"]["sport"]["features"]]
+# result = pd.DataFrame(classvectors)
+# # print(result)
+# bowNotsport = list(model.model["model"]["notsport"]["features"].keys())
+# bowSport = list(model.model["model"]["sport"]["features"].keys())
+# # print(bowNotsport)
+
+bow = {}
+classvectors =[]
+for key, val in model.model["model"].items():
+    classvectors.append(model.model["model"][key]["features"])
+    bow[key] = list(model.model["model"][key]["features"].keys())
+tfbow = {}
+for key, val in model.model["model"].items():
+    tfbow[key] = computeTF(model.model["model"][key]["features"], bow[key])
+    
+idfs = computeIDF(classvectors)
+
+# for key, val in model.model["model"].items():
+#     model.model["model"][key]["features"] = computeTFIDF(tfbow[key],idfs)
+
+# print(tfbow)
+
+# tfBowNotsport = computeTF(classvectors[0], bowNotsport)
+# tfBowSport = computeTF(classvectors[1], bowSport)
+# print(tfBowNotsport)
+
+# print(classvectors)
+
+# print(idfs)
+
+# tfidfBowNotsport = computeTFIDF(tfBowNotsport, idfs)
+# tfidfBowSport = computeTFIDF(tfBowSport, idfs)
+# model.model["model"]["notsport"]["features"] = tfidfBowNotsport
+# model.model["model"]["sport"]["features"] = tfidfBowSport
+# print(tfidfBowNotsport)
+
 model.setweights()
+model.tojson("sportsmodelTFIDF")
 
-print(model.model["model"]["notsport"]["features"])
-print(model.model["model"]["sport"]["features"])
-print("\n")
-model.tojson("sportsmodel")
 
-# model.removeweights()
-print(model.model["model"]["notsport"]["features"])
-print(model.model["model"]["sport"]["features"])
-model.tojson("sportsmodel")
-model.setweights()
 
-print(model.model["model"]["notsport"]["features"])
-print(model.model["model"]["sport"]["features"])
-print("\n")
+# print(model.model["model"]["notsport"]["features"])
+# print(model.model["model"]["sport"]["features"])
+# print("\n")
+# model.setweights()
 
-print(model.topics)
+# print(model.model["model"]["notsport"]["features"])
+# print(model.model["model"]["sport"]["features"])
+# print("\n")
+# model.tojson("sportsmodel")
+
+# # model.removeweights()
+# print(model.model["model"]["notsport"]["features"])
+# print(model.model["model"]["sport"]["features"])
+# model.tojson("sportsmodel")
+# model.setweights()
+
+# print(model.model["model"]["notsport"]["features"])
+# print(model.model["model"]["sport"]["features"])
+# print("\n")
+
+# print(model.topics)
 # https://stevenloria.com/tf-idf/
 # 7

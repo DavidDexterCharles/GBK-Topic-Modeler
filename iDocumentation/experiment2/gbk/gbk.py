@@ -165,7 +165,7 @@ class GBK:
                 numtopics = len(self.model[modeloption])
                 # print("{} {}".format(row,result))
                 for val in result:
-                    scale = doc.lower().count(val)
+                    scale =1# doc.lower().count(val)
                     # print("Scale:{} Word:{} ScaleValue:{}".format(scale,val,(col['features'][val] * scale)))
                     
                     # if (penalty[val] == col['features'][val]):

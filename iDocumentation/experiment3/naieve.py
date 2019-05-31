@@ -89,6 +89,8 @@ from gbk.gbk import GBK as Model
 topics = {}
 keys = {}
 topics['model'] =['spam','ham']
+topics['model2'] =['spam']
+topics['model3'] =['ham']
 keys['spam']=['spam']
 keys['ham']=['ham']
 model = Model()
@@ -99,7 +101,59 @@ model.init(topics)
 
 for i in range(0,len(xx_train)):
     model.build(topics,keys,(xx_train.iloc[i])+" "+yy_train.iloc[i]+" ")
-model.setweights(topics)
+    
+def computeTF(wordDict, bow):
+    tfDict = {}
+    bowCount = len(bow)
+    for word, count in wordDict.items():
+        tfDict[word] = count/float(bowCount)
+    return tfDict
+
+def computeIDF(docList):
+    import math
+    idfDict = {}
+    N = len(docList)
+    
+    # idfDict = dict.fromkeys(docList[0].keys(), 0)
+    for doc in docList:
+        for word, val in doc.items():
+            # print(word,val)
+            if val > 0:
+                if word in idfDict:
+                    idfDict[word] += 1
+                else:
+                    idfDict[word] = 1
+    
+    for word, val in idfDict.items():
+        idfDict[word] = math.log10(N / float(val))
+        
+    return idfDict
+
+def computeTFIDF(tfBow, idfs):
+    tfidf = {}
+    for word, val in tfBow.items():
+        tfidf[word] = val*idfs[word]
+    return tfidf    
+    
+
+bow = {}
+classvectors =[]
+for key, val in model.model["model"].items():
+    classvectors.append(model.model["model"][key]["features"])
+    bow[key] = list(model.model["model"][key]["features"].keys())
+tfbow = {}
+for key, val in model.model["model"].items():
+    tfbow[key] = computeTF(model.model["model"][key]["features"], bow[key])
+    
+idfs = computeIDF(classvectors)
+
+# for key, val in model.model["model"].items():
+#     model.model["model"][key]["features"] = computeTFIDF(tfbow[key],idfs)
+
+    
+
+model.setweights(topics)# https://hal.archives-ouvertes.fr/hal-01418129/document
+model.tojson("test")
 gbkcount =0
 y_true =[]
 y_pred = []

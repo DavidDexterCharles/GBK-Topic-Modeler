@@ -2,7 +2,7 @@ from gbk.gbk import GBK as Model
 
 model = Model()
 # model.load("merged.json")
-model.load("model_Standardized.json")
+model.load("sportsmodelTFIDF.json")
 
 document1 = "At  election  time the game of politics is played"
 document2 = "A  very close sport game was played "

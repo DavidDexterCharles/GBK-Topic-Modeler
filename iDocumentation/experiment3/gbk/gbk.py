@@ -122,7 +122,7 @@ class GBK:
                         # self.model[topic][keyword]['features'][k] = round((averageweightofvalue),6)  #original
                         # self.doctotal = 579
                         # *(self.model[topic][keyword]['docamt']/self.doctotal)*10
-                        self.model[topic][keyword]['features'][k] = round((averageweightofvalue),6) 
+                        self.model[topic][keyword]['features'][k] = round((averageweightofvalue),6)
                 else:
                     # print("Error:{} sumofweights or numberofweights was <= 0 {}".format(keyword,self.model[topic][keyword]['features']))
                     error =1
@@ -164,7 +164,7 @@ class GBK:
         topic = {}
         penalty = {}
         
-        # penaltyCNT = {}
+        penaltyCNT = {}
         numberOftopics = len(self.model[modeloption].items())
         for row,col in self.model[modeloption].items():
             result = col['features'].keys() & docset
@@ -173,10 +173,10 @@ class GBK:
                 for val in result:
                     if val in penalty:
                         penalty[val] += col['features'][val]
-                        # penaltyCNT[val] +=1
+                        penaltyCNT[val] +=1
                     else:
                         penalty[val] = col['features'][val]
-                    # penaltyCNT[val] = 1
+                    penaltyCNT[val] = 1
         # print("==================================")
         for row,col in self.model[modeloption].items():
             result = col['features'].keys() & docset
@@ -200,6 +200,8 @@ class GBK:
                     # # if(penaltyCNT[val]<numtopics):
                     # if penaltyoutcome <=self.penaltyborder:
                         # print("{} {}".format(val,penaltyoutcome))
+                    if penalty[val] <=0:
+                        penalty[val] = 1
                     if  row not in topic:
                         topic[row] = (col['features'][val] * scale)/penalty[val]
                         # marker=0

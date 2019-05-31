@@ -1,6 +1,0 @@
-from jndcontrollers import ArticleJndController,DomainJndController,ArticlecategorieJndController,CategorieJndController,GeotagJndController,TopicmodelJndController,KeywordJndController
-
-class MainController(ArticleJndController,DomainJndController,ArticlecategorieJndController,CategorieJndController,GeotagJndController,TopicmodelJndController,KeywordJndController):
-
-    def __init__(self):
-        pass

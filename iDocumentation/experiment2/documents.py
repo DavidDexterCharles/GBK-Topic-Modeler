@@ -1,5 +1,51 @@
 document =[
     '''
+    Police are investigating a report of an attempted kidnapping in Maraval on Sunday.
+    
+    The attack happened at about 8 p.m. on Saddle Road.
+    
+    Police were told that a couple, along with their five-year-old son, were in their vehicle proceeding towards Santa Cruz, when a white Hyundai Elantra overtook the car and came to a stop in front of their vehicle.
+    
+    Three men exited the Elantra and approached the other car and attempted to open the family’s car.
+    
+    However, at the same time, another vehicle approached, and the three men ran back to the Elantra, and drove off.
+    
+    It appeared to be a random attack.
+    
+    Get caught up with news from the news leader
+    Subscribe now and get access to the Trinidad Express E-paper
+    The family was left deeply traumatised by the incident.
+    
+    A report was made to the Santa Cruz Police.
+    ''',
+    '''
+    CENTRAL Bank Governor Dr Alvin Hi¬laire's claim that hosting Venezuelan migrants could cost the Trinidad and Tobago Government some $620 million per year has been described as "unfortunate" by Finance Minister, Colm Imbert.
+
+    Imbert said Wednesday that he was uncertain as to how the Central Bank arrived at this figure, presenting statistics instead from the Imigration Deparrtment that he said shows much lowers numbers of migrants for 2019, and for previous years than appears to have been assumed.
+    
+    Speaking at the Post-Cabinet media briefing at the Diplomatic Centre in St Ann's, Imbert said inaccurate figures are running through the system, showing much larger numbers than is the reality. He said he found the CBTT's figures "surprising" and questioned the basis and information on which that institution's calculations were made.
+    
+    The acting Prime Minister said it was being circulated as fact that 40,000 Venezuelans had entered T&T in 2019, when Immigration has informed him that the number is actually 4,842 such persons arriving this year through legal ports, of which 4,340 departed, leaving 502 "overstayers".
+    
+    Having presented previous figures provided by Immigration, Imbert said the figure was lower than 2018's and several factors must be taken into account, such as that many of the Venezuelan nationals living in Trinidad for the past several years have mostly been working.
+    
+    Hi¬laire said on Tuesday that he was at first skep¬ti¬cal of the fig¬ure but it seemed plausible af¬ter look¬ing at the im¬pact of Venezuelan migration on on Colom¬bia.
+    
+    Colom¬bia has so far tak¬en in al¬most 1.2 mil¬lion Venezue¬lan mi¬grants and refugees, which has cost that coun¬try around 0.4 per cent of its GDP.
+    
+    Imbert said the countrys' situations with regard to the Venezuelan issue ought not to be compared.
+    ''',
+    '''
+    SOME $44 million of deferred taxation played a key role in turning Trinidad Cement Limited’s (TCL’s) $56 million profit before taxation (PBT) into a loss, according to company financials released late Friday evening in Port of Spain.
+
+    TCL’s annotated consolidated statement of profit or loss for the year ended December 31, 2018, formed part of the company’s annual report 2018. The report was distributed to shareholders attending the company’s annual general meeting (AGM) at the Hilton Trinidad and conference centre on Lady Young Road, in the eastern part of the capital city.
+    ''',
+    '''
+    Nicholas Alexis blasted five sixes and five fours in an entertaining 41-ball 71, while left-arm spinner Khary Pierre grabbed five wickets for 17 runs to lead Queen’s Park Cricket Club to an emphatic 41-run victory over northern rivals Merry Boys in their Trinidad and Tobago Cricket Board Premiership T20 quarter-final fixture at the Brian Lara Cricket Academy in Tarouba on Monday night.
+
+    After being sent in to bat, the Parkites posted an imposing 195 for five off their 20 overs with Alexis leading the charge. Merry Boys could only muster 154 for nine in reply off their 20 overs.
+    ''',
+    '''
     People with disabilities have to be physically lifted to the courts in Tunapuna because of a non functioning elevator.
 
 The Express recently visited the Tunapuna Administrative Complex which houses the Tunapuna Magistrate’s Court, Probation Services, Ministry of Community Development, Culture and the Arts, District Revenue Office, TTPOST, Town & Country Planning Division and the Elections and Boundaries Commission.

@@ -165,7 +165,7 @@ class GBK:
                 numtopics = len(self.model[modeloption])
                 # print("{} {}".format(row,result))
                 for val in result:
-                    scale = doc.lower().count(val)
+                    scale = 1#doc.lower().count(val)
                     # print("Scale:{} Word:{} ScaleValue:{}".format(scale,val,(col['features'][val] * scale)))
                     
                     # if (penalty[val] == col['features'][val]):
@@ -176,6 +176,9 @@ class GBK:
                     # # if(penaltyCNT[val]<numtopics):
                     # if penaltyoutcome <=self.penaltyborder:
                         # print("{} {}".format(val,penaltyoutcome))
+                    if penalty[val] <=0:
+                        penalty[val] = 1
+                        
                     if  row not in topic:
                         topic[row] = (col['features'][val] * scale)/penalty[val]
                         # marker=0

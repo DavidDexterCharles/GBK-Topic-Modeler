@@ -22,17 +22,17 @@ categories =[
  'misc.forsale',
  'rec.autos',
  'rec.motorcycles',
- 'rec.sport.baseball'#,
+ 'rec.sport.baseball',
  
  
-#  'rec.sport.hockey',
-#  'sci.crypt',
-#  'sci.electronics',
-#  'sci.med',
-#  'soc.religion.christian',
-#  'talk.politics.guns',
-#  'talk.politics.mideast',
-#  'talk.politics.misc'
+ 'rec.sport.hockey',
+ 'sci.crypt',
+ 'sci.electronics',
+ 'sci.med',
+ 'soc.religion.christian',
+ 'talk.politics.guns',
+ 'talk.politics.mideast',
+ 'talk.politics.misc'
  
  
  ]
@@ -44,7 +44,7 @@ newsgroups_test = fetch_20newsgroups(subset='test',
                                      categories=categories)                                      
                                       
                                       
-vectorizer =CountVectorizer()# TfidfVectorizer()#CountVectorizer()
+vectorizer =TfidfVectorizer()# TfidfVectorizer()#CountVectorizer()
 # the following will be the training data
 vectors = vectorizer.fit_transform(newsgroups_train.data)
 vectors.shape
@@ -53,7 +53,7 @@ vectors.shape
 # this is the test data
 vectors_test = vectorizer.transform(newsgroups_test.data)
 
-clf = MultinomialNB(alpha=.01)
+clf = MultinomialNB(alpha=.02)
 
 # the fitting is done using the TRAINING data
 # Check the shapes before fitting
