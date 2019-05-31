@@ -6,7 +6,7 @@ headers = {'Content-Type': 'application/json'}
 apidomain = 'http://127.0.0.1:8081/api/'
 
 
-class TopicModel(object):
+class TopicsandKeys(object):
     def __init__(self,action):
         self.action = action
         self.topics ={}
@@ -14,9 +14,6 @@ class TopicModel(object):
         self.terms = {}
     
     def setTopicandTerms(self,result):
-        # print ("tesr")
-        # # print(result)
-    
         for i in range(0,len(result)):
             category = result[i]['categorie']['name']
             keyword = result[i]['Keyword']['word']
@@ -24,29 +21,60 @@ class TopicModel(object):
                 self.topics['model'].append(category)
                 self.terms[category] = []
             self.terms[category].append(keyword) 
-        
+
+class ClassifierHelper(object):
+    
+    def __init__(self,action,classifier):
+        self.action = action
+        self.classifier = classifier
+    
+    def retrainClassifier(self,result):
+         for i in range(0,len(result)):
+            article = result[i]['CONTENT']
+            self.classifier.build(article)
 
 
 class Model(object):
     
-    
+    def getCategory(self,query):
+        # result = self.traversePages("setTopicandTerms",'topicmodel')
+        classifier = Classifier()
+        classifier.load('articlemodel.json')
+        # classifier.init(result.topics,result.terms).MinKey(2)
+        
+        # classifier = self.traversePages("retrainClassifier",'article',classifier).classifier
+        # classifier.setweights()
+        # classifier.tojson('classvectors')
+        outcome = classifier.predict('model',query).getTopics()
+        outcome['Answer']=classifier.predict('model',query).getTopic()
+        print(outcome)
+        return json.dumps(outcome)
+        
     def getTopics(self):
-        apiroute ='topicmodel'
-        result = self.traversePages("setTopicandTerms",apiroute)
-        print(result.topics)
-        print(result.terms)
+        result = self.traversePages("setTopicandTerms",'topicmodel')
+        
+        
+        classifier = Classifier()
+        classifier.init(result.topics,result.terms).MinKey(2)
+        
+        classifier = self.traversePages("retrainClassifier",'article',classifier).classifier
+        classifier.setweights()
+        classifier.tojson("classvectors")
+        classifier.predict()
         return "test2"
     
     
     
-    def traversePages(self,action,tablename):
+    def traversePages(self,action,tablename,optionalParams=100):
         reQuest =requests.get(apidomain + tablename, headers=headers) #DatabaseAPI
         result = reQuest.json()
         numberofpages = result["total_pages"]
         actionObj = ""
         nextpage = 1
         if action == "setTopicandTerms":
-            actionObj = TopicModel(action)
+            actionObj = TopicsandKeys(action)
+        if action == "retrainClassifier":
+            actionObj = ClassifierHelper(action,optionalParams)
             
         while nextpage <= numberofpages:
             actionObj = self.processResult(actionObj,result['objects'])
@@ -59,11 +87,12 @@ class Model(object):
     def processResult(self,actionObj,result):
         if actionObj.action == "setTopicandTerms":
             actionObj.setTopicandTerms(result)
+        if actionObj.action == "retrainClassifier":
+            actionObj.retrainClassifier(result)
         return actionObj
         
     
-    def getCategory(self,query):
-        return self.getalltopicmodels()
+    
         
     def updateClassifier(self,query):
         return 1
