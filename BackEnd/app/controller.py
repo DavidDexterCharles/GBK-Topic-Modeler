@@ -3,6 +3,16 @@ from app import app
 from model import Model
 mvcmodel = Model()
 
+
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+    
+    return response
+
+
 @app.route('/', methods=['GET'])
 def test():
     return "test"
@@ -46,6 +56,18 @@ def getCategory():
        result = "none"
     
     return result
+ 
+import json   
+@app.route('/articledata', methods=['POST'])
+def get_article_data():
+    # return mvcmodel.getTopics()
+    # data =request.get_json()
+    print(request.data)
+    return str(request.data)
+    # return mvcmodel.get_article_data(data)
+    
+    
+    
 # Add Articles to Database using model, articles are classified before addition
 # Retrieve Articles from database with their labels and weights and confidence score
 # Reclassify a single Article

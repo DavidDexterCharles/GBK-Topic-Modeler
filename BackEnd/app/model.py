@@ -156,3 +156,41 @@ class Model(object):
         q = '?q={"filters":[{"name":"name","op":"eq","val":"'+query+'"}]}'
         result = requests.get(apidomain+"categorie"+q, headers=headers).content
         return result
+        
+    
+   
+    def get_article_data(self,request):
+        # print(request.form['url'])
+        # data = request.data
+        
+        '''
+        Filter to see if the domain exists in domain table if it does then, get the id, if it does not then, 
+        domain is unsupported and wont be added to the db, however best attempt classigication, would still be done.
+        On submission of the url to the article table, if integrigity violated then just return the article with its categoriese
+        '''
+        
+        #  q = '?q={"filters":[{"name":"domainname","op":"like","val":"%'+query+'%"}]}'
+        # qresult = requests.get("http://0.0.0.0:8085/api/domain"+q).content
+        
+        data =request.get_json()
+        # print(data['url'])
+        if("trinidadexpress.com" in data['url']):
+            spider = Crawler('https://www.trinidadexpress.com',"",['p'],['time'],['h1','headline'])
+        elif("guardian.co.tt" in data['url']):
+            spider = Crawler('https://www.guardian.co.tt',"",['p','bodytext'],['span','textelement-publishing date'],['h1','headline'])
+        # elif("newsday.co.tt" in data['url']):
+        #     spider = Crawler('https://newsday.co.tt',"",['p'],['time'],['h1'])
+        elif("looptt.com" in data['url']):
+            spider = Crawler('http://www.looptt.com',"",['p'],['span','date-tp-4 border-left'],['span','field field--name-title field--type-string field--label-hidden'])
+        else:
+            result = "Invalid Link"
+        
+        result = spider.get_article_data(data['url'])
+        r = requests.post(apidomain + 'article', result, headers=headers)#use y api to post the data to database
+        print(r)
+        # result["domain_id"] = 1
+        # elif("looptt.com" in data['url']):
+        #     spider = Crawler('http://www.looptt.com',"",['p'],['i'],['h1','headline'])
+        
+        # print(result)
+        return result
