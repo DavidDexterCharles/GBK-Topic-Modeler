@@ -1,5 +1,7 @@
 import asyncio, aiohttp , bs4 , re , json
 from urllib.parse import urlparse
+import requests
+
 
 # import datefinder
 # import time
@@ -32,6 +34,7 @@ class Crawler:
         self.acorpus = {} 
         self.linkpool = {}
         self.artpool = []
+       
     
    
     def crawl(self):
@@ -63,6 +66,16 @@ class Crawler:
                         self.linkpool[self.domainname+result] = 1 # Express
             except Exception as e:
                 pass
+            
+    def getAllPageContent(self,url):
+        html = requests.get(url).text
+        page = bs4.BeautifulSoup(html,features="html5lib")
+        self.acorpus["CONTENT"]=""
+        for pharase in page.find_all(self.contentinfo[0]):
+            self.acorpus["CONTENT"] += pharase.text+ "\n"
+        return self.acorpus["CONTENT"]
+     
+                
     
     def setartpool(self):
         loop = asyncio.new_event_loop()

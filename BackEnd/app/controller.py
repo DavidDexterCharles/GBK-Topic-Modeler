@@ -58,13 +58,16 @@ def getCategory():
     return result
  
 import json   
-@app.route('/articledata', methods=['POST'])
-def get_article_data():
+@app.route('/classifydata', methods=['POST'])
+def get_classofdata():
     # return mvcmodel.getTopics()
     # data =request.get_json()
-    print(request.data)
-    return str(request.data)
-    # return mvcmodel.get_article_data(data)
+    # print(request.data)
+    # return str(request.data)
+    result =  mvcmodel.get_classofdata(request)
+    # data = json.loads(result)
+    # print(data['document'])
+    return result
     
     
     

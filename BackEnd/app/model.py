@@ -1,5 +1,11 @@
 from crawler.crawler import Crawler
 from classifier.gbc import GBC as Classifier
+# For the URL Validator
+try:
+    from urllib.parse import urlparse
+except ImportError:
+     from urlparse import urlparse
+     
 from collections import Counter 
 import requests
 import json
@@ -71,7 +77,7 @@ class Model(object):
         for k,arr in result.terms.items():
             value = classifier.goodtopicscore(arr,query.lower())
             outcome['categoriesconfidence'][k]=value
-            print("{} {}".format(k,value))
+            # print("{} {}".format(k,value))
             value = 0
         # print(type(classifier.termVectors))
         # print(classifier.termVectors)
@@ -157,9 +163,14 @@ class Model(object):
         result = requests.get(apidomain+"categorie"+q, headers=headers).content
         return result
         
-    
+    def uri_validator(self,x):
+        try:
+            result = urlparse(x)
+            return all([result.scheme, result.netloc, result.path])
+        except:
+            return False
    
-    def get_article_data(self,request):
+    def get_classofdata(self,request):
         # print(request.form['url'])
         # data = request.data
         
@@ -173,21 +184,45 @@ class Model(object):
         # qresult = requests.get("http://0.0.0.0:8085/api/domain"+q).content
         
         data =request.get_json()
+        supportedonlinearticle = 0
         # print(data['url'])
         if("trinidadexpress.com" in data['url']):
             spider = Crawler('https://www.trinidadexpress.com',"",['p'],['time'],['h1','headline'])
+            supportedonlinearticle=1
         elif("guardian.co.tt" in data['url']):
             spider = Crawler('https://www.guardian.co.tt',"",['p','bodytext'],['span','textelement-publishing date'],['h1','headline'])
+            supportedonlinearticle=1
         # elif("newsday.co.tt" in data['url']):
         #     spider = Crawler('https://newsday.co.tt',"",['p'],['time'],['h1'])
         elif("looptt.com" in data['url']):
             spider = Crawler('http://www.looptt.com',"",['p'],['span','date-tp-4 border-left'],['span','field field--name-title field--type-string field--label-hidden'])
+            supportedonlinearticle=1
+     
+        if supportedonlinearticle:
+            result = spider.get_article_data(data['url'])
+            r = requests.post(apidomain + 'article', result, headers=headers)#use db api to post the data to database
+            result = self.getCategory(spider.acorpus["CONTENT"])
+            addsource = json.loads(result)
+            addsource['asource'] = data['url']
+            result =json.dumps(addsource)
         else:
-            result = "Invalid Link"
-        
-        result = spider.get_article_data(data['url'])
-        r = requests.post(apidomain + 'article', result, headers=headers)#use y api to post the data to database
-        print(r)
+            if self.uri_validator(data['url']): # if normal valid url then just try to the content
+                spider = Crawler(data['url'],"",['p'],"",['h1'])
+                spider.getAllPageContent(data['url'])
+                result = self.getCategory(spider.acorpus["CONTENT"])
+                addsource = json.loads(result)
+                addsource['asource'] = data['url']
+                result =json.dumps(addsource)
+                # result = self.getCategory(result)
+            else:
+                result = data['url']       
+                result = self.getCategory(result)
+                addsource = json.loads(result)
+                addsource['asource'] = "UserInput"
+                result =json.dumps(addsource)
+            
+            
+        # print(type(r))
         # result["domain_id"] = 1
         # elif("looptt.com" in data['url']):
         #     spider = Crawler('http://www.looptt.com',"",['p'],['i'],['h1','headline'])
