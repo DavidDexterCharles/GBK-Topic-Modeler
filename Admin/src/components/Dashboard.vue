@@ -22,6 +22,18 @@
                       </div>
                   </mdb-card-body>
             </mdb-card>
+            <!--<mdb-row class="mt-5">-->
+                <!--<mdb-col md="9" class="mb-4">-->
+                <mdb-card class="mb-4" v-if="submitted">
+                    <mdb-card-header class="text-center"> All cateogries and Weightings</mdb-card-header>
+                    <mdb-card-body>
+                        <div style="display: block">
+                          <mdb-bar-chart :data="barChartData" :options="barChartOptions" :height="500"/>
+                        </div>
+                    </mdb-card-body>
+                </mdb-card>
+                <!--</mdb-col>-->
+            <!--</mdb-row>-->
             <mdb-card class="card-body" style=" margin-top: 1rem;">
               <mdb-card-title>Document Content</mdb-card-title>
               <mdb-card-text>{{article.content}}</mdb-card-text>
@@ -628,24 +640,25 @@ export default {
       showFluidModalTop: false,
       showFluidModalBottom: false,
       barChartData: {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+        labels: [],
         datasets: [
           {
-            label: '#1',
+            label: 'Weightings Of All Categories',
             data: [12, 39, 3, 50, 2, 32, 84, 64],
             backgroundColor: 'rgba(245, 74, 85, 0.5)',
             borderWidth: 1
-          }, {
-            label: '#2',
-            data: [56, 24, 5, 16, 45, 24, 8, 64],
-            backgroundColor: 'rgba(90, 173, 246, 0.5)',
-            borderWidth: 1
-          }, {
-            label: '#3',
-            data: [12, 25, 54, 3, 15, 44, 3, 40],
-            backgroundColor: 'rgba(245, 192, 50, 0.5)',
-            borderWidth: 1
           }
+          // , {
+          //   label: '#2',
+          //   data: [56, 24, 5, 16, 45, 24, 8, 64],
+          //   backgroundColor: 'rgba(90, 173, 246, 0.5)',
+          //   borderWidth: 1
+          // }, {
+          //   label: '#3',
+          //   data: [12, 25, 54, 3, 15, 44, 3, 40],
+          //   backgroundColor: 'rgba(245, 192, 50, 0.5)',
+          //   borderWidth: 1
+          // }
         ]
       },
       barChartOptions: {
@@ -780,22 +793,30 @@ export default {
                 
                 this.article.url = "";
                 var temp =  _.values(data.body.categoriestop3);
-                var i;
+                var i,total=0;
                 this.pieChartData.labels =[]
                 this.pieChartData.datasets[0].data=[]
                 for(i=0;i<temp.length;i++)
                 {
                   console.log(temp[i][0])
                   this.pieChartData.labels.push(temp[i][0])
+                  total +=temp[i][1]
                   this.pieChartData.datasets[0].data.push(temp[i][1])
-                  
+                }
+                for(i=0;i<temp.length;i++)
+                {
+                  this.pieChartData.datasets[0].data[i]=(temp[i][1]/total)*100
                 }
                 // window.pieChartData.update();
                 // this.$refs.$forceUpdate()
-                console.log(this.pieChartData.datasets[0].data)
+                // console.log(this.pieChartData.datasets[0].data)
                 // this.pieChartData.labels =temp
                 this.article.content = data.body.document;
                 this.article.asource = data.body.asource;
+                
+                this.barChartData.labels = _.keys(data.body.categories);
+                console.log(this.barChartData.datasets[0]['data'] )
+                this.barChartData.datasets[0]['data'] = _.values(data.body.categories);
                 this.submitted = true;
                 
             });

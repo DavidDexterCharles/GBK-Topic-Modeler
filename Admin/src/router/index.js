@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Dashboard from '@/components/Dashboard'
-import Profile from '@/components/Profile'
+import Articles from '@/components/Articles'
 import Tables from '@/components/Tables'
 import Maps from '@/components/Maps'
 import BadGateway from '@/components/BadGateway'
@@ -19,10 +19,10 @@ export default new Router({
       alias: '/'
     },
     {
-      path: '/profile',
-      name: 'Profile',
+      path: '/articles',
+      name: 'Articles',
       props: { page: 2 },
-      component: Profile
+      component: Articles
     },
     {
       path: '/tables',

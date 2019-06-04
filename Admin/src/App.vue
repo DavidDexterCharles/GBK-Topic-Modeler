@@ -2,11 +2,11 @@
   <div class="flexible-content">
     <!--Navbar-->
     <mdb-navbar class="flexible-navbar white" light position="top" scrolling>
-      <mdb-navbar-brand href="https://mdbootstrap.com/docs/vue/" target="_blank">MDB</mdb-navbar-brand>
+      <mdb-navbar-brand href="https://mdbootstrap.com/docs/vue/" target="_blank">GBC-System</mdb-navbar-brand>
       <mdb-navbar-toggler>
         <mdb-navbar-nav left>
-          <mdb-nav-item to="/" waves-fixed @click.native="activeItem = 1" :action="true" :class="activeItem === 1 && 'active'">Home</mdb-nav-item>
-          <mdb-nav-item to="/profile" waves-fixed @click.native="activeItem = 2" :action="true" :class="activeItem === 2 && 'active'">Profile</mdb-nav-item>
+          <mdb-nav-item to="/" waves-fixed @click.native="activeItem = 1" :action="true" :class="activeItem === 1 && 'active'">Classifier</mdb-nav-item>
+          <mdb-nav-item to="/articles" waves-fixed @click.native="activeItem = 2" :action="true" :class="activeItem === 2 && 'active'">Articles</mdb-nav-item>
           <mdb-nav-item to="/tables" waves-fixed @click.native="activeItem = 3" :action="true" :class="activeItem === 3 && 'active'">Tables</mdb-nav-item>
           <mdb-nav-item to="/maps" waves-fixed @click.native="activeItem = 4" :action="true" :class="activeItem === 4 && 'active'">Maps</mdb-nav-item>
           <!--<mdb-nav-item to="/profile" waves-fixed @click.native="activeItem = 5" :action="true" :class="activeItem === 5 && 'active'">Profile</mdb-nav-item>-->
@@ -29,8 +29,8 @@
         <router-link to="/dashboard" @click.native="activeItem = 1">
           <mdb-list-group-item :action="true" :class="activeItem === 1 && 'active'"><mdb-icon icon="chart-pie" class="mr-3"/>Dashboard</mdb-list-group-item>
         </router-link>
-        <router-link to="/profile" @click.native="activeItem = 2">
-          <mdb-list-group-item :action="true" :class="activeItem === 2 && 'active'"><mdb-icon icon="user" class="mr-3"/>Profile</mdb-list-group-item>
+        <router-link to="/articles" @click.native="activeItem = 2">
+          <mdb-list-group-item :action="true" :class="activeItem === 2 && 'active'"><mdb-icon icon="user" class="mr-3"/>Articles</mdb-list-group-item>
         </router-link>
         <router-link to="/tables"  @click.native="activeItem = 3">
           <mdb-list-group-item :action="true" :class="activeItem === 3 && 'active'"><mdb-icon icon="table" class="mr-3"/>Tables</mdb-list-group-item>
@@ -75,7 +75,7 @@
 <script>
 import { mdbContainer, mdbNavbar, mdbNavbarBrand, mdbNavItem, mdbNavbarNav, mdbNavbarToggler, mdbBtn, mdbIcon, mdbListGroup, mdbListGroupItem, mdbCardBody, mdbFooter, waves } from 'mdbvue'
 import Dashboard from './components/Dashboard'
-import Profile from './components/Profile'
+import Articles from './components/Articles'
 
 export default {
   name: 'AdminTemplate',
@@ -93,7 +93,7 @@ export default {
     mdbCardBody,
     'ftr': mdbFooter,
     Dashboard,
-    Profile
+    Articles
   },
   data () {
     return {
