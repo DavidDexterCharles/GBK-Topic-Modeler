@@ -57,7 +57,6 @@ def getCategory():
     
     return result
  
-import json   
 @app.route('/classifydata', methods=['POST'])
 def get_classofdata():
     # return mvcmodel.getTopics()
@@ -69,7 +68,14 @@ def get_classofdata():
     # print(data['document'])
     return result
     
-    
+@app.route('/article', methods=['GET'])
+def get_articlebypage():
+    page = request.args.get('page')
+    if page:
+        result = mvcmodel.get_articlebypage(page)
+    else:
+        result = mvcmodel.get_articlebypage(1)
+    return result
     
 # Add Articles to Database using model, articles are classified before addition
 # Retrieve Articles from database with their labels and weights and confidence score

@@ -144,7 +144,9 @@ class Crawler:
                             self.acorpus["domain_id"] =1
                         if("http://www.looptt.com" in url):
                             self.acorpus["domain_id"] =2
-                        if("https://www.guardian.co.tt" in url):
+                        if("newsday.co.tt" in url):
+                            self.acorpus["domain_id"] =3   
+                        if("guardian.co.tt" in url):
                             self.acorpus["domain_id"] =4
                         
                         r = self.acorpus

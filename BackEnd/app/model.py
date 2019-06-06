@@ -48,8 +48,8 @@ class Model(object):
         classifier = Classifier()
         result = self.traversePages("setTopicandTerms",'topicmodel')
         classifier.init(result.topics,result.terms).MinKey(2)
-        classifier.load('articlemodel.json')
-        # classifier.load('classvectors.json')
+        # classifier.load('articlemodel.json')
+        classifier.load('classvectors.json')
         # classifier.init(result.topics,result.terms).MinKey(2)
         
         # classifier = self.traversePages("retrainClassifier",'article',classifier).classifier
@@ -82,6 +82,24 @@ class Model(object):
         # print(type(classifier.termVectors))
         # print(classifier.termVectors)
         return json.dumps(outcome)
+    
+    def get_articlebypage(self,page):
+        result = requests.get(apidomain + 'article?page='+str(page), headers=headers)
+        articles={}
+        articles['data']=result.json()['objects']
+        # getCategory
+        categories=''
+        for i in range(0,len(articles['data'])):
+            categories = self.getCategory(articles['data'][i]['CONTENT'])
+            categories = json.loads(categories)
+            articles['data'][i]['articlecategories'] = categories['categoriestop3']
+            
+        # print(articles['data'][0]['articlecategories'])
+        articles['total_pages'] = (result.json()['total_pages'])
+        return json.dumps(articles)
+    
+    def getbyidarticle(self, id):
+        return requests.get(apidomain + 'article/'+id, headers=headers).content
     
     def getKeyword(self,query):
         q = '?q={"filters":[{"name":"word","op":"eq","val":"'+query+'"}]}'
@@ -192,8 +210,9 @@ class Model(object):
         elif("guardian.co.tt" in data['url']):
             spider = Crawler('https://www.guardian.co.tt',"",['p','bodytext'],['span','textelement-publishing date'],['h1','headline'])
             supportedonlinearticle=1
-        # elif("newsday.co.tt" in data['url']):
-        #     spider = Crawler('https://newsday.co.tt',"",['p'],['time'],['h1'])
+        elif("newsday.co.tt" in data['url']):
+            spider = Crawler('http://newsday.co.tt',"",['p'],['time'],['h1'])
+            supportedonlinearticle=1
         elif("looptt.com" in data['url']):
             spider = Crawler('http://www.looptt.com',"",['p'],['span','date-tp-4 border-left'],['span','field field--name-title field--type-string field--label-hidden'])
             supportedonlinearticle=1
@@ -205,6 +224,7 @@ class Model(object):
             addsource = json.loads(result)
             addsource['asource'] = data['url']
             result =json.dumps(addsource)
+            # print(result)
         else:
             if self.uri_validator(data['url']): # if normal valid url then just try to the content
                 spider = Crawler(data['url'],"",['p'],"",['h1'])

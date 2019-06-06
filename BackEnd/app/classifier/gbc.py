@@ -163,7 +163,7 @@ class GBC:
                 # marker=1
                 numberofterms = len(doc.lower().split())
                 numtopics = len(self.model[modeloption])
-                # print("{} {}".format(row,result))
+                print("{} {}".format(row,result))
                 for val in result:
                     scale = doc.lower().count(val)
                     # print("Scale:{} Word:{} ScaleValue:{}".format(scale,val,(col['features'][val] * scale)))
