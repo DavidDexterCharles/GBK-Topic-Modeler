@@ -6,7 +6,7 @@
           <mdb-view class="gradient-card-header blue darken-2">
             <h4 class="h4-responsive text-white">Classifier</h4>
           </mdb-view>
-          <mdb-card-body>
+          <mdb-card-body v-bind:key="ClassifiercomponentKey">
             <div class="input-group md-form form-sm form-2 pl-0">
               <input class="form-control my-0 py-1 lime-border" v-model="article.url" v-on:keyup.enter="classify" type="text" placeholder="" aria-label="Search">
               <div class="input-group-append">
@@ -18,7 +18,7 @@
                   <mdb-card-header class="text-center"> Top 3 Categories </mdb-card-header>
                   <mdb-card-body>
                       <div style="display: block">
-                        <mdb-pie-chart :data="pieChartData" :options="pieChartOptions" :height="200"/>
+                        <mdb-pie-chart v-bind:key="ClassifiercomponentKey" :data="pieChartData" :options="pieChartOptions" :height="200"/>
                       </div>
                   </mdb-card-body>
             </mdb-card>
@@ -28,7 +28,7 @@
                     <mdb-card-header class="text-center"> All cateogries and Weightings</mdb-card-header>
                     <mdb-card-body>
                         <div style="display: block">
-                          <mdb-bar-chart :data="barChartData" :options="barChartOptions" :height="500"/>
+                          <mdb-bar-chart v-bind:key="ClassifiercomponentKey" :data="barChartData" :options="barChartOptions" :height="500"/>
                         </div>
                     </mdb-card-body>
                 </mdb-card>
@@ -617,6 +617,7 @@ export default {
   data () {
     return {
       /* eslint-disable */
+     ClassifiercomponentKey: 0,
      article: {
           url: '',
           title: '',
@@ -818,6 +819,7 @@ export default {
                 console.log(this.barChartData.datasets[0]['data'] )
                 this.barChartData.datasets[0]['data'] = _.values(data.body.categories);
                 this.submitted = true;
+                this.ClassifiercomponentKey +=1
                 
             });
         }
