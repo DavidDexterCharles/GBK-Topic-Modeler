@@ -8,7 +8,7 @@ import 'bootstrap-css-only/css/bootstrap.min.css'
 import 'mdbvue/build/css/mdb.css'
 import VueResource from 'vue-resource'
 import underscore from 'vue-underscore'
-
+// Vue.forceUpdate()
 Vue.use(VueGoogleMaps, {
   load: {
     libraries: 'places'

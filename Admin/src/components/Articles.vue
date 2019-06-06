@@ -11,12 +11,12 @@
               <input class="form-control my-0 py-1 lime-border" v-model="searchQuery" v-on:keyup.enter="classify" type="text" placeholder="Search Document Content" aria-label="Search">
             </div>
             <div class="input-group-append">
-                <button v-on:click.prevent="addPage" class="btn btn-md btn-secondary m-0 px-3 right" type="button" id="MaterialButton-addon2">Add Page</button>
+                <button v-on:click="addPage" class="btn btn-md btn-secondary m-0 px-3 right" type="button" id="MaterialButton-addon2">Add Page</button>
               </div>
           </mdb-card-body>
         <!--</mdb-card>-->
         <!--<mdb-card cascade narrow class="mt-5">-->
-            <mdb-card-body>
+            <mdb-card-body v-bind:key="ArticlescomponentKey">
               <div class="input-group md-form form-sm form-2 pl-0">
                <!--<div class="panel-body" style="max-height: 400px;overflow-y: scroll;">-->
                     <table v-if="resources.length" class="table">
@@ -28,7 +28,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="item in filteredResources"  v-bind:key="item.title">
+                            <tr v-for="item in filteredResources" v-bind:key="item.title">
                                 <td>
                                     <a href="item.uri" target="_blank">{{item.title}}</a>
                                     <!--{{item.title}}-->
@@ -109,9 +109,10 @@ export default {
   },
   data () {
     return {
-      articles: '',
+      ArticlescomponentKey: 0,
+      articles: [],
       numpages: '',
-      maxpages: '',
+      maxpages: 1,
       submitted: false,
       showFrameModalTop: false,
       showFrameModalBottom: false,
@@ -208,18 +209,18 @@ export default {
   /* eslint-disable */
   computed: 
   {
-    filteredResources ()
-    {
-          if(this.searchQuery){
-             console.log("Test1")
-          return this.resources.filter((item)=>{
-            return item.content.toLowerCase().includes(this.searchQuery);
-          })
-          }
-          else{
-            return this.resources;
-          }
-        }
+      filteredResources ()
+      {
+            if(this.searchQuery){
+               console.log("Test1")
+            return this.resources.filter((item)=>{
+              return item.content.toLowerCase().includes(this.searchQuery);
+            })
+            }
+            else{
+              return this.resources;
+            }
+      }
    },
    created (){
         // console.log("Test");
@@ -237,22 +238,15 @@ export default {
                 //     console.log("TEST DATA");
                 // this.submitted = true;
                 this.numpages = data.body.total_pages;
-                this.articles =  data.body.data;
-                this.maxpages = 1;
+                this.articles.push(...data.body.data);//data.body.data;;
                 var i,k,cdata,categorylabel;
                 var title, uri,content, categorylabels,categoryvalues,categorycolors,catgorydata;
-                 var tempresource;// = this.resources[0];
+                var tempresource;
                 this.resources=[];
                 for(i=0;i<this.articles.length;i++){
                   categorylabel =[]
                   categoryvalues =[]
                   categorycolors = []
-                  // tempresource = this.resources[0];
-                  // if(this.articles[i].TITLEI='undefned')
-                  //   title = this.articles[i].TITLE;
-                  // else
-                  //   title = '';
-                  
                   cdata = _.values(this.articles[i].articlecategories)
                   categorylabel  .push(cdata[0][0])
                   categorylabel  .push(cdata[1][0])
@@ -260,7 +254,6 @@ export default {
                   categoryvalues .push(cdata[0][1])
                   categoryvalues .push(cdata[1][1])
                   categoryvalues .push(cdata[2][1])
-                  // this.allCategories
                   for(k=0;k<categorylabel.length;k++)
                     categorycolors.push(this.allBackgroundColor[this.allCategories.indexOf(categorylabel[k])])
                   // console.log(categorylabel)
@@ -286,44 +279,35 @@ export default {
                       maintainAspectRatio: false
                     }
                   };
-                  
-                  // tempresource.title = i;//this.articles[i].TITLE;
-                  // console.log(tempresource.title);
-                  console.log(tempresource)
-                  // console.log(tempresource.title);
-                  // tempresource[i].content = this.articles[i].CONTENT;
-                  // tempresource.content = content;
-                  // tempresource.pieChartData.labels = categorylabel;
-                  // tempresource.pieChartData.datasets[0].data= categoryvalues;
-                  // tempresource.pieChartData.datasets[0].backgroundColor=categorycolors;
+                  // console.log(tempresource)
                   this.resources.push(tempresource)
-                  // console.log( tempresource)
                 }
                
-              
-                var page;
-                for(page=2;page<=this.numpages;page++)
+                var i;
+                for(i=0;i<this.articles.length;i++)
+                          console.log(this.articles[i].TITLE)
+                // var page;
+                // for(page=2;page<=this.numpages;page++)
                 
-                    console.log("Test")
-                // this.article.content = data.body.CONTENT;
-                console.log(this.numpages)
+                //     console.log("Test")
+                // // this.article.content = data.body.CONTENT;
+                // console.log(this.numpages)
+               
+                // return this.resources;
             });
         },
-        addPage: function(){
-          var page = this.maxpages+1
-          if(this.maxpages<=this.numpages){
-           this.$http.get('http://gbcsystem-ice-wolf.c9users.io:8082/article?page='+page.toString()).then(
-              function(data){
-                  this.maxpages++;
-                  this.articles.push(...data.body.data);
-                  // console.log(this.maxpages)
-                  // console.log(data.body.data)
-                  console.log(this.articles.length)
-                  var i;
-                  for(i=0;i<this.articles.length;i++)
-                    console.log(this.articles[i].TITLE)
-            });
-          }
+        addPage: function()
+        {
+            var page = this.maxpages+1
+            if(this.maxpages<=this.numpages)
+            {
+              this.getData(page);
+              this.maxpages=page;
+              this.ArticlescomponentKey += 1;
+              console.log(this.maxpages)
+            }
+            else
+            alert("No More Articles")
         }
     }
 }
