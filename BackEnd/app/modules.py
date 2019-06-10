@@ -1,5 +1,6 @@
 from crawler.crawler import Crawler
 from classifier.gbc import GBC as Classifier
+from classifier.gbc import Merger
 try:
     from urllib.parse import urlparse
 except ImportError:
@@ -25,10 +26,27 @@ class Modules(object):
         classifier.init(result.topics,result.terms).MinKey(2)
         # classifier.load('articlemodel.json')
         classifier.load('classvectors.json')
+        for key,arr in classifier.keys.items(): #Incremental Learning Implemented
+            value = classifier.goodtopicscore(arr,query)
+            print("{} {}".format(key,value))
+            if value>0:
+                classifier2 = Classifier()
+                classifier2.init(result.topics,result.terms).MinKey(2)
+                classifier2.build(query)
+                merger = Merger()
+                classvectormodels = []
+                classvectormodels.append(classifier)
+                classvectormodels.append(classifier2)
+                merger.merge(classvectormodels)
+            
+        
         # classifier.init(result.topics,result.terms).MinKey(2)
         # classifier = self.traversePages("retrainClassifier",'article',classifier).classifier
         # classifier.setweights()
         # classifier.tojson('classvectors')
+        classifier = Classifier()
+        classifier.init(result.topics,result.terms).MinKey(2)
+        classifier.load('merged.json')
         outcome = classifier.predict('model',query).getTopics()
         k = Counter(outcome) 
         # Finding 3 highest values 

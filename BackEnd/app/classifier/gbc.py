@@ -108,6 +108,7 @@ class GBC:
         
     def goodtopicscore(self,keys,content):
         matchedkeysize = 0
+        content = content.lower()
         for i in range(0,len(keys)):
             if keys[i].lower() in content:
                 matchedkeysize += content.count(keys[i].lower())
@@ -164,7 +165,7 @@ class GBC:
                 # marker=1
                 numberofterms = len(doc.lower().split())
                 numtopics = len(self.model[modeloption])
-                print("{} {}".format(row,result))
+                # print("{} {}".format(row,result))
                 for val in result:
                     scale = doc.lower().count(val)
                     # print("Scale:{} Word:{} ScaleValue:{}".format(scale,val,(col['features'][val] * scale)))
