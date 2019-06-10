@@ -1,7 +1,7 @@
 {
     "model": {
-        "art": {
-            "CoOccurenceCount": 37,
+        "Art and Culture": {
+            "DocumentCount": 37,
             "TermVectorAverage": 18.833333333333332,
             "features": {
                 "\"20/20": 0.053097,
@@ -4571,8 +4571,8 @@
                 "\u201cyou": 0.053097
             }
         },
-        "award": {
-            "CoOccurenceCount": 1,
+        "Award": {
+            "DocumentCount": 1,
             "TermVectorAverage": 1.0,
             "features": {
                 "&": 1.0,
@@ -4901,8 +4901,8 @@
                 "\u201cpennies": 1.0
             }
         },
-        "crime": {
-            "CoOccurenceCount": 26,
+        "Crime": {
+            "DocumentCount": 26,
             "TermVectorAverage": 13.24,
             "features": {
                 "\"20/20": 0.075529,
@@ -7775,8 +7775,8 @@
                 "\u201cyou": 0.075529
             }
         },
-        "disaster": {
-            "CoOccurenceCount": 7,
+        "Diaster and Accidents": {
+            "DocumentCount": 7,
             "TermVectorAverage": 4.0,
             "features": {
                 "\"the": 0.25,
@@ -8944,8 +8944,8 @@
                 "\u201cwhat": 0.25
             }
         },
-        "economy": {
-            "CoOccurenceCount": 15,
+        "Economy": {
+            "DocumentCount": 15,
             "TermVectorAverage": 8.0,
             "features": {
                 "\"20/20": 0.125,
@@ -11367,8 +11367,8 @@
                 "\u201cwhen": 0.125
             }
         },
-        "environment": {
-            "CoOccurenceCount": 26,
+        "Education": {
+            "DocumentCount": 26,
             "TermVectorAverage": 13.5,
             "features": {
                 "\"20/20": 0.074074,
@@ -15049,8 +15049,8 @@
                 "\u201cyou": 0.074074
             }
         },
-        "health": {
-            "CoOccurenceCount": 14,
+        "Health": {
+            "DocumentCount": 14,
             "TermVectorAverage": 7.5,
             "features": {
                 "$117,000": 0.133333,
@@ -16688,8 +16688,8 @@
                 "\u201cwhen": 0.133333
             }
         },
-        "labor": {
-            "CoOccurenceCount": 3,
+        "Labor": {
+            "DocumentCount": 3,
             "TermVectorAverage": 2.0,
             "features": {
                 "\"back": 0.5,
@@ -17419,8 +17419,8 @@
                 "\u201cyou": 0.5
             }
         },
-        "politics": {
-            "CoOccurenceCount": 16,
+        "Politics": {
+            "DocumentCount": 16,
             "TermVectorAverage": 8.5,
             "features": {
                 "\"as": 0.117647,
@@ -20037,8 +20037,8 @@
                 "\u201cwhen": 0.117647
             }
         },
-        "religion": {
-            "CoOccurenceCount": 1,
+        "Religion and Belief": {
+            "DocumentCount": 1,
             "TermVectorAverage": 1.0,
             "features": {
                 "(antonio": 1.0,
@@ -20288,8 +20288,8 @@
                 "\u201csuch": 1.0
             }
         },
-        "school": {
-            "CoOccurenceCount": 12,
+        "School": {
+            "DocumentCount": 12,
             "TermVectorAverage": 6.5,
             "features": {
                 "\"back": 0.153846,
@@ -21992,8 +21992,8 @@
                 "\u201cwhoever": 0.153846
             }
         },
-        "society": {
-            "CoOccurenceCount": 12,
+        "Society": {
+            "DocumentCount": 12,
             "TermVectorAverage": 6.5,
             "features": {
                 "\"all": 0.153846,
@@ -24165,8 +24165,8 @@
                 "\u201cwhen": 0.153846
             }
         },
-        "sport": {
-            "CoOccurenceCount": 23,
+        "Sport": {
+            "DocumentCount": 23,
             "TermVectorAverage": 11.666666666666666,
             "features": {
                 "\"20/20": 0.085714,

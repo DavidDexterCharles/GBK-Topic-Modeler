@@ -15,26 +15,57 @@ def after_request(response):
 
 @app.route('/', methods=['GET'])
 def test():
-    return "test"
+    return "Welcome to GBC API"
+
+@app.route('/categorykeywords', methods=['GET'])
+def getalltopicmodels():
+    # page = request.args.get('page')
+    page=1;
+    result = mvcmodel.getcategorykeysbypage()
+    
+    return result
+
+@app.route('/classificationmodel', methods=['GET'])
+def getclassificationmodel():
+    result = mvcmodel.getclassificationmodel()
+    
+    return result
+
+@app.route('/keyword/<id>', methods=['GET'])
+def get_one_keyword(id):
+    return mvcmodel.getbyidkeyword(id)
+@app.route('/keyword', methods=['POST'])
+def create_keyword():
+    return mvcmodel.createkeyword(request)
+@app.route('/keyword/<id>', methods=['PATCH'])
+def update_keyword():
+    return mvcmodel.updatekeyword(request)
+@app.route('/keyword', methods=['DELETE'])
+def delete_keyword(id):
+    return mvcmodel.deletekeyword(request)
 
 @app.route('/keywords/', methods=['GET'])
 @app.route('/keywords', methods=['GET'])
 def getwordkey():
     query = request.args.get('query')
-    if query:
-        result = mvcmodel.getKeyword(query)
+    page = request.args.get('page')
+    if page:
+        result = mvcmodel.getKeywordByPage(page)
     else:
-        result= mvcmodel.getallkeywords()
+        if query:
+            result = mvcmodel.getKeyword(query)
+        else:
+            result= mvcmodel.getallkeywords()
     
     return result
 
 
-@app.route('/categoriekey', methods=['GET'])
-def getcategoriekey():
+@app.route('/categorysearch', methods=['GET'])
+def getcategorybyquery():
     query = request.args.get('query')
     result =""
     if query:
-        result = mvcmodel.getcategoriekey(query)
+        result = mvcmodel.getcategorybyquery(query)
     else:
         result =  "All"  
     
@@ -76,6 +107,7 @@ def get_articlebypage():
     else:
         result = mvcmodel.get_articlebypage(1)
     return result
+
     
 # Add Articles to Database using model, articles are classified before addition
 # Retrieve Articles from database with their labels and weights and confidence score

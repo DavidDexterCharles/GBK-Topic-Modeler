@@ -122,6 +122,7 @@ class GBC:
         with open(path, 'r') as fp:
             self.model = json.load(fp)
             self.topics['model'] = list(self.model["model"].keys())
+        return self.model
         
     def getTopic(self):
         largest = 0
