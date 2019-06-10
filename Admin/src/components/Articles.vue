@@ -33,7 +33,7 @@
                   <option  v-for="option in searchoptions"  v-bind:key="option" v-bind:value="option">{{option}}</option>
                 </select>
             </div>
-            <span>Search Criteria: {{searchoption}}</span>
+            <!--<span>Search Criteria: {{searchoption}}</span>-->
             <div><b>Total:       <span style="color:red;">{{filteredResources.length}}</span></b></div>
             <div class="input-group-append">
                 <button v-on:click="addPage" class="btn btn-md btn-secondary m-0 px-3 right" type="button" id="MaterialButton-addon2">More Articles</button>
