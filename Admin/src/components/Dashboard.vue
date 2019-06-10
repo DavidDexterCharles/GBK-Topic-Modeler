@@ -9,7 +9,7 @@
           </mdb-view>
           <mdb-card-body v-bind:key="ClassifiercomponentKey">
             <div class="input-group md-form form-sm form-2 pl-0">
-              <input class="form-control my-0 py-1 lime-border" v-model="article.url" v-on:keyup.enter="classify" type="text" placeholder="" aria-label="Search">
+              <input class="form-control my-0 py-1 lime-border" v-model="article.url" v-on:keyup.enter="classify" type="text" placeholder="Takes both TEXT and URL as input (extracts content from web page where URL provided)" aria-label="Search">
               <div class="input-group-append">
                 <span v-on:click.prevent="classify" class="input-group-text lime lighten-2" id="basic-text1"><i class="fas fa-dot-circle text-grey"
                     aria-hidden="true"></i></span>
@@ -220,15 +220,53 @@ export default {
         datasets: [
           {
             data: [],
-            backgroundColor: ['#F7464A', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360', '#ac64ad'],
-            hoverBackgroundColor: ['#FF5A5E', '#5AD3D1', '#FFC870', '#A8B3C5', '#616774', '#da92db']
+            backgroundColor: [],//['#F7464A', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360', '#ac64ad'],
+            hoverBackgroundColor: [],// ['#FF5A5E', '#5AD3D1', '#FFC870', '#A8B3C5', '#616774', '#da92db']
           }
         ]
       },
       pieChartOptions: {
         responsive: true,
         maintainAspectRatio: false
-      }
+      },
+       allCategories:[
+        'Art and Culture',
+        'Conflicts and War',
+        'Crime',
+        'Diaster and Accidents',
+        'Economy',
+        'Education',
+        'Environment',
+        'Health',
+        'Human Interest',
+        'Labor',
+        'Lifestyle and Leisure',
+        'Politics',
+        'Religion and Belief',
+        'Science and Technology',
+        'Society',
+        'Sport',
+        'Weather'
+      ],
+      allBackgroundColor: [
+        '#00FFFF',
+        '#7FFFD4',
+        '#000000',
+        '#0000FF',
+        '#FFFF00',
+        '#A52A2A',
+        '#DEB887',
+        '#5F9EA0',
+        '#7FFF00',
+        '#D2691E',
+        '#DC143C',
+        '#FF8C00',
+        '#9932CC',
+        '#8FBC8F',
+        '#FF1493',
+        '#FF00FF',
+        '#8A2BE2'
+      ],
     }
   },
   created (){
@@ -260,13 +298,16 @@ export default {
           var i,total=0;
           this.pieChartData.labels =[]
           this.pieChartData.datasets[0].data=[]
+          this.pieChartData.datasets[0].backgroundColor =[]
           for(i=0;i<temp.length;i++)
           {
             console.log(temp[i][0])
             this.pieChartData.labels.push(temp[i][0])
+            this.pieChartData.datasets[0].backgroundColor.push(this.allBackgroundColor[this.allCategories.indexOf(temp[i][0])])
             total +=temp[i][1]
             this.pieChartData.datasets[0].data.push(temp[i][1])
           }
+          console.log(this.pieChartData.datasets[0].backgroundColor)
           for(i=0;i<temp.length;i++)
           {
             this.pieChartData.datasets[0].data[i]=(temp[i][1]/total)*100
