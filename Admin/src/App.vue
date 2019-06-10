@@ -7,8 +7,8 @@
         <mdb-navbar-nav left>
           <mdb-nav-item to="/" waves-fixed @click.native="activeItem = 1" :action="true" :class="activeItem === 1 && 'active'">Classifier</mdb-nav-item>
           <mdb-nav-item to="/articles" waves-fixed @click.native="activeItem = 2" :action="true" :class="activeItem === 2 && 'active'">Articles</mdb-nav-item>
-          <mdb-nav-item to="/tables" waves-fixed @click.native="activeItem = 3" :action="true" :class="activeItem === 3 && 'active'">Tables</mdb-nav-item>
-          <mdb-nav-item to="/maps" waves-fixed @click.native="activeItem = 4" :action="true" :class="activeItem === 4 && 'active'">Maps</mdb-nav-item>
+          <!--<mdb-nav-item to="/tables" waves-fixed @click.native="activeItem = 3" :action="true" :class="activeItem === 3 && 'active'">Tables</mdb-nav-item>-->
+          <!--<mdb-nav-item to="/maps" waves-fixed @click.native="activeItem = 4" :action="true" :class="activeItem === 4 && 'active'">Maps</mdb-nav-item>-->
           <!--<mdb-nav-item to="/profile" waves-fixed @click.native="activeItem = 5" :action="true" :class="activeItem === 5 && 'active'">Profile</mdb-nav-item>-->
           <!--<mdb-nav-item href="https://mdbootstrap.com/docs/vue/getting-started/download/" waves-fixed>Free download</mdb-nav-item>-->
           <!--<mdb-nav-item href="https://mdbootstrap.com/education/bootstrap/" waves-fixed>Free tutorials</mdb-nav-item>-->
@@ -24,23 +24,25 @@
     <!--/.Navbar-->
     <!-- Sidebar -->
     <div class="sidebar-fixed position-fixed">
-      <a class="logo-wrapper"><img alt="" class="img-fluid" src="./assets/logo-mdb-vue-small.png"/></a>
+      <div class="logo-wrapper">
+        <img alt="" style="padding-left:3px;width: 120%" src="https://loremflickr.com/320/240/tree"/>
+      </div>
       <mdb-list-group class="list-group-flush">
         <router-link to="/dashboard" @click.native="activeItem = 1">
           <mdb-list-group-item :action="true" :class="activeItem === 1 && 'active'"><mdb-icon icon="chart-pie" class="mr-3"/>Dashboard</mdb-list-group-item>
         </router-link>
         <router-link to="/articles" @click.native="activeItem = 2">
-          <mdb-list-group-item :action="true" :class="activeItem === 2 && 'active'"><mdb-icon icon="user" class="mr-3"/>Articles</mdb-list-group-item>
+          <mdb-list-group-item :action="true" :class="activeItem === 2 && 'active'"><mdb-icon icon="table" class="mr-3"/>Articles</mdb-list-group-item>
         </router-link>
-        <router-link to="/tables"  @click.native="activeItem = 3">
-          <mdb-list-group-item :action="true" :class="activeItem === 3 && 'active'"><mdb-icon icon="table" class="mr-3"/>Tables</mdb-list-group-item>
-        </router-link>
-        <router-link to="/maps" @click.native="activeItem = 4">
-          <mdb-list-group-item :action="true" :class="activeItem === 4 && 'active'"><mdb-icon icon="map" class="mr-3"/>Maps</mdb-list-group-item>
-        </router-link>
-        <router-link to="/404" @click.native="activeItem = 5">
-          <mdb-list-group-item :action="true" :class="activeItem === 5 && 'active'"><mdb-icon icon="exclamation" class="mr-3"/>404</mdb-list-group-item>
-        </router-link>
+        <!--<router-link to="/tables"  @click.native="activeItem = 3">-->
+        <!--  <mdb-list-group-item :action="true" :class="activeItem === 3 && 'active'"><mdb-icon icon="table" class="mr-3"/>Tables</mdb-list-group-item>-->
+        <!--</router-link>-->
+        <!--<router-link to="/maps" @click.native="activeItem = 4">-->
+        <!--  <mdb-list-group-item :action="true" :class="activeItem === 4 && 'active'"><mdb-icon icon="map" class="mr-3"/>Maps</mdb-list-group-item>-->
+        <!--</router-link>-->
+        <!--<router-link to="/404" @click.native="activeItem = 5">-->
+        <!--  <mdb-list-group-item :action="true" :class="activeItem === 5 && 'active'"><mdb-icon icon="exclamation" class="mr-3"/>404</mdb-list-group-item>-->
+        <!--</router-link>-->
       </mdb-list-group>
     </div>
     <!-- /Sidebar  -->

@@ -11,12 +11,17 @@
               <input class="form-control my-0 py-1 lime-border" v-model="searchQuery" v-on:keyup.enter="classify" type="text" placeholder="Search Document Content" aria-label="Search">
             </div>
             <div class="input-group-append">
-                <button v-on:click="addPage" class="btn btn-md btn-secondary m-0 px-3 right" type="button" id="MaterialButton-addon2">Add Page</button>
-              </div>
+                <button v-on:click="addPage" class="btn btn-md btn-secondary m-0 px-3 right" type="button" id="MaterialButton-addon2">More Articles</button>
+            </div>
+             <div class="d-flex justify-content-center" v-if="loading">
+                <div class="spinner-border center" style="width: 8rem; height: 8rem;" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
           </mdb-card-body>
         <!--</mdb-card>-->
         <!--<mdb-card cascade narrow class="mt-5">-->
-            <mdb-card-body v-bind:key="ArticlescomponentKey">
+           <mdb-card-body v-bind:key="ArticlescomponentKey">
               <div class="input-group md-form form-sm form-2 pl-0">
                <!--<div class="panel-body" style="max-height: 400px;overflow-y: scroll;">-->
                     <table v-if="resources.length" class="table">
@@ -30,7 +35,7 @@
                         <tbody>
                             <tr v-for="item in filteredResources" v-bind:key="item.title">
                                 <td>
-                                    <a href="item.uri" target="_blank">{{item.title}}</a>
+                                    <a :href=item.uri target="_blank" style="color:blue;">{{item.title}}</a>
                                     <!--{{item.title}}-->
                                 </td>
                                  <td>
@@ -86,6 +91,7 @@
 // https://stackoverflow.com/questions/52558770/vuejs-search-filter
 import { mdbCardHeader, mdbPieChart, mdbContainer, mdbRow, mdbCol, mdbCard, mdbCardBody, mdbView, mdbMask, mdbCardTitle, mdbCardText, mdbCardFooter, mdbIcon, mdbBtn, mdbPagination, mdbPageNav, mdbPageItem } from 'mdbvue'
 import {_} from 'vue-underscore'
+
 export default {
   name: 'Articles',
   components: {
@@ -110,6 +116,7 @@ export default {
   data () {
     return {
       ArticlescomponentKey: 0,
+      loading: 0,
       articles: [],
       numpages: '',
       maxpages: 1,
@@ -212,9 +219,9 @@ export default {
       filteredResources ()
       {
             if(this.searchQuery){
-               console.log("Test1")
+              // console.log("Test1")
             return this.resources.filter((item)=>{
-              return item.content.toLowerCase().includes(this.searchQuery);
+              return item.content.toLowerCase().includes(this.searchQuery.toLowerCase());
             })
             }
             else{
@@ -230,6 +237,7 @@ export default {
     },
     methods:{
        getData: function(page){
+            this.loading=1;
             this.$http.get('http://gbcsystem-ice-wolf.c9users.io:8082/article?page='+page).then(
               function(data){
                 // if(data.body.message)
@@ -262,7 +270,7 @@ export default {
                   // console.log(title)
                   tempresource={
                     title:this.articles[i].TITLE, 
-                    uri:"", 
+                    uri:this.articles[i].SOURCE, 
                     content:this.articles[i].CONTENT,
                     pieChartData: {
                       labels:categorylabel,
@@ -292,7 +300,7 @@ export default {
                 //     console.log("Test")
                 // // this.article.content = data.body.CONTENT;
                 // console.log(this.numpages)
-               
+               this.loading=0;
                 // return this.resources;
             });
         },
@@ -324,5 +332,11 @@ export default {
 .gradient-card-header {
   padding: 1rem 1rem;
   text-align: center;
+}
+.action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
 }
 </style>
