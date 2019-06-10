@@ -9,7 +9,7 @@
           </mdb-view>
           <mdb-card-body v-bind:key="ClassifiercomponentKey">
             <div class="input-group md-form form-sm form-2 pl-0">
-              <input class="form-control my-0 py-1 lime-border" v-model="article.url" v-on:keyup.enter="classify" type="text" placeholder="" aria-label="Search">
+              <input class="form-control my-0 py-1 lime-border" v-model="article.url" v-on:keyup.enter="classify" type="text" placeholder="Takes both TEXT and URL as input (extracts content from web page where URL provided)" aria-label="Search">
               <div class="input-group-append">
                 <span v-on:click.prevent="classify" class="input-group-text lime lighten-2" id="basic-text1"><i class="fas fa-dot-circle text-grey"
                     aria-hidden="true"></i></span>
@@ -239,7 +239,7 @@ export default {
         'Art and Culture',
         'Conflicts and War',
         'Crime',
-        'Diaster and Accidents',
+        'Disaster and Accidents',
         'Economy',
         'Education',
         'Environment',
@@ -306,11 +306,13 @@ export default {
           this.pieChartData.labels =[]
           this.pieChartData.datasets[0].data=[]
           this.pieChartData.datasets[0].backgroundColor =[]
+          this.pieChartData.datasets[0].hoverBackgroundColor =[]
           for(i=0;i<temp.length;i++)
           {
             console.log(temp[i][0])
             this.pieChartData.labels.push(temp[i][0])
             this.pieChartData.datasets[0].backgroundColor.push(this.allBackgroundColor[this.allCategories.indexOf(temp[i][0])])
+            this.pieChartData.datasets[0].hoverBackgroundColor.push(this.allBackgroundColor[this.allCategories.indexOf(temp[i][0])])
             total +=temp[i][1]
             this.pieChartData.datasets[0].data.push(temp[i][1])
           }
