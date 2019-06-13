@@ -19,7 +19,7 @@ class Modules(object):
         result = json.dumps(classifier.load("classvectors.json"))
         return result
     
-    def getCategory(self,query):
+    def getCategory(self,query,option):
         result = self.traversePages("setTopicandTerms",'topicmodel')
         outcome={}
         merger = Merger()
@@ -28,22 +28,24 @@ class Modules(object):
         classifier.init(result.topics,result.terms).MinKey(2)
         # classifier.load('articlemodel.json')
         classifier.load('classvectors.json')
-        queryvector = self.docToclassvector(query)
-        queryvector.tojson('query')
+        # queryvector.tojson('query')
         # print(queryvector.model['model'])
         outcome['categoriesconfidence'] = {} 
         alreadymerged = 0
         for k,arr in result.terms.items():
             value = classifier.goodtopicscore(arr,query.lower())
             outcome['categoriesconfidence'][k]=value
-            if value>0 and not alreadymerged:
-                classvectormodels = []
-                classvectormodels.append(classifier)
-                classvectormodels.append(queryvector)
-                classifier = merger.merge(classvectormodels)
-                alreadymerged = 1
-                print("{} {}".format(k,value))
-            value = 0
+            if option ==1:
+                if value>0 and not alreadymerged:
+                    queryvector = self.docToclassvector(query)
+                    classvectormodels = []
+                    classvectormodels.append(classifier)
+                    classvectormodels.append(queryvector)
+                    classifier = merger.merge(classvectormodels)
+                    alreadymerged = 1
+                    # break
+                    # print("{} {}".format(k,value))
+                value = 0
         classifier.tojson("classvectors")
         poutcome = classifier.predict('model',query).getTopics()
         k = Counter(poutcome) 

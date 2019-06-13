@@ -77,7 +77,7 @@ class Article(Modules):
         # getCategory
         categories=''
         for i in range(0,len(articles['data'])):
-            categories = self.getCategory(articles['data'][i]['CONTENT'])
+            categories = self.getCategory(articles['data'][i]['CONTENT'],2)
             categories = json.loads(categories)
             articles['data'][i]['articlecategories'] = categories['categoriestop3']
             
@@ -117,7 +117,7 @@ class Article(Modules):
         if supportedonlinearticle:
             result = spider.get_article_data(data['url'])
             r = requests.post(apidomain + 'article', result, headers=headers)#use db api to post the data to database
-            result = self.getCategory(spider.acorpus["CONTENT"])
+            result = self.getCategory(spider.acorpus["CONTENT"],1)
             addsource = json.loads(result)
             addsource['asource'] = data['url']
             result =json.dumps(addsource)
@@ -126,14 +126,14 @@ class Article(Modules):
             if self.uri_validator(data['url']): # if normal valid url then just try to the content
                 spider = Crawler(data['url'],"",['p'],"",['h1'])
                 spider.getAllPageContent(data['url'])
-                result = self.getCategory(spider.acorpus["CONTENT"])
+                result = self.getCategory(spider.acorpus["CONTENT"],1)
                 addsource = json.loads(result)
                 addsource['asource'] = data['url']
                 result =json.dumps(addsource)
                 # result = self.getCategory(result)
             else:
                 result = data['url']       
-                result = self.getCategory(result)
+                result = self.getCategory(result,1)
                 addsource = json.loads(result)
                 addsource['asource'] = "UserInput"
                 result =json.dumps(addsource)
