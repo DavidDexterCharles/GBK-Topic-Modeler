@@ -45,27 +45,6 @@ class Modules(object):
                 print("{} {}".format(k,value))
             value = 0
         classifier.tojson("classvectors")
-        # for key,arr in classifier.keys.items(): #Incremental Learning Implemented
-        #     value = classifier.goodtopicscore(arr,query)
-        #     print("{} {}".format(key,value))
-        #     if value>0:
-        #         classifier2 = Classifier()
-        #         classifier2.init(result.topics,result.terms).MinKey(2)
-        #         classifier2.build(query)
-        #         merger = Merger()
-        #         classvectormodels = []
-        #         classvectormodels.append(classifier)
-        #         classvectormodels.append(classifier2)
-        #         merger.merge(classvectormodels)
-            
-        
-        # # classifier.init(result.topics,result.terms).MinKey(2)
-        # # classifier = self.traversePages("retrainClassifier",'article',classifier).classifier
-        # # classifier.setweights()
-        # # classifier.tojson('classvectors')
-        # classifier = Classifier()
-        # classifier.init(result.topics,result.terms).MinKey(2)
-        # classifier.load('merged.json')
         poutcome = classifier.predict('model',query).getTopics()
         k = Counter(poutcome) 
         # Finding 3 highest values 
@@ -76,8 +55,7 @@ class Modules(object):
         outcome['categories']=categories
         outcome['document']=query
         outcome['categorieswordmatch'] = {}
-        # outcome['wordmatches']['a']=1 #= classifier.termVectors
-        # outcome['wordmatches']['b']=2
+        
         for k,v in classifier.termVectors.items():
             outcome['categorieswordmatch'][k]=str(v)
             # print(k)

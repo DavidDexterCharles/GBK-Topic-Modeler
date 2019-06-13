@@ -1,5 +1,5 @@
 import json
-# GBC(group by Key) Model by David Charles
+# GBC(group by Class) Model by David Charles
 # words in a doc are related, and the strength of the relation increases across multiple documents 
 # as the co-occurence between words across the documents increase.
 # from collections import Counter
