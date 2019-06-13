@@ -14,6 +14,11 @@
                 <span v-on:click.prevent="classify" class="input-group-text lime lighten-2" id="basic-text1"><i class="fas fa-dot-circle text-grey"
                     aria-hidden="true"></i></span>
               </div>
+              <div class="d-flex justify-content-center" v-if="loading">
+                <div class="spinner-border center" style="width: 3rem; height: 3rem;" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
             </div>
             <!--v-if="submitted"-->
             <mdb-card class="mb-4">
@@ -146,6 +151,7 @@ export default {
   data () {
     return {
       /* eslint-disable */
+     loading: 0,
      categorykeys: [],
      ClassifiercomponentKey: 0,
      loading: 0,
@@ -220,8 +226,8 @@ export default {
         datasets: [
           {
             data: [],
-            backgroundColor: [],//['#F7464A', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360', '#ac64ad'],
-            hoverBackgroundColor: [],// ['#FF5A5E', '#5AD3D1', '#FFC870', '#A8B3C5', '#616774', '#da92db']
+            backgroundColor: ['#F7464A', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360', '#ac64ad'],
+            hoverBackgroundColor: ['#FF5A5E', '#5AD3D1', '#FFC870', '#A8B3C5', '#616774', '#da92db']
           }
         ]
       },
@@ -229,11 +235,11 @@ export default {
         responsive: true,
         maintainAspectRatio: false
       },
-       allCategories:[
+      allCategories:[
         'Art and Culture',
         'Conflicts and War',
         'Crime',
-        'Diaster and Accidents',
+        'Disaster and Accidents',
         'Economy',
         'Education',
         'Environment',
@@ -266,7 +272,7 @@ export default {
         '#FF1493',
         '#FF00FF',
         '#8A2BE2'
-      ],
+      ]
     }
   },
   created (){
@@ -280,6 +286,7 @@ export default {
   {
     classify: function()
     {
+      this.loading =1;
       this.$http.post('http://gbcsystem-ice-wolf.c9users.io:8082/classifydata', {
           url:this.article.url,
           headers: {
@@ -299,15 +306,16 @@ export default {
           this.pieChartData.labels =[]
           this.pieChartData.datasets[0].data=[]
           this.pieChartData.datasets[0].backgroundColor =[]
+          this.pieChartData.datasets[0].hoverBackgroundColor =[]
           for(i=0;i<temp.length;i++)
           {
             console.log(temp[i][0])
             this.pieChartData.labels.push(temp[i][0])
             this.pieChartData.datasets[0].backgroundColor.push(this.allBackgroundColor[this.allCategories.indexOf(temp[i][0])])
+            this.pieChartData.datasets[0].hoverBackgroundColor.push(this.allBackgroundColor[this.allCategories.indexOf(temp[i][0])])
             total +=temp[i][1]
             this.pieChartData.datasets[0].data.push(temp[i][1])
           }
-          console.log(this.pieChartData.datasets[0].backgroundColor)
           for(i=0;i<temp.length;i++)
           {
             this.pieChartData.datasets[0].data[i]=(temp[i][1]/total)*100
@@ -324,6 +332,7 @@ export default {
           this.barChartData.datasets[0]['data'] = _.values(data.body.categories);
           this.submitted = true;
           this.ClassifiercomponentKey +=1
+          this.loading =0;
           
       });
     },
