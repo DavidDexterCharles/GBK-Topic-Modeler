@@ -72,6 +72,9 @@ class Article(Modules):
     
     def get_articlebypage(self,page):
         result = requests.get(apidomain + 'article?page='+str(page), headers=headers)
+        # resultamt = (result.json()['total_pages'])
+        # val =int(resultamt)- int(page-1)
+        # result = requests.get(apidomain + 'article?page='+str(val), headers=headers)
         articles={}
         articles['data']=result.json()['objects']
         # getCategory
