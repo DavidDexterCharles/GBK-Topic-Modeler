@@ -239,7 +239,7 @@ class Merger:
         
         model.setweights()
         # print(model.model["model"])
-        model.tojson("merged")   
+        # model.tojson("merged")   
         return model
         # print ( model.model["model"])
         # print("\n")
