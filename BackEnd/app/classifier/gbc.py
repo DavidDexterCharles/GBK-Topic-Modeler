@@ -222,7 +222,7 @@ class Merger:
                 # print(topics[j])
                 jtopic = models[i].model["model"][topics[j]]
                 jfeatures = models[i].model["model"][topics[j]]["features"]
-                if topics[j] in model.topics['model']:
+                if topics[j] in model.topics['model']:  #merge with existing model is class already exist
                     x = model.model['model'][topics[j]]['features']
                     y = jfeatures
                     z = { k: x.get(k, 0) + y.get(k, 0) for k in set(x) | set(y) }
@@ -230,7 +230,7 @@ class Merger:
                     model.model['model'][topics[j]]['DocumentCount'] += jtopic['DocumentCount']
                     # print(z)
                 else:
-                    model.topics['model'].append(topics[j])
+                    model.topics['model'].append(topics[j]) # otherwise append new class to existing model
                     # print(model.topics['model'])
                     model.model["model"][topics[j]] = {}
                     model.model['model'][topics[j]]['DocumentCount'] = jtopic['DocumentCount']
@@ -240,6 +240,7 @@ class Merger:
         model.setweights()
         # print(model.model["model"])
         model.tojson("merged")   
+        return model
         # print ( model.model["model"])
         # print("\n")
         # x = {'both1':1, 'both2':2, 'only_x': 100 }

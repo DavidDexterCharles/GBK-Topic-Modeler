@@ -20,39 +20,58 @@ class Modules(object):
         return result
     
     def getCategory(self,query):
-        # result = self.traversePages("setTopicandTerms",'topicmodel')
-        classifier = Classifier()
         result = self.traversePages("setTopicandTerms",'topicmodel')
+        outcome={}
+        merger = Merger()
+        classifier = Classifier()
+        # result = self.traversePages("setTopicandTerms",'topicmodel')
         classifier.init(result.topics,result.terms).MinKey(2)
         # classifier.load('articlemodel.json')
         classifier.load('classvectors.json')
-        for key,arr in classifier.keys.items(): #Incremental Learning Implemented
-            value = classifier.goodtopicscore(arr,query)
-            print("{} {}".format(key,value))
-            if value>0:
-                classifier2 = Classifier()
-                classifier2.init(result.topics,result.terms).MinKey(2)
-                classifier2.build(query)
-                merger = Merger()
+        queryvector = self.docToclassvector(query)
+        queryvector.tojson('query')
+        # print(queryvector.model['model'])
+        outcome['categoriesconfidence'] = {} 
+        alreadymerged = 0
+        for k,arr in result.terms.items():
+            value = classifier.goodtopicscore(arr,query.lower())
+            outcome['categoriesconfidence'][k]=value
+            if value>0 and not alreadymerged:
                 classvectormodels = []
                 classvectormodels.append(classifier)
-                classvectormodels.append(classifier2)
-                merger.merge(classvectormodels)
+                classvectormodels.append(queryvector)
+                classifier = merger.merge(classvectormodels)
+                alreadymerged = 1
+                print("{} {}".format(k,value))
+            value = 0
+        classifier.tojson("classvectors")
+        # for key,arr in classifier.keys.items(): #Incremental Learning Implemented
+        #     value = classifier.goodtopicscore(arr,query)
+        #     print("{} {}".format(key,value))
+        #     if value>0:
+        #         classifier2 = Classifier()
+        #         classifier2.init(result.topics,result.terms).MinKey(2)
+        #         classifier2.build(query)
+        #         merger = Merger()
+        #         classvectormodels = []
+        #         classvectormodels.append(classifier)
+        #         classvectormodels.append(classifier2)
+        #         merger.merge(classvectormodels)
             
         
+        # # classifier.init(result.topics,result.terms).MinKey(2)
+        # # classifier = self.traversePages("retrainClassifier",'article',classifier).classifier
+        # # classifier.setweights()
+        # # classifier.tojson('classvectors')
+        # classifier = Classifier()
         # classifier.init(result.topics,result.terms).MinKey(2)
-        # classifier = self.traversePages("retrainClassifier",'article',classifier).classifier
-        # classifier.setweights()
-        # classifier.tojson('classvectors')
-        classifier = Classifier()
-        classifier.init(result.topics,result.terms).MinKey(2)
-        classifier.load('merged.json')
-        outcome = classifier.predict('model',query).getTopics()
-        k = Counter(outcome) 
+        # classifier.load('merged.json')
+        poutcome = classifier.predict('model',query).getTopics()
+        k = Counter(poutcome) 
         # Finding 3 highest values 
         answer = k.most_common(3)  
-        categories=outcome
-        outcome={}
+        categories=poutcome
+        
         outcome['categoriestop3']=answer
         outcome['categories']=categories
         outcome['document']=query
@@ -63,12 +82,7 @@ class Modules(object):
             outcome['categorieswordmatch'][k]=str(v)
             # print(k)
             # print(v)
-        outcome['categoriesconfidence'] = {}    
-        for k,arr in result.terms.items():
-            value = classifier.goodtopicscore(arr,query.lower())
-            outcome['categoriesconfidence'][k]=value
-            # print("{} {}".format(k,value))
-            value = 0
+        
         # print(type(classifier.termVectors))
         # print(classifier.termVectors)
         return json.dumps(outcome)
@@ -98,6 +112,14 @@ class Modules(object):
         if actionObj.action == "retrainClassifier":
             actionObj.retrainClassifier(result)
         return actionObj
+    
+    def docToclassvector(self,document):
+        result = self.traversePages("setTopicandTerms",'topicmodel')
+        classifier = Classifier()
+        classifier.init(result.topics,result.terms).MinKey(2)
+        classifier.build(document)
+        classifier.setweights()
+        return classifier
     
     def getTopics(self):
         result = self.traversePages("setTopicandTerms",'topicmodel')
