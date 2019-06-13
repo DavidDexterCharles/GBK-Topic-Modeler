@@ -10,7 +10,7 @@ import requests
 import json
 headers = {'Content-Type': 'application/json'}
 apidomain = 'http://127.0.0.1:8081/api/'
-
+import os
 
 class Modules(object):
     
@@ -110,6 +110,7 @@ class Modules(object):
         
         classifier = self.traversePages("retrainClassifier",'article',classifier).classifier
         classifier.setweights()
+        os.remove("classvectors.json")
         classifier.tojson("classvectors")
         return "test2"
     
