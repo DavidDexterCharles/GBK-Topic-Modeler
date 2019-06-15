@@ -77,10 +77,10 @@ class Article(Modules):
         # result = requests.get(apidomain + 'article?page='+str(val), headers=headers)
         articles={}
         articles['data']=result.json()['objects']
-        # getCategory
+        alltopicsandkeys=self.traversePages("setTopicandTerms",'topicmodel')
         categories=''
         for i in range(0,len(articles['data'])):
-            categories = self.getCategory(articles['data'][i]['CONTENT'],2)
+            categories = self.getCategory(articles['data'][i]['CONTENT'],2,alltopicsandkeys)
             categories = json.loads(categories)
             articles['data'][i]['articlecategories'] = categories['categoriestop3']
             
@@ -100,7 +100,7 @@ class Article(Modules):
         
         #  q = '?q={"filters":[{"name":"domainname","op":"like","val":"%'+query+'%"}]}'
         # qresult = requests.get("http://0.0.0.0:8085/api/domain"+q).content
-        
+        alltopicsandkeys=self.traversePages("setTopicandTerms",'topicmodel')
         data =request.get_json()
         supportedonlinearticle = 0
         # print(data['url'])
@@ -120,7 +120,7 @@ class Article(Modules):
         if supportedonlinearticle:
             result = spider.get_article_data(data['url'])
             r = requests.post(apidomain + 'article', result, headers=headers)#use db api to post the data to database
-            result = self.getCategory(spider.acorpus["CONTENT"],1)
+            result = self.getCategory(spider.acorpus["CONTENT"],1,alltopicsandkeys)
             addsource = json.loads(result)
             addsource['asource'] = data['url']
             result =json.dumps(addsource)
@@ -129,14 +129,14 @@ class Article(Modules):
             if self.uri_validator(data['url']): # if normal valid url then just try to the content
                 spider = Crawler(data['url'],"",['p'],"",['h1'])
                 spider.getAllPageContent(data['url'])
-                result = self.getCategory(spider.acorpus["CONTENT"],1)
+                result = self.getCategory(spider.acorpus["CONTENT"],1,alltopicsandkeys)
                 addsource = json.loads(result)
                 addsource['asource'] = data['url']
                 result =json.dumps(addsource)
                 # result = self.getCategory(result)
             else:
                 result = data['url']       
-                result = self.getCategory(result,1)
+                result = self.getCategory(result,1,alltopicsandkeys)
                 addsource = json.loads(result)
                 addsource['asource'] = "UserInput"
                 result =json.dumps(addsource)

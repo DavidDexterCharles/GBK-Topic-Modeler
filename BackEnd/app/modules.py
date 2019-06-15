@@ -19,8 +19,8 @@ class Modules(object):
         result = json.dumps(classifier.load("classvectors.json"))
         return result
     
-    def getCategory(self,query,option):
-        result = self.traversePages("setTopicandTerms",'topicmodel')
+    def getCategory(self,query,option,alltopicsandkeys):
+        result = alltopicsandkeys
         outcome={}
         merger = Merger()
         classifier = Classifier()
@@ -37,13 +37,12 @@ class Modules(object):
             outcome['categoriesconfidence'][k]=value
             if option ==1:
                 if value>0 and not alreadymerged:
-                    queryvector = self.docToclassvector(query)
+                    queryvector = self.docToclassvector(query,result)
                     classvectormodels = []
                     classvectormodels.append(classifier)
                     classvectormodels.append(queryvector)
                     classifier = merger.merge(classvectormodels)
                     alreadymerged = 1
-                    # break
                     # print("{} {}".format(k,value))
                 value = 0
         classifier.tojson("classvectors")
@@ -93,8 +92,8 @@ class Modules(object):
             actionObj.retrainClassifier(result)
         return actionObj
     
-    def docToclassvector(self,document):
-        result = self.traversePages("setTopicandTerms",'topicmodel')
+    def docToclassvector(self,document,alltopicsandkeys):
+        result = alltopicsandkeys#self.traversePages("setTopicandTerms",'topicmodel')
         classifier = Classifier()
         classifier.init(result.topics,result.terms).MinKey(2)
         classifier.build(document)
