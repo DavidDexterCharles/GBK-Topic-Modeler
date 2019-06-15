@@ -8,8 +8,33 @@
           </mdb-view>
           <mdb-card-body class="sticky-top" style="padding-top:29px;backgroundColor:white;">
             <div class="input-group md-form form-sm form-2 pl-0">
-              <input class="form-control my-0 py-1 lime-border" v-model="searchQuery" v-on:keyup.enter="classify" type="text" placeholder="Search Document Content" aria-label="Search">
+              <input class="form-control my-0 py-1 lime-border" v-model="searchQuery" v-on:keyup.enter="classify" type="text" v-bind:placeholder="'Search by '+ searchoption" aria-label="Search">
+              <!--<div class="btn-group">-->
+              <!--    <button class="btn btn-danger btn-sm dropdown-toggle" type="button" data-toggle="dropdown"-->
+              <!--      aria-haspopup="true" aria-expanded="false">-->
+              <!--      Filter By-->
+              <!--    </button>-->
+              <!--    <div class="dropdown-menu">-->
+              <!--      <a class="dropdown-item" href="#">Article Content</a>-->
+                    <!--<div class="dropdown-divider"></div>-->
+              <!--      <a class="dropdown-item" href="#">Article Category</a>-->
+              <!--    </div>-->
+              <!--</div>-->
+               <!--<mdb-dropdown>-->
+               <!--   <mdb-dropdown-toggle v-model="searchoption" class="btn btn-danger btn-sm dropdown-toggle" slot="toggle">Search By</mdb-dropdown-toggle>-->
+               <!--   <mdb-dropdown-menu>-->
+               <!--     <mdb-dropdown-item v-for="option in searchoptions" v-bind:key="option" v-bind:value="option" v-on:click="setsearchoption">{{option}}</mdb-dropdown-item>-->
+                    <!--<div class="dropdown-divider"></div>-->
+                    <!--<mdb-dropdown-item>Article Category</mdb-dropdown-item>-->
+               <!--   </mdb-dropdown-menu>-->
+               <!-- </mdb-dropdown>-->
+                <select v-model="searchoption" class="btn btn-danger btn-sm dropdown-toggle" slot="toggle">
+                  <!--<option disabled value="">Please select one</option>-->
+                  <option  v-for="option in searchoptions"  v-bind:key="option" v-bind:value="option">{{option}}</option>
+                </select>
             </div>
+            <!--<span>Search Criteria: {{searchoption}}</span>-->
+            <div><b>Total:       <span style="color:red;">{{filteredResources.length}}</span></b></div>
             <div class="input-group-append">
                 <button v-on:click="addPage" class="btn btn-md btn-secondary m-0 px-3 right" type="button" id="MaterialButton-addon2">More Articles</button>
             </div>
@@ -36,7 +61,6 @@
                             <tr v-for="item in filteredResources" v-bind:key="item.title">
                                 <td>
                                     <a :href=item.uri target="_blank" style="color:blue;">{{item.title}}</a>
-                                    <!--{{item.title}}-->
                                 </td>
                                  <td>
                                     {{item.content}}
@@ -89,12 +113,17 @@
 
 <script>
 // https://stackoverflow.com/questions/52558770/vuejs-search-filter
-import { mdbCardHeader, mdbPieChart, mdbContainer, mdbRow, mdbCol, mdbCard, mdbCardBody, mdbView, mdbMask, mdbCardTitle, mdbCardText, mdbCardFooter, mdbIcon, mdbBtn, mdbPagination, mdbPageNav, mdbPageItem } from 'mdbvue'
+import { mdbDropdown, mdbDropdownItem, mdbDropdownMenu, mdbDropdownToggle, mdbCardHeader, mdbPieChart, mdbContainer, mdbRow, mdbCol, mdbCard, mdbCardBody, mdbView, mdbMask, mdbCardTitle, mdbCardText, mdbCardFooter, mdbIcon, mdbBtn, mdbPagination, mdbPageNav, mdbPageItem } from 'mdbvue'
 import {_} from 'vue-underscore'
-
+// var api = "http://gbcsystem-ice-wolf.c9users.io:8082/";
+// var api = "http://3.85.235.141:8082/";
 export default {
   name: 'Articles',
   components: {
+    mdbDropdown,
+    mdbDropdownItem,
+    mdbDropdownMenu,
+    mdbDropdownToggle,
     mdbCardHeader,
     mdbPieChart,
     mdbContainer,
@@ -115,9 +144,13 @@ export default {
   },
   data () {
     return {
+      api: 'http://gbcsystem-ice-wolf.c9users.io:8082/',
+      searchoption: 'Article Content',
+      searchoptions: ['Article Content', 'Article Category'],
       ArticlescomponentKey: 0,
       loading: 0,
       articles: [],
+      numarticles: 0,
       numpages: '',
       maxpages: 1,
       submitted: false,
@@ -221,10 +254,20 @@ export default {
             if(this.searchQuery){
               // console.log("Test1")
             return this.resources.filter((item)=>{
-              return item.content.toLowerCase().includes(this.searchQuery.toLowerCase());
+              var result;
+              if(this.searchoption=="Article Content")
+                result = item.content.toLowerCase().includes(this.searchQuery.toLowerCase());
+              else{
+                
+                result = item.pieChartData.labels.join().toLowerCase().includes(this.searchQuery.toLowerCase());
+              }
+              // console.log(this.resources.length);
+              return result;
             })
             }
             else{
+              // console.log(this.resources.length);
+              // this.numarticles = this.resources.length;
               return this.resources;
             }
       }
@@ -236,9 +279,16 @@ export default {
           // this.getData(page);
     },
     methods:{
+       
+       setsearchoption: function(){
+         console.log("Apples");
+        // this.searchoption = option;
+         
+       },
+      
        getData: function(page){
             this.loading=1;
-            this.$http.get('http://gbcsystem-ice-wolf.c9users.io:8082/article?page='+page).then(
+            this.$http.get(this.api+'article?page='+page).then(
               function(data){
                 // if(data.body.message)
                 //     console.log(data.body.message);
@@ -259,9 +309,10 @@ export default {
                   categorylabel  .push(cdata[0][0])
                   categorylabel  .push(cdata[1][0])
                   categorylabel  .push(cdata[2][0])
-                  categoryvalues .push(cdata[0][1])
-                  categoryvalues .push(cdata[1][1])
-                  categoryvalues .push(cdata[2][1])
+                  var ctot = cdata[0][1] + cdata[1][1] +cdata[2][1]
+                  categoryvalues .push((cdata[0][1]/ctot)*100)
+                  categoryvalues .push((cdata[1][1]/ctot)*100)
+                  categoryvalues .push((cdata[2][1]/ctot)*100)
                   for(k=0;k<categorylabel.length;k++)
                     categorycolors.push(this.allBackgroundColor[this.allCategories.indexOf(categorylabel[k])])
                   // console.log(categorylabel)
@@ -294,6 +345,8 @@ export default {
                 var i;
                 for(i=0;i<this.articles.length;i++)
                           console.log(this.articles[i].TITLE)
+                
+                this.numarticles = this.articles.length;
                 // var page;
                 // for(page=2;page<=this.numpages;page++)
                 

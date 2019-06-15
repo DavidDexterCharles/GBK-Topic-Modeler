@@ -151,6 +151,7 @@ export default {
   data () {
     return {
       /* eslint-disable */
+     api: 'http://gbcsystem-ice-wolf.c9users.io:8082/',
      loading: 0,
      categorykeys: [],
      ClassifiercomponentKey: 0,
@@ -287,7 +288,7 @@ export default {
     classify: function()
     {
       this.loading =1;
-      this.$http.post('http://gbcsystem-ice-wolf.c9users.io:8082/classifydata', {
+      this.$http.post(this.api+'classifydata', {
           url:this.article.url,
           headers: {
               accepts: 'application/vnd.api+json'
